@@ -12,3 +12,5 @@ def clearScreen():
 
 file = open("ascii car.txt", "r")
 print(file.read())
+
+#comment
