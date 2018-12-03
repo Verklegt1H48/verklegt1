@@ -9,7 +9,7 @@ class User:
         self._address = ""
         self._phone = ""
         self._email = ""
-        #self._creditCard = CreditCard()
+        self._creditCard = CreditCard()
         self._rentHistory = []
         self._deleted = False
         self._employee = False
