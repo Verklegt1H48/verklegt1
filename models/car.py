@@ -1,6 +1,6 @@
 class Car:
     def __init__(self,id,car,category,manufacturer,model,year,milage,seats,transmission,extras):
-        #self.id = len(getCarList()) + 1
+        self.id = NULL
         self.deleted = False
         self.rentHistory = []
     def deleteCar(self):
@@ -77,7 +77,7 @@ class Car:
     @extras.setter 
     def extras(self, extras):
         self.extras = extras
-        
+
     @history.setter 
     def history(self, history):
         self.history.append(history[])
