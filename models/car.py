@@ -1,6 +1,5 @@
 class Car:
     def __init__(self):
-
         self._category = ""
         self._manufacturer = ""
         self._model = ""
@@ -16,7 +15,6 @@ class Car:
 #föll
     def deleteCar(self):
         self._deleted = True
-
 
 #Getterar
     @property
