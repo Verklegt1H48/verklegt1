@@ -59,4 +59,4 @@ class Car:
         self.extras = extras
     @history.setter 
     def history(self, history):
-        appendself.history = extras
+        self.history.append(history[])
