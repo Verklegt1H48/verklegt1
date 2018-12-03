@@ -1,34 +1,45 @@
 class Car:
-    def __init__(self,id,car,category,manufacturer,model,year,milage,seats,transmission,extras):
-        self.id = NULL
-        self.deleted = False
-        self.rentHistory = []
-    def deleteCar(self):
-        self.deleted = True
+    def __init__(self):
+        self._category = ""
+        self._manufacturer = ""
+        self._model = ""
+        self._year = 0
+        self._milage = 0
+        self._seats = 0
+        self._transmission = ""
+        self._extras = []
+        self._id = 0
+        self._deleted = False
+        self._rentHistory = []
 
+#föll
+    def deleteCar(self):
+        self._deleted = True
+
+#Getterar
     @property
     def id(self):
-        return self.id
+        return self._id
 
     @property
     def category(self):
-        return self.category
+        return self._category
 
     @property
     def manufacturer(self):
-        return self.manufacturer
+        return self._manufacturer
 
     @property
     def model(self):
-        return self.model
+        return self._model
 
     @property
     def year(self):
-        return self.year
+        return self._year
 
     @property
     def mileage(self):
-        return self.mileage
+        return self._mileage
 
     @property
     def seats(self):
@@ -36,52 +47,50 @@ class Car:
 
     @property
     def transmission(self):
-        return self.transmission
+        return self._transmission
 
     @property
     def extras(self):
-        return self.extras
+        return self._extras
 
     @property
     def history(self):
-        return self.history
+        return self._history
+
+#Setterar
 
     @category.setter
     def category(self, category):
-        self.category = category
+        self._category = category
 
     @manufacturer.setter
     def manufacturer(self, manufacturer):
-        self.manufacturer = manufacturer
+        self._manufacturer = manufacturer
 
     @model.setter
     def model(self, model):
-        self.model = model
+        self._model = model
 
     @year.setter
     def year(self, year):
-        self.year = year
+        self._year = year
 
     @mileage.setter
     def mileage(self, mileage):
-        self.mileage = mileage
+        self._mileage = mileage
 
     @seats.setter
     def seats(self, seats):
-        self.seats = seats
+        self._seats = seats
 
     @transmission.setter
     def transmission(self, transmission):
-        self.transmission = transmission
+        self._transmission = transmission
 
     @extras.setter 
     def extras(self, extras):
-        self.extras = extras
+        self._extras.append(extras)
 
     @history.setter 
     def history(self, history):
-        self.history.append(history)
-
-
-#tetta er test
-#
+        self._rentHistory.append(history)
