@@ -11,6 +11,7 @@ class Car:
         self._id = 0
         self._deleted = False
         self._rentHistory = []
+        self._available = True
 
 #föll
     def deleteCar(self):
@@ -56,6 +57,10 @@ class Car:
     @property
     def history(self):
         return self._history
+    @property
+    def available(self):
+        return self._available
+
 
 #Setterar
 
@@ -94,3 +99,7 @@ class Car:
     @history.setter 
     def history(self, history):
         self._rentHistory.append(history)
+
+    @available.setter
+    def available(self, available):
+        self._available = available
