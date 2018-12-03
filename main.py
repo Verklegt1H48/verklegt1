@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # import info about system
 from os import system, name 
 
@@ -12,3 +13,9 @@ def clearScreen():
 
 file = open("ascii car.txt", "r")
 print(file.read())
+=======
+from models.car import Car
+def main():
+    print ("hello world!")
+    
+>>>>>>> Development
