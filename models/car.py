@@ -95,4 +95,4 @@ class Car:
 
     @history.setter 
     def history(self, history):
-        self._history.append(history)
+        self._rentHistory.append(history)
