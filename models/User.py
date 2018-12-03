@@ -1,3 +1,4 @@
+from creditcard import CreditCard
 class User:
 
     def __init__(self):
@@ -8,15 +9,17 @@ class User:
         self._address = ""
         self._phone = ""
         self._email = ""
-        self._creditCard = ""
+        #self._creditCard = CreditCard()
         self._rentHistory = []
         self._deleted = False
         self._employee = False
         self._pin = ""
 
+
     def deleteUser(self):
         self._deleted = True
 
+    
     #Getterar
     @property
     def name(self):
@@ -45,10 +48,6 @@ class User:
     @property
     def email(self):
         return self._email
-    
-    @property
-    def creditCard(self):
-        return self._creditCard
 
     @property
     def employee(self):
@@ -95,9 +94,6 @@ class User:
     def email(self, value):
         self._email = value
     
-    @creditCard.setter
-    def creditCard(self, value):
-        self._creditCard = value
 
     @employee.setter
     def employee(self, value):
