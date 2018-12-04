@@ -18,4 +18,9 @@ from models.car import Car
 def main():
     print ("hello world!")
     
+<<<<<<< HEAD
 >>>>>>> Development
+=======
+if __name__ == "__main__":
+    main()
+>>>>>>> c0d7b15e7a70629827288f211726fd51dc8dabd1
