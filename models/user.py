@@ -1,7 +1,7 @@
 from creditcard import CreditCard
 class User:
 
-    def __init__(self):
+    def __init__(self, name, id, socialNumber, driverLicense, address, phone, email):
         self._name = ""
         self._id = ""
         self._socialNumber = ""
@@ -15,6 +15,13 @@ class User:
         self._employee = False
         self._pin = ""
 
+    def __str__(self):
+        "{},{},{},{},{},{},{}".format(self._name, self._id,\
+        self._socialNumber, self._driverLicense, self._address,\
+        self._phone, self._email)
+
+    def __repr__(self):
+        return self.__str__()
 
     def deleteUser(self):
         self._deleted = True
