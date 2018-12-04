@@ -26,6 +26,7 @@ class CreditCard:
     @property
     def expYear(self):
         return None
+
     @nameOnCard.setter
     def nameOnCard(self, value):
         self._nameOnCard = value
@@ -48,8 +49,6 @@ class CreditCard:
 
     def __repr__(self):
         return print("XXXX-XXXX-XXXX" + self._number[12:15] + "\n" + self._expMonth + "/" + self._expYear)
-
-    
 
     def deleteCard(self):
         del self._nameOnCard
