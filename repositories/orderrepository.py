@@ -3,13 +3,13 @@ def __init__(self):
     self._orders = []
 
 
-def addUser(self, Order):
+def addOder(self, Order):
      with open("./data/orders.txt", "a+") as ordersFile:
-        ordersFile.write("{},{},{},{},{},{},\n".format(self._id, self._userid, self._carCategory,\
-    self._carId, self._payMethod, self._status,))
+        ordersFile.write("{},{},{},{},{},{},\n".format(Order._id, Order._userid, Order._carCategory,\
+    Order._carId, Order._payMethod, Order._status,))
 
             
-def getUsers(self):
+def getOrder(self):
     if self._users == []:
         with open("./data/orders.txt", "r") as ordersFile:
             for line in ordersFile.readlines():
