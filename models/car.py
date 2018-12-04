@@ -1,4 +1,4 @@
-class Car:
+class Car:  
     def __init__(self):
         self._category = ""
         self._manufacturer = ""
@@ -56,7 +56,7 @@ class Car:
 
     @property
     def history(self):
-        return self._history
+        return self.history
     @property
     def available(self):
         return self._available
