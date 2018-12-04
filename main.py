@@ -1,6 +1,9 @@
 from models.car import Car
+
+
 def main():
-    print ("hello world!")
+    car1 = Car()
+
     
 if __name__ == "__main__":
     main()

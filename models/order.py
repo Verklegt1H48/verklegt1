@@ -9,6 +9,14 @@ class Order:
         self._status = False
         self._deleted = False
 
+    def __str__(self):
+        "{},{},{},{},{},{}".format(self._id, self._userid, self._carCategory,\
+        self._carId, self._payMethod, self._status,)
+
+    def __repr__(self):
+        return self.__str__()
+
+
     @property
     def carId(self):
         return self._carId
