@@ -21,11 +21,8 @@ class UserRepository:
         if self._userList == []:
             with open("./data/users.txt", "r") as userFile:
                 for line in userFile.readlines():
-                    name, id, socialNumber, driverLicense,\
-                    address, phone, email = line.split(",")
-
-                    newUser = User(name, id, socialNumber,\
-                    driverLicense, address, phone, email)
+                    name, id, socialNumber, driverLicense, address, phone, email = line.split(",")
+                    newUser = User(name, id, socialNumber, driverLicense, address, phone, email)
                     self._userList.append(newUser)
         return self._userList
          
