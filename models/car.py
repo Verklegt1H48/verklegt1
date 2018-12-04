@@ -56,11 +56,10 @@ class Car:
 
     @property
     def history(self):
-        return self.history
+        return self._rentHistory
     @property
     def available(self):
         return self._available
-
 
 #Setterar
 

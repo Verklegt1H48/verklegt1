@@ -16,7 +16,8 @@ class CarRepository:
             _transmission = car.get_transmission()
             _extras = car.get_extras()
             _id = car.get_id()
-            cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(_category, _manufacturer, _model, _year, _milage, _seats, _transmission, _extras, _id))
+            cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(_category, _manufacturer, _model, _year,
+            _milage, _seats, _transmission, _extras, _id))
 
     def getCar(self, Car):
         if self.__car == []:
