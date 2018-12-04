@@ -27,7 +27,7 @@ class User:
         self._deleted = True
 
     
-    #Getterar
+#Getterar
     @property
     def name(self):
         return self._name
@@ -72,7 +72,7 @@ class User:
     def deleted(self):
         return self._deleted
 
-    #Setterar
+#Setterar
     @name.setter
     def name(self, value):
         self._name = value
@@ -117,9 +117,3 @@ class User:
     @deleted.setter
     def deleted(self, value):
         self._deleted = value
-
-    
-    
-
-
-    
