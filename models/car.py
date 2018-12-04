@@ -13,7 +13,15 @@ class Car:
         self._rentHistory = []
         self._available = True
 
-#föll
+    def __str__(self):
+        "{},{},{},{},{},{},{},{},{}".format(self._id, self._manufacturer, self._model,\
+        self._category, self._year, self._milage,\
+        self._seats, self._transmission, self._available)
+
+    def __repr__(self):
+        return self.__str__()
+
+#föllgit
     def deleteCar(self):
         self._deleted = True
 
