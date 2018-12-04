@@ -2,7 +2,7 @@ from models.user import User
 class UserRepository:
 
     def __init__(self):
-        self._users = []
+        self._userList = []
 
 
     def addUser(self, user):
@@ -18,14 +18,15 @@ class UserRepository:
             socialNumber, driverLicense, address, phone, email))
             
     def getUsers(self):
-        if self._users == []:
-            with open("./data/videos.txt", "r") as userFile:
+        if self._userList == []:
+            with open("./data/users.txt", "r") as userFile:
                 for line in userFile.readlines():
                     name, id, socialNumber, driverLicense,\
                     address, phone, email = line.split(",")
+
                     newUser = User(name, id, socialNumber,\
                     driverLicense, address, phone, email)
-                    self._users.append(newUser)
-        return self._users
+                    self._userList.append(newUser)
+        return self._userList
          
 
