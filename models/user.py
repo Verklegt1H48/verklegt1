@@ -110,10 +110,3 @@ class User:
     @deleted.setter
     def deleted(self, value):
         self._deleted = value
-
-    
-    
-
-
-    
-sds

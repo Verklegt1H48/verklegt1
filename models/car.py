@@ -61,7 +61,6 @@ class Car:
     def available(self):
         return self._available
 
-
 #Setterar
 
     @category.setter
