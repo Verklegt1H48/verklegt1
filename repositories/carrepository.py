@@ -7,17 +7,18 @@ class CarRepository:
 
     def addCar(self, car):
         with open("./data/cars.txt", "a+") as cars_file:
-            category = car.get_category()
-            manufacturer = car.get_manufacturer()
-            model = car.get_model()
-            year = car.get_year()
-            milage = car.get_milage()
-            seats = car.get_seats()
-            transmission = car.get_transmission()
-            extras = car.get_extras()
-            id = car.get_id()
-            cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
-            model, year, milage, seats, transmission, extras, id))
+            category = car.category()
+            manufacturer = car.manufacturer()
+            model = car.model()
+            year = car.year()
+            milage = car.milage()
+            seats = car.seats()
+            transmission = car.transmission()
+            extras = car.extras()
+            id = car.id()
+            available = car.isAvailable()
+            cars_file.write("{},{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
+            model, year, milage, seats, transmission, extras, id, available))
 
     def getCar(self, Car):
         if self.__car == []:
@@ -28,7 +29,8 @@ class CarRepository:
                     new_car = Car(category, manufacturer, model, year, milage, seats, 
                     transmission, extras, id)
                     self.__car.append(new_car)
-        return self.__car
+
+                return self.__car
    # def getCarList(self):
 
        # self._category = ""
