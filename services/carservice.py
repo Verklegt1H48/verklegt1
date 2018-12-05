@@ -9,8 +9,8 @@ class CarService:
         self.__car_repo.addCar(car)
     
     def isValidCar(self, car):
-        #
-        #
+        # ToDo
+        # ToDo
         return True
     
     def getCar(self):
