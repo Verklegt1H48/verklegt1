@@ -8,7 +8,7 @@ class Car:
         self._seats = seats
         self._transmission = transmission
         self._extras = []
-        self._id = 0
+        self._id = id
         self._deleted = False
         self._rentHistory = []
         self._available = True

@@ -23,4 +23,8 @@ class OrdersRepository:
 
     #def updateOrder(self, order):
 
+def addOrder(self, Order):
+     with open("./data/orders.txt", "a+") as ordersFile:
+        ordersFile.write("{},{},{},{},{},{},\n".format(Order._id, Order._userid, Order._carCategory,\
+    Order._carId, Order._payMethod, Order._status,))
 

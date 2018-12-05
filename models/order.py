@@ -1,15 +1,5 @@
 class Order:
 
-
-    #def __init__(self):
-    #    self._id = 0 #Utfaera seinna
-    #    self._userId = 0
-    #    self._carCategory = ""
-    #    self._carId = 0
-    #    self._payMethod = ""
-    #    self._status = False
-    #    self._deleted = False 
-
     def __init__(self,id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = False, deleted = False):
         self._id = id
         self._userId = userId

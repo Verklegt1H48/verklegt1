@@ -24,12 +24,9 @@ class CarRepository:
         if self.__car == []:
             with open("./data/cars.txt","r") as car_file:
                 for line in car_file.readlines():
-                    category, manufacturer, model, year, milage, seats,\
-                    transmission, extras, id = line.strip().split(",")
-                    new_car = Car(category, manufacturer, model, year, milage, seats, 
-                    transmission, extras, id)
+                    category, manufacturer, model, year, milage, seats, transmission, extras, id = line.strip().split(",")
+                    new_car = Car(category, manufacturer, model, year, milage, seats, transmission, extras, id)
                     self.__car.append(new_car)
-
                 return self.__car
    # def getCarList(self):
 
