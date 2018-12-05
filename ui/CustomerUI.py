@@ -28,7 +28,7 @@ class CustomerUI:
         elif self._action == "3":
             self.staffMenu()
         else :
-            print("Invalid input, try again")
+            print("\nInvalid input, try again\n")
             self.mainMenu()
 
 
@@ -38,7 +38,7 @@ class CustomerUI:
             print("3. List all cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            self._action = input("Choose an option").lower()
+            self._action = input("Choose an option: ").lower()
 
             if self._action == "b" :
                 self.staffMenu()
@@ -64,14 +64,14 @@ class CustomerUI:
                 print(car)
             
             else :
-                print("Invalid input, try again")
+                print("\nInvalid input, try again\n")
                 self.staffCarMenu()
 
     def customerCarMenu(self):
             print("1. List all cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            self._action = input("Choose an option").lower()
+            self._action = input("Choose an option: ").lower()
 
             if self._action == "b" :
                 self.customerMenu()
@@ -84,7 +84,7 @@ class CustomerUI:
                 print(car)
             
             else :
-                print("Invalid input, try again")
+                print("\nInvalid input, try again\n")
                 self.customerCarMenu()
 
     def staffMenu(self):
@@ -93,21 +93,21 @@ class CustomerUI:
         print("3. Orders")
         print("Press b to return to the previous page")
         print("Press q to quit")
-        self._action = input("Choose an option").lower()
+        self._action = input("Choose an option: ").lower()
 
         if self._action == "b" :
             self.mainMenu()
         elif self._action == "q" :
             return
-        elif self._action == 1 :
+        elif self._action == "1" :
             self.staffCarMenu()
-        elif self._action == 2 :
+        elif self._action == "2" :
             self.staffCustomerMenu()
-        elif self._action == 3 :
+        elif self._action == "3" :
             #self.staffOrderMenu()
             print('Ekkert komid')
         else :
-            print("Invalid input, try again")
+            print("\nInvalid input, try again\n")
             self.staffMenu()
 
     def customerMenu(self):
@@ -116,7 +116,7 @@ class CustomerUI:
         print("3. **************************************")
         print("Press b to return to the previous page")
         print("Press q to quit")
-        self._action = input("Choose an option").lower()
+        self._action = input("Choose an option: ").lower()
 
         if self._action == "b" :
             self.mainMenu()
@@ -125,7 +125,7 @@ class CustomerUI:
         elif self._action == 1 :
             self.customerCarMenu()
         else :
-            print("Invalid input, try again")
+            print("\nInvalid input, try again\n")
             self.staffMenu()
 
     def staffCustomerMenu(self):
@@ -134,7 +134,7 @@ class CustomerUI:
             print("3. List all customers")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            self._action = input("Choose an option").lower()
+            self._action = input("Choose an option: ").lower()
 
             if self._action == "b" :
                 self.staffMenu()
@@ -160,5 +160,5 @@ class CustomerUI:
                 print(car)
             
             else :
-                print("Invalid input, try again")
+                print("\nInvalid input, try again\n")
                 self.staffCarMenu()
