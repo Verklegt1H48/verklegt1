@@ -10,10 +10,10 @@ class Order:
     #    self._status = False
     #    self._deleted = False 
 
-    def __init__(self,id=0, userId=0, carCatagory="", carId=0, payMethod="", status=False, deleted=False):
+    def __init__(self,id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = False, deleted = False):
         self._id = id
         self._userId = userId
-        self._carCategory = carCatagory
+        self._carCategory = carCategory
         self._carId = carId
         self._payMethod = payMethod
         self._status = status
@@ -50,7 +50,3 @@ class Order:
     @deleted.setter
     def deleted(self, value):
         self._deleted = value
-    
-
-
-     

@@ -1,19 +1,19 @@
 from creditcard import CreditCard
 class User:
 
-    def __init__(self, name, id, socialNumber, driverLicense, address, phone, email):
-        self._name = ""
-        self._id = ""
-        self._socialNumber = ""
-        self._driverLicense = ""
-        self._address = ""
-        self._phone = ""
-        self._email = ""
+    def __init__(self, name = "", id = 0, socialNumber = "", driverLicense = "", address = "", phone = "", email = "", pin = ""):
+        self._name = name
+        self._id = id
+        self._socialNumber = socialNumber
+        self._driverLicense = driverLicense
+        self._address = address
+        self._phone = phone
+        self._email = email
         self._creditCard = CreditCard()
         self._rentHistory = []
         self._deleted = False
         self._employee = False
-        self._pin = ""
+        self._pin = pin
 
     def __str__(self):
         "{},{},{},{},{},{},{}".format(self._name, self._id,\
