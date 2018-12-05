@@ -1,9 +1,10 @@
 from models.car import Car
+import csv
 
 class CarRepository:
 
     def __init__(self):
-        self.__car = []
+        self.__cars = []
 
     def addCar(self, car):
         with open("./data/cars.txt", "a+") as cars_file:
@@ -31,14 +32,16 @@ class CarRepository:
                     newCar.manufacturer = car['Manufacturer']
                     newCar.model        = car['Model']
                     newCar.year         = car['Year']
-                    newCar.milage       = car['Mileage']
+                    newCar.mileage      = car['Mileage']
                     newCar.seats        = car['Seats']
                     newCar.transmission = car['Transmission']
                     newCar.extras       = car['Extras']
                     newCar.deleted      = car['Deleted']
                     newCar.rentHistory  = car['Rent History']
                     newCar.available    = car['Available']
+                    self.__cars.append(newCar)
         return self.__cars
+
    # def getCarList(self):
 
        # self._category = ""
