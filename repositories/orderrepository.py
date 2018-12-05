@@ -1,9 +1,9 @@
-#from models.order import Order
+from models.order import Order
 def __init__(self):
     self._orders = []
 
 
-def addOder(self, Order):
+def addOrder(self, Order):
      with open("./data/orders.txt", "a+") as ordersFile:
         ordersFile.write("{},{},{},{},{},{},\n".format(Order._id, Order._userid, Order._carCategory,\
     Order._carId, Order._payMethod, Order._status,))

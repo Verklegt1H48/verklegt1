@@ -1,8 +1,9 @@
-from models.car import Car
+from repositories.carrepository import CarRepository
+from models.user import User
 
 
 def main():
-    car1 = Car()
+    car1 = CarRepository()
 
     
 if __name__ == "__main__":

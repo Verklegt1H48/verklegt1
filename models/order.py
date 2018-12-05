@@ -1,6 +1,6 @@
 class Order:
 
-    def __init__(self):
+    def __init__(self, id, userId, carCategory, carId, payMethod, status):
         self._id = 0 #Utfaera seinna
         self._userId = 0
         self._carCategory = ""
@@ -10,7 +10,7 @@ class Order:
         self._deleted = False
 
     def __str__(self):
-        "{},{},{},{},{},{}".format(self._id, self._userid, self._carCategory,\
+        "{},{},{},{},{},{}".format(self._id, self._userId, self._carCategory,\
         self._carId, self._payMethod, self._status,)
 
     def __repr__(self):

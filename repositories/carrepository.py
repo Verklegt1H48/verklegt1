@@ -19,7 +19,7 @@ class CarRepository:
             cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
             model, year, milage, seats, transmission, extras, id))
 
-    def getCar(self, Car):
+    def getCar(self):
         if self.__car == []:
             with open("./data/cars.txt","r") as car_file:
                 for line in car_file.readlines():
@@ -34,7 +34,7 @@ class CarRepository:
 
        # self._category = ""
        # self._manufacturer = ""
-       # self._model = ""
+       # self._model = ""      
        # self._year = 0
        # self._milage = 0
        # self._seats = 0
