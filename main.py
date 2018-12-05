@@ -1,9 +1,5 @@
 from models.car import Car
 
 
-def main():
-    car1 = Car()
-
-    
-if __name__ == "__main__":
-    main()
+x = Car(0,1,2,3,4,5,6,7)
+print(x)
