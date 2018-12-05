@@ -14,8 +14,9 @@ class UserRepository:
             address = user.address()
             phone = user.phone()
             email = user.email()
-            usersFile.write("{},{},{},{},{},{},{}\n".format(name, id,\
-            socialNumber, driverLicense, address, phone, email))
+            pin = user.pin()
+            usersFile.write("{},{},{},{},{},{},{},{},\n".format(name, id,\
+            socialNumber, driverLicense, address, phone, email, pin))
             
     def getUsers(self):
         if self._userList == []:

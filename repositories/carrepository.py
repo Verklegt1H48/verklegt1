@@ -7,29 +7,38 @@ class CarRepository:
 
     def addCar(self, car):
         with open("./data/cars.txt", "a+") as cars_file:
-            category = car.get_category()
-            manufacturer = car.get_manufacturer()
-            model = car.get_model()
-            year = car.get_year()
-            milage = car.get_milage()
-            seats = car.get_seats()
-            transmission = car.get_transmission()
-            extras = car.get_extras()
-            id = car.get_id()
-            cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
-            model, year, milage, seats, transmission, extras, id))
+            category = car.category()
+            manufacturer = car.manufacturer()
+            model = car.model()
+            year = car.year()
+            milage = car.milage()
+            seats = car.seats()
+            transmission = car.transmission()
+            extras = car.extras()
+            id = car.id()
+            available = car.isAvailable()
+            cars_file.write("{},{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
+            model, year, milage, seats, transmission, extras, id, available))
 
-    def getCar(self, Car):
-        if self.__car == []:
-            with open("./data/cars.txt","r") as car_file:
-                for line in car_file.readlines():
-                    category, manufacturer, model, year, milage, seats,\
-                    transmission, extras, id = line.strip().split(",")
-                    new_car = Car(category, manufacturer, model, year, milage, seats, 
-                    transmission, extras, id)
-                    self.__car.append(new_car)
-
-                return self.__car
+    def getCars(self):
+        if self.__cars == []:
+            with open("./data/cars.csv", 'r') as carData:
+                carDict = csv.DictReader(carData)
+                for car in carDict:
+                    newCar = Car()
+                    newCar.id           = car['ID']
+                    newCar.category     = car['Category']
+                    newCar.manufacturer = car['Manufacturer']
+                    newCar.model        = car['Model']
+                    newCar.year         = car['Year']
+                    newCar.milage       = car['Mileage']
+                    newCar.seats        = car['Seats']
+                    newCar.transmission = car['Transmission']
+                    newCar.extras       = car['Extras']
+                    newCar.deleted      = car['Deleted']
+                    newCar.rentHistory  = car['Rent History']
+                    newCar.available    = car['Available']
+        return self.__cars
    # def getCarList(self):
 
        # self._category = ""
