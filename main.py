@@ -1,7 +1,4 @@
-from models.car import Car
-from ui.CustomerUI import CustomerUI
-
-
+from ui.customerui import CustomerUI
 
 UI = CustomerUI()
-UI.mainMenu()
+UI.mainMenu() 

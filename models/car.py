@@ -52,7 +52,7 @@ class Car:
 
     @property
     def seats(self):
-        return self.seats
+        return self.__seats
 
     @property
     def transmission(self):

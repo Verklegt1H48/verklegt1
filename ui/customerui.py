@@ -34,11 +34,19 @@ class CustomerUI:
             print("4. By category")
             self.__action = input("Choose an option: ")
             if self.__action == "1":
-                print(self.__carService.getCar())
+                self.printCarList(4)
             elif self.__action == 2:
-                print("")
+                self.printCarList(7)
             elif self.__action == 3:
-                print("")
+                self.printCarList(3)
+    
+    def printCarList(self, attribute):
+        carList = self.__carService.getAndSortAvailableCars(3)
+        counter = 0
+        for car in carList:
+            print(counter + ". " + car)
+            counter += 1
+
 
     def addCarMenu(self):
             print("1. Add a car")
@@ -60,5 +68,5 @@ class CustomerUI:
                 self.__carService.addCar(newCar)
 
             elif self._action == "2":
-                car = self.__carService.getCar()
+                car = self.__carService.getCars()
                 print(car)        
