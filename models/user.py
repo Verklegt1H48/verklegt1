@@ -1,7 +1,7 @@
-from creditcard import CreditCard
+from models.creditcard import CreditCard
 class User:
 
-    def __init__(self, name = "", id = 0, socialNumber = "", driverLicense = "", address = "", phone = "", email = "", pin = ""):
+    def __init__(self, name = "", id = 0, socialNumber = "", driverLicense = "", address = "", phone = "", email = ""):
         self._name = name
         self._id = id
         self._socialNumber = socialNumber
@@ -13,12 +13,10 @@ class User:
         self._rentHistory = []
         self._deleted = False
         self._employee = False
-        self._pin = pin
+        #self._pin = pin
 
     def __str__(self):
-        "{},{},{},{},{},{},{}".format(self._name, self._id,\
-        self._socialNumber, self._driverLicense, self._address,\
-        self._phone, self._email)
+        return "{},{},{},{},{},{},{}".format(self._name, self._id, self._socialNumber, self._driverLicense, self._address, self._phone, self._email)
 
     def __repr__(self):
         return self.__str__()
@@ -26,7 +24,6 @@ class User:
     def deleteUser(self):
         self._deleted = True
 
-    
 #Getterar
     @property
     def name(self):

@@ -17,8 +17,8 @@ class CarRepository:
             extras = car.extras()
             id = car.id()
             available = car.isAvailable()
-            cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
-            model, year, milage, seats, transmission, extras, id))
+            cars_file.write("{},{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
+            model, year, milage, seats, transmission, extras, id, available))
 
     def getCar(self, Car):
         if self.__car == []:
@@ -29,7 +29,8 @@ class CarRepository:
                     new_car = Car(category, manufacturer, model, year, milage, seats, 
                     transmission, extras, id)
                     self.__car.append(new_car)
-        return self.__car
+
+                return self.__car
    # def getCarList(self):
 
        # self._category = ""

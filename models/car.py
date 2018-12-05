@@ -1,12 +1,12 @@
 class Car:  
-    def __init__(self):
-        self._category = ""
-        self._manufacturer = ""
-        self._model = ""
-        self._year = 0
-        self._milage = 0
-        self._seats = 0
-        self._transmission = ""
+    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", milage = "", seats = "", transmission = ""):
+        self._category = category
+        self._manufacturer = manufacturer
+        self._model = model
+        self._year = year
+        self._milage = milage
+        self._seats = seats
+        self._transmission = transmission
         self._extras = []
         self._id = 0
         self._deleted = False
@@ -14,7 +14,7 @@ class Car:
         self._available = True
 
     def __str__(self):
-        "{},{},{},{},{},{},{},{},{}".format(self._id, self._manufacturer, self._model,\
+        return "{},{},{},{},{},{},{},{},{}".format(self._id, self._manufacturer, self._model,\
         self._category, self._year, self._milage,\
         self._seats, self._transmission, self._available)
 
