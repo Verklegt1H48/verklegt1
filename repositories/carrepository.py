@@ -7,25 +7,25 @@ class CarRepository:
 
     def addCar(self, car):
         with open("./data/cars.txt", "a+") as cars_file:
-            category = car.category()
-            manufacturer = car.manufacturer()
-            model = car.model()
-            year = car.year()
-            milage = car.milage()
-            seats = car.seats()
-            transmission = car.transmission()
-            extras = car.extras()
-            id = car.id()
-            available = car.isAvailable()
+            category = car._category
+            manufacturer = car._manufacturer
+            model = car._model
+            year = car._year
+            milage = car._milage
+            seats = car._seats
+            transmission = car._transmission
+            extras = car._extras
+            id = car._id
+            available = car._available
             cars_file.write("{},{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
             model, year, milage, seats, transmission, extras, id, available))
 
-    def getCar(self, Car):
+    def getCar(self):
         if self.__car == []:
             with open("./data/cars.txt","r") as car_file:
                 for line in car_file.readlines():
-                    category, manufacturer, model, year, milage, seats, transmission, extras, id = line.strip().split(",")
-                    new_car = Car(category, manufacturer, model, year, milage, seats, transmission, extras, id)
+                    category, manufacturer, model, year, milage, seats, transmission, id = line.strip().split(",")
+                    new_car = Car(category, manufacturer, model, year, milage, seats, transmission, id)
                     self.__car.append(new_car)
                 return self.__car
    # def getCarList(self):

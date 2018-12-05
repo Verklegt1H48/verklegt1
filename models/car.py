@@ -1,5 +1,5 @@
 class Car:  
-    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", milage = "", seats = "", transmission = ""):
+    def __init__(self, category = "", manufacturer = "", model = "", year = "", milage = "", seats = "", transmission = ""):
         self._category = category
         self._manufacturer = manufacturer
         self._model = model
@@ -8,7 +8,7 @@ class Car:
         self._seats = seats
         self._transmission = transmission
         self._extras = []
-        self._id = id
+        self._id = 0
         self._deleted = False
         self._rentHistory = []
         self._available = True

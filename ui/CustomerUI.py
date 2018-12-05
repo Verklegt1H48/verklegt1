@@ -1,5 +1,6 @@
-from services.carservice import CarService
 from models.car import Car
+from services.carservice import CarService
+from models.user import User
 
 class CustomerUI:
     
@@ -7,7 +8,7 @@ class CustomerUI:
         self.__car_service = CarService()
 
     def mainMenu(self):
-
+        newCar = Car()
         action = ""
         while(action != "q"):
             print("1. Add a car")
@@ -17,18 +18,17 @@ class CustomerUI:
             action = input("Choose an option").lower()
 
             if action == "1":
-                category = input("Category: ")
-                manufacturer = input("Manufacturer: ")
-                model = input("Model: ")
-                year = input("Year: ")
-                milage = input("Milage: ")
-                seats = input("Seats: ")
-                transmission = input("Transmission: ")
-                extras = input("Extras: ")
-                id = input("Id: ")
-                new_car = Car(1,2,3,4,5,6,7,8)
-                self.__car_service.addCar(new_car)
+                newCar._category = input("Category: ")
+                newCar._manufacturer = input("Manufacturer: ")
+                newCar._model = input("Model: ")
+                newCar._year = input("Year: ")
+                newCar._milage = input("Milage: ")
+                newCar._seats = input("Seats: ")
+                newCar._transmission = input("Transmission: ")
+                newCar._extras = input("Extras: ")
+                newCar._id = input("Id: ")
+                self.__car_service.addCar(newCar)
 
             elif action == "2":
-                Car = self.__car_service.getCar()
-                print(Car)        
+                car = self.__car_service.getCar()
+                print(car)        
