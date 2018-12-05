@@ -19,4 +19,4 @@ class OrdersRepository:
                     id, userId, carCatagory,carId, payMethod, status, deleted = line.split(",")
                     newOrder = Order(id, userId, carCatagory, carId, payMethod, status, deleted)
                     self._orders.append(newOrder)
-                return self._orders
+        return self._orders
