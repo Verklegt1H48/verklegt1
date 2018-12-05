@@ -46,15 +46,15 @@ class CustomerUI:
 
             if self._action == "1":
                 newCar = Car()
-                newCar._category = input("Category: ")
+                newCar._category =     input("Category: ")
                 newCar._manufacturer = input("Manufacturer: ")
-                newCar._model = input("Model: ")
-                newCar._year = input("Year: ")
-                newCar._milage = input("Milage: ")
-                newCar._seats = input("Seats: ")
+                newCar._model =        input("Model: ")
+                newCar._year =         input("Year: ")
+                newCar._milage =       input("Milage: ")
+                newCar._seats =        input("Seats: ")
                 newCar._transmission = input("Transmission: ")
-                newCar._extras = input("Extras: ")
-                newCar._id = input("Id: ")
+                newCar._extras =       input("Extras: ")
+                newCar._id =           input("Id: ")
                 self.__carservice.addCar(newCar)
 
             elif self._action == "3":
