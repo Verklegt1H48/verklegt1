@@ -13,104 +13,105 @@ class User:
         self._rentHistory = []
         self._deleted = False
         self._employee = False
-        #self._pin = pin
+        self._pin = pin
 
     def __str__(self):
         return "{},{},{},{},{},{},{}".format(self._name, self._id, self._socialNumber, self._driverLicense, self._address, self._phone, self._email)
+
 
     def __repr__(self):
         return self.__str__()
 
     def deleteUser(self):
-        self._deleted = True
+        self.__deleted = True
 
 #Getterar
     @property
     def name(self):
-        return self._name
+        return self.__name
 
     @property
     def id(self):
-        return self._id
+        return self.__id
 
     @property
     def socialNumber(self):
-        return self._socialNumber
+        return self.__socialNumber
 
     @property
     def driverLicense(self):
-        return self._driverLicense
+        return self.__driverLicense
 
     @property
     def address(self):
-        return self._address
+        return self.__address
 
     @property
     def phone(self):
-        return self._phone
+        return self.__phone
 
     @property
     def email(self):
-        return self._email
+        return self.__email
 
     @property
     def employee(self):
-        return self._employee
+        return self.__employee
 
     @property
     def pin(self):
-        return self._pin
+        return self.__pin
 
     @property
     def rentHistory(self):
-        return self._rentHistory
+        return self.__rentHistory
 
     @property
     def deleted(self):
-        return self._deleted
+        return self.__deleted
 
 #Setterar
     @name.setter
     def name(self, value):
-        self._name = value
+        self.__name = value
 
     @id.setter
     def id(self, value):
-        self._id = value = value
+        self.__id = value
 
     @socialNumber.setter
     def socialNumber(self, value):
-        self._socialNumber = value
+        self.__socialNumber = value
     
     @driverLicense.setter
     def driverLicense(self, value):
-        self._driverLicense = value
+        self.__driverLicense = value
 
     @address.setter
     def address(self, value):
-        self._address = value
+        self.__address = value
 
     @phone.setter
     def phone(self, value):
-        self._phone = value
+        self.__phone = value
 
     @email.setter
     def email(self, value):
-        self._email = value
+        self.__email = value
     
 
     @employee.setter
     def employee(self, value):
-        self._employee = value
+        self.__employee = value
 
     @pin.setter
     def pin(self, value):
-        self._pin = value
+        self.__pin = value
 
     @rentHistory.setter
     def rentHistory(self, value):
-        self._rentHistory = value
+        self.__rentHistory = value
 
     @deleted.setter
     def deleted(self, value):
-        self._deleted = value
+        self.__deleted = value
