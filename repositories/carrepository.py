@@ -7,19 +7,22 @@ class CarRepository:
         self.__cars = []
 
     def addCar(self, car):
-        with open("./data/cars.txt", "a+") as cars_file:
-            category = car.category()
-            manufacturer = car.manufacturer()
-            model = car.model()
-            year = car.year()
-            milage = car.milage()
-            seats = car.seats()
-            transmission = car.transmission()
-            extras = car.extras()
-            id = car.id()
-            available = car.isAvailable()
-            cars_file.write("{},{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
-            model, year, milage, seats, transmission, extras, id, available))
+        with open("./data/cars.csv", "a+") as carData:
+            fieldnames = ["ID","Category","Manufacturer","Model","Year","Mileage","Seats","Transmission","Extras","Rent History","Deleted","Available"]
+            carDictWriter = csv.DictWriter(carData, fieldnames, restval="")
+            carDictWriter.writerow({'ID'           : car.id,
+                                    'Category'     : car.category,
+                                    'Manufacturer' : car.manufacturer,
+                                    'Model'        : car.model,
+                                    'Year'         : car.year,
+                                    'Mileage'      : car.mileage,
+                                    'Seats'        : car.seats,
+                                    'Transmission' : car.transmission,
+                                    'Extras'       : car.extras,
+                                    'Deleted'      : car.deleted,
+                                    'Rent History' : car.rentHistory,
+                                    'Available'    : car.available})
+
 
     def getCars(self):
         if self.__cars == []:
@@ -41,18 +44,3 @@ class CarRepository:
                     newCar.available    = car['Available']
                     self.__cars.append(newCar)
         return self.__cars
-
-   # def getCarList(self):
-
-       # self._category = ""
-       # self._manufacturer = ""
-       # self._model = ""
-       # self._year = 0
-       # self._milage = 0
-       # self._seats = 0
-       # self._transmission = ""
-       # self._extras = []
-       # self._id = 0
-       # self._deleted = False
-       # self._rentHistory = []
-       # self._available = True
