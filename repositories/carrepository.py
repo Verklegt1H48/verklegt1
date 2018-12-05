@@ -42,18 +42,3 @@ class CarRepository:
                     newCar.available    = car['Available']
                     self.__cars.append(newCar)
         return self.__cars
-
-   # def getCarList(self):
-
-       # self._category = ""
-       # self._manufacturer = ""
-       # self._model = ""
-       # self._year = 0
-       # self._milage = 0
-       # self._seats = 0
-       # self._transmission = ""
-       # self._extras = []
-       # self._id = 0
-       # self._deleted = False
-       # self._rentHistory = []
-       # self._available = True

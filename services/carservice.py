@@ -2,11 +2,11 @@ from repositories.carrepository import CarRepository
 
 class CarService:
     def __init__(self):
-        self.__car_repo = CarRepository()
+        self.__carrepo = CarRepository()
 
     def addCar(self, car):
         #if self.isValidCar(car):
-        self.__car_repo.addCar(car)
+        self.__carrepo.addCar(car)
     
     def isValidCar(self, car):
         #
@@ -14,7 +14,7 @@ class CarService:
         return True
     
     def getCar(self):
-        return self.__car_repo.getCars()
+        return self.__carrepo.getCars()
  
    # def get_car_category(car, category):
         

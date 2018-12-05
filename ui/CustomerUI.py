@@ -73,6 +73,6 @@ class CustomerUI:
             self.mainMenu()
         if self._action == "q" :
             return
-        if self._action == 1 :
+        if self._action == "1" :
             print("ekkert")
         
