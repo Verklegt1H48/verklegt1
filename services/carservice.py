@@ -13,7 +13,7 @@ class CarService:
         # ToDo
         return True
     
-    def getCar(self):
+    def getCarList(self):
         return self.__car_repo.getCars()
  
    # def get_car_category(car, category):
