@@ -13,7 +13,8 @@ class User:
         self._rentHistory = []
         self._deleted = False
         self._employee = False
-        self._pin = pin
+        self._pin = ""
+
 
     def __str__(self):
         return "{},{},{},{},{},{},{}".format(self._name, self._id, self._socialNumber, self._driverLicense, self._address, self._phone, self._email)
