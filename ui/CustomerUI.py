@@ -21,7 +21,7 @@ class CustomerUI:
                 manufacturer = input("Manufacturer: ")
                 model = input("Model: ")
                 year = input("Year: ")
-                milage = input("Milage: ")
+                mileage = input("Mileage: ")
                 seats = input("Seats: ")
                 transmission = input("Transmission: ")
                 extras = input("Extras: ")

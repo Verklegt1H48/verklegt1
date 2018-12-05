@@ -14,19 +14,19 @@ class CarRepository:
             milage = car.get_milage()
             seats = car.get_seats()
             transmission = car.get_transmission()
-            extras = car.get_extras()
+            #extras = car.get_extras()
             id = car.get_id()
-            cars_file.write("{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
-            model, year, milage, seats, transmission, extras, id))
+            cars_file.write("{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
+            model, year, milage, seats, transmission, id))
 
     def getCar(self):
         if self.__car == []:
             with open("./data/cars.txt","r") as car_file:
                 for line in car_file.readlines():
                     category, manufacturer, model, year, milage, seats,\
-                    transmission, extras, id = line.strip().split(",")
+                    transmission, id = line.strip().split(",")
                     new_car = Car(category, manufacturer, model, year, milage, seats, 
-                    transmission, extras, id)
+                    transmission, id)
                     self.__car.append(new_car)
 
                 return self.__car
