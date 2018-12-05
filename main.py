@@ -1,10 +1,7 @@
-from repositories.carrepository import CarRepository
-from models.user import User
+from models.car import Car
+from ui.CustomerUI import CustomerUI
 
 
-def main():
-    car1 = CarRepository()
 
-    
-if __name__ == "__main__":
-    main()
+UI = CustomerUI()
+UI.mainMenu()
