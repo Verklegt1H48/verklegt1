@@ -23,7 +23,6 @@ class CarRepository:
                                     'Rent History' : car.rentHistory,
                                     'Available'    : car.available})
 
-
     def getCars(self):
         if self.__cars == []:
             with open("./data/cars.csv", 'r') as carData:
