@@ -20,7 +20,7 @@ class Order:
         self._deleted = deleted
 
     def __str__(self):
-        "{},{},{},{},{},{}".format(self._id, self._userId, self._carCategory,\
+        return "{},{},{},{},{},{}".format(self._id, self._userId, self._carCategory,\
         self._carId, self._payMethod, self._status,)
 
     def __repr__(self):
