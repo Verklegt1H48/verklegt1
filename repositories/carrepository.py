@@ -20,14 +20,27 @@ class CarRepository:
             cars_file.write("{},{},{},{},{},{},{},{},{},{}\n".format(category, manufacturer,
             model, year, milage, seats, transmission, extras, id, available))
 
-    def getCar(self):
-        if self.__car == []:
-            with open("./data/cars.txt","r") as car_file:
-                for line in car_file.readlines():
-                    category, manufacturer, model, year, milage, seats, transmission, id = line.strip().split(",")
-                    new_car = Car(category, manufacturer, model, year, milage, seats, transmission, id)
-                    self.__car.append(new_car)
-                return self.__car
+
+    def getCars(self):
+        if self.__cars == []:
+            with open("./data/cars.csv", 'r') as carData:
+                carDict = csv.DictReader(carData)
+                for car in carDict:
+                    newCar = Car()
+                    newCar.id           = car['ID']
+                    newCar.category     = car['Category']
+                    newCar.manufacturer = car['Manufacturer']
+                    newCar.model        = car['Model']
+                    newCar.year         = car['Year']
+                    newCar.milage       = car['Mileage']
+                    newCar.seats        = car['Seats']
+                    newCar.transmission = car['Transmission']
+                    newCar.extras       = car['Extras']
+                    newCar.deleted      = car['Deleted']
+                    newCar.rentHistory  = car['Rent History']
+                    newCar.available    = car['Available']
+        return self.__cars
+
    # def getCarList(self):
 
        # self._category = ""
