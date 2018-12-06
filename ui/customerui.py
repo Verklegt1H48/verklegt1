@@ -34,7 +34,7 @@ class CustomerUI:
             print("Press q to quit and b to go back")
             self.__action = input("Choose an option: ").lower()
             if self.__action == "b" :
-                self.staffMenu()
+                self.mainMenu()
             elif self.__action == "q" :
                 return
 
@@ -49,11 +49,53 @@ class CustomerUI:
                 self.seeAvailableCars()
     
     def printCarList(self, attribute):
+        carList = []
         carList = self.__carService.getAndSortAvailableCars(attribute)
-        counter = 0
+        counter = 1
         for car in carList:
             print(str(counter) + ". " + str(car))
             counter += 1
+
+        
+        self.__action = input("\nPlease select the car you wish to book: ").lower()
+        print("Press q to quit and b to go back")
+        if self.__action == "b" :
+            self.seeAvailableCars()
+        elif self.__action == "q" :
+            return
+        elif int(self.__action) >= counter:
+            print("\nInvalid input, try again\n")
+            self.seeAvailableCars()
+        else :
+            carToOrder = carList[int(self.__action) - 1]
+            del carList
+            print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+            print("Current price is " + carToOrder.price + " isk per day")
+            self.addInsurance(carToOrder)
+            
+    
+    def addInsurance(self, carToOrder):
+            
+        print("Press q to quit and b to go back")
+        if self.__action == "b" :
+            self.seeAvailableCars()
+        elif self.__action == "q" :
+            return
+        
+        carInsurance = str(int(int(carToOrder.price) / 10))
+        self.__action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
+        if self.__action == "y":    
+            totalPrice = str(int(carInsurance) + int(carToOrder.price))
+            print("Your total price per day is " + totalPrice + " isk")
+        elif self.__action == "n":
+            print("Your total price per day is " + carToOrder.price + " isk")
+        else:
+            print("\nInvalid input, try again\n")
+            self.addInsurance(carToOrder)
+
+
+                
+        
 
     def staffCarMenu(self):
             print("\n\n1. Add a car")
