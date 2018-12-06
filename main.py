@@ -1,5 +1,15 @@
-from models.car import Car
+from repositories.carrepository import CarRepository
+from operator import itemgetter,attrgetter
+from helpers.helpers import clearScreen
 
+def main():
+    carRepo = CarRepository()
+    cars = carRepo.getCars()
+    sortedCars = sorted(cars, key=attrgetter('id'))
+    
+    #clearScreen()
+    #for car in sortedCars:
+    #    print(car.extras[0].strip("[']",))
+        
 
-x = Car(0,1,2,3,4,5,6,7)
-print(x)
+main()
