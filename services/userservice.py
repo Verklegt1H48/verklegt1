@@ -4,13 +4,10 @@ class UserService:
         self._userRepo = UserRepository()
 
     def getUsers(self):
-        return self._userRepo.getUsers()
+        return self._userRepo.getUserList()
 
     def addUser(self, user):
         self._userRepo.addUser(user)
-    
-
-        
 
     def getUserBySocial(self, social):
         for i in self._userRepo._userList:
@@ -33,24 +30,19 @@ class UserService:
         
         raise ValueError("User not found")
 
-    
-    def isValidUser(self, user):
-        #Todo: Implement
-        return 
+     
 
     def isEmployee(self, user):
-        #Todo: Implement
-        return 
+        return user.employee()
 
     def updateUser(self, user):
         #Todo: Implement
         return 
 
     def deleteUser(self, user):
-        #Todo: Implement
-        return 
+        user.deleteUser()
 
     def isDeleted(self, user):
         #Todo: Implement
-        return 
+        return user.deleted()
     

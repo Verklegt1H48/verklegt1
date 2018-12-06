@@ -30,7 +30,7 @@ class CarRepository:
         with open("./data/cars.csv", "a+", newline = '') as carData:
             self.carDictWriter(car, carData)
 
-
+            
     #Function to open cars.csv and overwrite the whole list with an updated list of cars.
     def overwriteCars(self, cars):
         with open("./data/cars.csv", "w+", newline = '') as carData:
@@ -40,7 +40,7 @@ class CarRepository:
 
 
     #Function to open cars.csv with DictReader and make a list of cars from the dictionary
-    def getCars(self):
+    def getCarList(self):
         self.__cars == []
         with open("./data/cars.csv", 'r') as carData:
             carDict = csv.DictReader(carData)
@@ -61,3 +61,4 @@ class CarRepository:
                 self.__cars.append(newCar)
 
         return self.__cars
+
