@@ -7,15 +7,16 @@ class CarService:
 
     def addCar(self):
         newCar = Car()
-        newCar._category =     input("Category: ")
-        newCar._manufacturer = input("Manufacturer: ")
-        newCar._model =        input("Model: ")
-        newCar._year =         input("Year: ")
-        newCar._milage =       input("Milage: ")
-        newCar._seats =        input("Seats: ")
-        newCar._transmission = input("Transmission: ")
-        newCar._extras =       input("Extras: ")
-        newCar._id =           input("Id: ")
+        newCar.__category =     input("Category: ")
+        newCar.__manufacturer = input("Manufacturer: ")
+        newCar.__model =        input("Model: ")
+        newCar.__year =         input("Year: ")
+        newCar.__milage =       input("Milage: ")
+        newCar.__seats =        input("Seats: ")
+        newCar.__transmission = input("Transmission: ")
+        newCar.__extras =       input("Extras: ")
+        newCar.__id =           input("Id: ")
+        newCar.__price =        input("Price: ")
         self.__carRepo.addCar(newCar)
     
     def isValidCar(self, car):
