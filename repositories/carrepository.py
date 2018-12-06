@@ -44,24 +44,24 @@ class CarRepository:
                     self.__cars.append(newCar)
         return self.__cars
 
-def getCar(self, id):
-    with open("./data/cars.csv", 'r') as carData:
-        carDict = csv.DictReader(carData)
-        for car in carDict:
-            if id == car['ID']:
-                newCar = Car()
-                newCar.id           = car['ID']
-                newCar.category     = car['Category']
-                newCar.manufacturer = car['Manufacturer']
-                newCar.model        = car['Model']
-                newCar.year         = car['Year']
-                newCar.mileage      = car['Mileage']
-                newCar.seats        = car['Seats']
-                newCar.transmission = car['Transmission']
-                newCar.extras       = car['Extras']
-                newCar.deleted      = car['Deleted']
-                newCar.rentHistory  = car['Rent History']
-                newCar.available    = car['Available']
-                self.__car = newCar
-                return self.__car
-    return 0 #Returnar 0 til að byrja með
+        def getCar(self, id):
+        with open("./data/cars.csv", 'r') as carData:
+            carDict = csv.DictReader(carData)
+            for car in carDict:
+                if id == car['ID']:
+                    newCar = Car()
+                    newCar.id           = car['ID']
+                    newCar.category     = car['Category']
+                    newCar.manufacturer = car['Manufacturer']
+                    newCar.model        = car['Model']
+                    newCar.year         = car['Year']
+                    newCar.mileage      = car['Mileage']
+                    newCar.seats        = car['Seats']
+                    newCar.transmission = car['Transmission']
+                    newCar.extras       = car['Extras']
+                    newCar.deleted      = car['Deleted']
+                    newCar.rentHistory  = car['Rent History']
+                    newCar.available    = car['Available']
+                    self.__car = newCar
+                    return self.__car
+        return 0 #Returnar 0 til að byrja með
