@@ -50,10 +50,34 @@ class CustomerUI:
     
     def printCarList(self, attribute):
         carList = self.__carService.getAndSortAvailableCars(attribute)
-        counter = 0
+        counter = 1
         for car in carList:
             print(str(counter) + ". " + str(car))
             counter += 1
+
+        print("Press q to quit and b to go back")
+        self.__action = input("\nPlease select the car you wish to book: ").lower()
+        if self.__action == "b" :
+            self.staffMenu()
+        elif self.__action == "q" :
+            return
+        elif int(self.__action) >= counter:
+            print("\nInvalid input, try again\n")
+            self.seeAvailableCars()
+        else :
+            carToOrder = carList[int(self.__action) - 1]
+            print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+            print("Current price is " + carToOrder.price + " isk per day")
+            carInsurance = str(int(int(carToOrder.price) / 10))
+            self.__action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
+            if self.__action == "y":    
+                totalPrice = str(int(carInsurance) + int(carToOrder.price))
+                print("Your total price per day is " + totalPrice + " isk")
+
+
+
+                
+        
 
     def staffCarMenu(self):
             print("\n\n1. Add a car")
