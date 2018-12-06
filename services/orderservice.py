@@ -1,20 +1,24 @@
 from repositories.orderrepository import OrderRepository
+from services.carservice import CarService
 from models.order import Order
-from operator import itemgetter, attrgetter, methodcaller
+from operator import attrgetter, methodcaller
 
 class OrderService:
     def __init__(self):
         self.__orderRepo = OrderRepository()
+        self.__carService = CarService()
 
     def addOrder(self, order):
         newOrder = Order()
-        newOrder._id = len(self.getOrderList)
-        newOrder._userId =      input("User ID: ")
-        newOrder._carCategory = input("Car category: ")
-        newOrder._carId =       input("Car ID: ")
-        newOrder._payMethod =   input("Payment Method: ")
-        newOrder._status =      1
-        newOrder._deleted =     0
+        newOrder.id =          len(self.getOrderList)
+        newOrder.userId =      input("User ID: ")
+        newOrder.carCategory = input("Car category: ")
+        newOrder.payMethod =   input("Payment Method: ")
+        newOrder.pickupDate =  input("Pickup date (dd/mm/yy): ")
+        newOrder.returnDate =  input("Return date (dd/mm/yy): ")
+        newOrder.status =      0
+        newOrder.deleted =     0
+        newOrder.carId =       self.__carService.getAvailableCarsByCategory(newOrder.carCategory).__id
 
         self.__orderRepo.addOrder(newOrder)
 
@@ -22,14 +26,14 @@ class OrderService:
         return self.__orderRepo.getOrderList()
  
     
-    def getAndSortAvailableCars(self, status, attribute):
+    def getOrdersByStatus(self, status):
         allOrders = self.getOrderList()
         Orders = []
         for orders in allOrders:
-            if orders.deleted == status:
+            if orders.status == status:
                 Orders.append(orders)
         
-        return sorted(Orders, key = attrgetter(attribute))
+        return Orders
+        #sorted(Orders, key = attrgetter(attribute))
 
-   # def get_car_category(car, category):
         

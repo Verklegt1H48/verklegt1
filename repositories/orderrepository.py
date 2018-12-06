@@ -26,9 +26,6 @@ class OrderRepository:
                     newOrder.payMethod      = order['payMethod']
                     newOrder.status         = order['status']
                     newOrder.deleted        = order['deleted']
-                    #newOrder = order[]
-                    #id, userId, carCategory,carId, payMethod, status, deleted = line.split(",")
-                    #newOrder = Order(id, userId, carCatagory, carId, payMethod, status, deleted)
                     self._orders.append(newOrder)
         return self._orders
 
@@ -36,14 +33,12 @@ class OrderRepository:
         with open("./data/orders.csv", "r") as orderData:
             orderDict = csv.DictReader(orderData)
             for order in orderDict: 
-                if id == order['id']:
-                    newOrder = Order()
-                    newOrder.id             = order['id']
-                    newOrder.userId         = order['userId']
-                    newOrder.carCategory    = order['carCategory']
-                    newOrder.carId          = order['carId']
-                    newOrder.payMethod      = order['payMethod']
-                    newOrder.status         = order['status']
-                    newOrder.deleted        = order['deleted']
-                    return newOrder
-        return 0 #Returnar 0 til að byrja með
+                newOrder = Order()
+                newOrder.id             = order['id']
+                newOrder.userId         = order['userId']
+                newOrder.carCategory    = order['carCategory']
+                newOrder.carId          = order['carId']
+                newOrder.payMethod      = order['payMethod']
+                newOrder.status         = order['status']
+                newOrder.deleted        = order['deleted']
+                return newOrder

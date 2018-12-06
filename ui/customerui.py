@@ -1,11 +1,13 @@
 from models.car import Car
 from services.carservice import CarService
+from services.orderservice import OrderService
 from models.user import User
 from datetime import datetime
 class CustomerUI:
     
     def __init__(self):
         self.__carService = CarService()
+        self.__orderService = OrderService()
         self.__action = ""
     def mainMenu(self):
            print("Welcome to the best car rental in the world!")
@@ -175,6 +177,27 @@ class CustomerUI:
         else :
             print("\nInvalid input, try again\n")
             self.staffMenu()
+
+    def orderMenu(self):
+        print("\n\n1. Orders")
+        print("2. Confirmed orders") 
+        print("3. Unconfirmed orders")
+        print("Press b to return to the previous page")
+        print("Press q to quit")
+
+        if self.__action == "b" :
+            self.staffMenu()
+        elif self.__action == "q" :
+            return
+        elif self.__action == "1" :
+            self.staffCarMenu()
+        elif self.__action == "2" :
+            self.__orderService.getOrdersByStatus(1)
+        elif self.__action == "3" :
+            self.__orderService.getOrdersByStatus(0)
+        else :
+            print("\nInvalid input, try again\n")
+            self.orderMenu()
 
     def customerMenu(self):
         print("\n\n1. Car management")

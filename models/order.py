@@ -1,6 +1,6 @@
 class Order:
 
-    def __init__(self,id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = False, deleted = False):
+    def __init__(self,id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = False, deleted = False, pickUpData = "", returnDate = ""):
         self._id = id
         self._userId = userId
         self._carCategory = carCategory
@@ -8,6 +8,8 @@ class Order:
         self._payMethod = payMethod
         self._status = status
         self._deleted = deleted
+        self._pickUpDate = pickUpData
+        self._returnDate = returnDate
 
     def __str__(self):
         return "{},{},{},{},{},{}".format(self._id, self._userId, self._carCategory,\
@@ -21,6 +23,14 @@ class Order:
     def carId(self):
         return self._carId
 
+    @property
+    def pickUpDate(self):
+        return self._pickUpDate
+    
+    @property
+    def returnDate(self):
+        return self._returnDate
+    
     @property
     def status(self):
         return self._status
