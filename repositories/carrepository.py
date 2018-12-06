@@ -22,7 +22,8 @@ class CarRepository:
                          'Extras'       : str(car.extras).strip("[']").replace("', '",","),
                          'Deleted'      : car.deleted,
                          'Rent History' : str(car.rentHistory).strip("[']").replace("', '",","),
-                         'Available'    : car.available})
+                         'Available'    : car.available,
+                         'Price'        : car.price)}
 
 
     #Function to open cars.csv and add an instance of car to the end of the file
@@ -45,20 +46,22 @@ class CarRepository:
         with open("./data/cars.csv", 'r') as carData:
             carDict = csv.DictReader(carData)
             for car in carDict:
-                newCar = Car()
-                newCar.id           = car['ID']
-                newCar.category     = car['Category']
-                newCar.manufacturer = car['Manufacturer']
-                newCar.model        = car['Model']
-                newCar.year         = car['Year']
-                newCar.mileage      = car['Mileage']
-                newCar.seats        = car['Seats']
-                newCar.transmission = car['Transmission']
-                newCar.extras       = car['Extras'].strip("").split(",")
-                newCar.deleted      = car['Deleted']
-                newCar.rentHistory  = car['Rent History'].strip("").split(",")
-                newCar.available    = car['Available']
-                self.__cars.append(newCar)
+                    newCar = Car()
+                    newCar.id           = car['ID']
+                    newCar.category     = car['Category']
+                    newCar.manufacturer = car['Manufacturer']
+                    newCar.model        = car['Model']
+                    newCar.year         = car['Year']
+                    newCar.mileage      = car['Mileage']
+                    newCar.seats        = car['Seats']
+                    newCar.transmission = car['Transmission']
+                    newCar.extras       = car['Extras']
+                    newCar.deleted      = car['Deleted']
+                    newCar.rentHistory  = car['Rent History']
+                    newCar.available    = car['Available']
+                    newCar.price        = car['Price']
+                    self.__car = newCar
+                    return self.__car
+        return 0 #Returnar 0 til að byrja með
 
-        return self.__cars
-
+      
