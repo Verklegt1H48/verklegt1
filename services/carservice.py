@@ -4,7 +4,7 @@ class CarService:
     def __init__(self):
         self.__car_repo = CarRepository()
 
-    def addCar(self, car):
+    def addCar(self):
         newCar = Car()
                 newCar._category =     input("Category: ")
                 newCar._manufacturer = input("Manufacturer: ")
