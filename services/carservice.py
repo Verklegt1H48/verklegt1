@@ -1,5 +1,5 @@
 from repositories.carrepository import CarRepository
-
+from operator import itemgetter, attrgetter, methodcaller
 class CarService:
     def __init__(self):
         self.__carRepo = CarRepository()
@@ -10,14 +10,14 @@ class CarService:
     
     
     def getCarList(self):
-        return self.__car_repo.getCars()
+        return self.__carRepo.getCars()
  
    # def get_car_category(car, category):
     def getAndSortAvailableCars(self, attribute):
-        allCars = self.getCars()
+        allCars = self.getCarList()
         availableCars = []
         for cars in allCars:
             if cars.deleted == False:
                 availableCars.append(cars)
         
-        return availableCars.sorted(availableCars, key = lambda availableCars: cars.category)
+        return sorted(availableCars, key=attrgetter(attribute))
