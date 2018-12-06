@@ -33,24 +33,19 @@ class UserService:
         
         raise ValueError("User not found")
 
-    
-    def isValidUser(self, user):
-        #Todo: Implement
-        return 
+     
 
     def isEmployee(self, user):
-        #Todo: Implement
-        return 
+        return user.employee()
 
     def updateUser(self, user):
         #Todo: Implement
         return 
 
     def deleteUser(self, user):
-        #Todo: Implement
-        return 
+        user.deleteUser()
 
     def isDeleted(self, user):
         #Todo: Implement
-        return 
+        return user.deleted()
     
