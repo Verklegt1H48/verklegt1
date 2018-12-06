@@ -143,17 +143,7 @@ class CustomerUI:
                 return
 
             elif self._action == "1":
-                newCar = Car()
-                newCar._category =     input("Category: ")
-                newCar._manufacturer = input("Manufacturer: ")
-                newCar._model =        input("Model: ")
-                newCar._year =         input("Year: ")
-                newCar._milage =       input("Milage: ")
-                newCar._seats =        input("Seats: ")
-                newCar._transmission = input("Transmission: ")
-                newCar._extras =       input("Extras: ")
-                newCar._id =           input("Id: ")
-                self.__carservice.addCar(newCar)
+                self.__carservice.addCar()
 
             elif self._action == "3":
                 car = self.__carservice.getCarList()
