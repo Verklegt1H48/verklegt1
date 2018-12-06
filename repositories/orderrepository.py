@@ -1,6 +1,6 @@
 from models.order import Order
 
-class OrdersRepository:
+class OrderRepository:
     
     def __init__(self):
         self._orders = []

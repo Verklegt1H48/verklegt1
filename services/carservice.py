@@ -8,13 +8,9 @@ class CarService:
         #if self.isValidCar(car):
         self.__carRepo.addCar(car)
     
-    def isValidCar(self, car):
-        #
-        #
-        return True
     
-    def getCars(self):
-        return self.__carRepo.getCars()
+    def getCarList(self):
+        return self.__car_repo.getCars()
  
    # def get_car_category(car, category):
     def getAndSortAvailableCars(self, attribute):
