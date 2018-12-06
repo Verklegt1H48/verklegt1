@@ -28,6 +28,8 @@ class CarRepository:
             with open("./data/cars.csv", 'r') as carData:
                 carDict = csv.DictReader(carData)
                 for car in carDict:
+                    if car['Deleted'] == '1':
+                        continue
                     newCar = Car()
                     newCar.id           = car['ID']
                     newCar.category     = car['Category']
