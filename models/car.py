@@ -109,7 +109,7 @@ class Car:
 
     @extras.setter 
     def extras(self, extras):
-        self.__extras.add(extras)
+        self.__extras.append(extras)
 
     @rentHistory.setter 
     def rentHistory(self, rentHistory):
