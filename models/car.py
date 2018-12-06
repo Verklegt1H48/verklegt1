@@ -1,5 +1,5 @@
 class Car:  
-    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "", seats = "", transmission = ""):
+    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "", seats = "", transmission = "", price = ""):
         self.__category = category
         self.__manufacturer = manufacturer
         self.__model = model
@@ -12,11 +12,12 @@ class Car:
         self.__deleted = 0
         self.__rentHistory = []
         self.__available = 1
+        self.__price = 0
 
     def __str__(self):
-        return "{},{},{},{},{},{},{},{},{}".format(self.__id, self.__manufacturer, self.__model,
+        return "{},{},{},{},{},{},{},{},{},{}".format(self.__id, self.__manufacturer, self.__model,
                                                    self.__category, self.__year, self. mileage,
-                                                   self.__seats, self.__transmission, self.__available)
+                                                   self.__seats, self.__transmission, self.__available, self.__price)
 
     def __repr__(self):
         return self.__str__()
@@ -29,6 +30,10 @@ class Car:
     @property
     def id(self):
         return self.__id
+    
+    @property
+    def price(self):
+        return self.__price
 
     @property
     def category(self):
@@ -122,3 +127,7 @@ class Car:
     @deleted.setter
     def deleted(self, deleted):
         self.__deleted = int(deleted)
+    
+    @available.setter
+    def available(self, price):
+        self.__price = price
