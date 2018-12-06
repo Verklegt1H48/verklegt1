@@ -1,5 +1,5 @@
 from repositories.carrepository import CarRepository
-from operator import itemgetter, attrgetter, methodcaller
+from operator import attrgetter, methodcaller
 from models.car import Car
 class CarService:
     def __init__(self):
