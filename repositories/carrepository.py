@@ -26,6 +26,7 @@ class CarRepository:
                          'Price'        : car.price})
 
 
+
     #Function to open cars.csv and add an instance of car to the end of the file
     def addCar(self, car):
         with open("./data/cars.csv", "a+", newline = '') as carData:
@@ -61,6 +62,4 @@ class CarRepository:
                 newCar.available    = car['Available']
                 newCar.price        = car['Price']
                 self.__cars.append(newCar)
-
         return self.__cars
-
