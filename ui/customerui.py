@@ -1,7 +1,7 @@
 from models.car import Car
 from services.carservice import CarService
 from models.user import User
-
+from datetime import datetime
 class CustomerUI:
     
     def __init__(self):
@@ -55,7 +55,6 @@ class CustomerUI:
             print(str(counter) + ". " + str(car))
             counter += 1
 
-        
         self.__action = input("\nPlease select the car you wish to book: ").lower()
         print("Press q to quit and b to go back")
         if self.__action == "b" :
@@ -70,7 +69,12 @@ class CustomerUI:
             del carList
             print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
             print("Current price is " + carToOrder.price + " isk per day")
-            self.addInsurance(carToOrder)
+            currPrice = self.addInsurance(carToOrder)
+            daysToRent = self.obtainPickupAndReturnDate()
+            finalPrice = int(daysToRent.days) * currPrice #LAGA
+            print("Your final price is " + str(finalPrice))
+            
+
             
     
     def addInsurance(self, carToOrder):
@@ -86,16 +90,24 @@ class CustomerUI:
         if self.__action == "y":    
             totalPrice = str(int(carInsurance) + int(carToOrder.price))
             print("Your total price per day is " + totalPrice + " isk")
+            return totalPrice
         elif self.__action == "n":
             print("Your total price per day is " + carToOrder.price + " isk")
+            return carToOrder.price
         else:
             print("\nInvalid input, try again\n")
             self.addInsurance(carToOrder)
 
 
-                
-        
+    def obtainPickupAndReturnDate(self):
+        pickupDate = input("When will you pick up your car? (dd/mm/yy): ")
+        pickupCar = datetime.strptime(pickupDate, "%d/%m/%y")
+        returnDate = input("When will you return the car? (dd/mm/yy): ")
+        returnCar = datetime.strptime(returnDate, "%d/%m/%y")
+        return returnCar - pickupCar
 
+
+                
     def staffCarMenu(self):
             print("\n\n1. Add a car")
             print("2. Remove a car")
