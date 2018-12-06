@@ -8,14 +8,14 @@ class OrderRepository:
 
 
     def addOrder(self, order):
-        with open("./data/orders.txt", "a+") as ordersFile:
+        with open("./data/orders.csv", "a+") as ordersFile:
             ordersFile.write("{},{},{},{},{},{},{},\n".format(order._id, order._userId, order._carCategory,\
         order._carId, order._payMethod, order._status, order._deleted))
 
                 
     def getOrderList(self):
         if self._orders == []:
-            with open("./data/orders.txt", "r") as orderData:
+            with open("./data/orders.csv", "r") as orderData:
                 orderDict = csv.DictReader(orderData)
                 for order in orderDict: 
                     newOrder = Order()
@@ -33,7 +33,7 @@ class OrderRepository:
         return self._orders
 
     def getOrder(self, id):
-        with open("./data/orders.txt", "r") as orderData:
+        with open("./data/orders.csv", "r") as orderData:
             orderDict = csv.DictReader(orderData)
             for order in orderDict: 
                 if id == order['id']:

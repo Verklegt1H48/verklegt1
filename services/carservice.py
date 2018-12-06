@@ -15,7 +15,8 @@ class CarService:
         newCar.__seats =        input("Seats: ")
         newCar.__transmission = input("Transmission: ")
         newCar.__extras =       input("Extras: ")
-        newCar.__id =           input("Id: ")
+        #newCar.__id =           input("Id: ")
+        newCar.__id =           len(self.getCarList())
         newCar.__price =        input("Price: ")
         self.__carRepo.addCar(newCar)
     
@@ -31,4 +32,4 @@ class CarService:
             if cars.deleted == False:
                 availableCars.append(cars)
         
-        return sorted(availableCars, key=attrgetter(attribute))
+        return sorted(availableCars, key = attrgetter(attribute))
