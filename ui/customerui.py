@@ -49,7 +49,6 @@ class CustomerUI:
                 self.seeAvailableCars()
     
     def printCarList(self, attribute):
-        carList = []
         carList = self.__carService.getAndSortAvailableCars(attribute)
         counter = 1
         for car in carList:
@@ -103,7 +102,7 @@ class CustomerUI:
             print("3. List all cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            self.__action = input("Choose an option").lower()
+            self.__action = input("Choose an option: ").lower()
 
             if self.__action == "b" :
                 self.staffMenu()
@@ -126,7 +125,7 @@ class CustomerUI:
             print("\n\n1. List all cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            self.__action = input("Choose an option").lower()
+            self.__action = input("Choose an option: ").lower()
 
             if self.__action == "b" :
                 self.customerMenu()
@@ -148,7 +147,7 @@ class CustomerUI:
         print("3. Orders")
         print("Press b to return to the previous page")
         print("Press q to quit")
-        self.__action = input("Choose an option").lower()
+        self.__action = input("Choose an option: ").lower()
 
         if self.__action == "b" :
             self.mainMenu()
@@ -171,7 +170,7 @@ class CustomerUI:
         print("3. **************************************")
         print("Press b to return to the previous page")
         print("Press q to quit")
-        self.__action = input("Choose an option").lower()
+        self.__action = input("Choose an option: ").lower()
 
         if self.__action == "b" :
             self.mainMenu()
@@ -189,7 +188,7 @@ class CustomerUI:
             print("3. List all customers")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            self.__action = input("Choose an option").lower()
+            self.__action = input("Choose an option: ").lower()
 
             if self.__action == "b" :
                 self.staffMenu()
