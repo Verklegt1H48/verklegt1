@@ -1,11 +1,12 @@
 from repositories.carrepository import CarRepository
-
+from operator import itemgetter, attrgetter, methodcaller
+from models.car import Car
 class CarService:
     def __init__(self):
-        self.__car_repo = CarRepository()
+        self.__carRepo = CarRepository()
 
-    def addCar(self, car):
-        newCar = car()
+    def addCar(self):
+        newCar = Car()
         newCar._category =     input("Category: ")
         newCar._manufacturer = input("Manufacturer: ")
         newCar._model =        input("Model: ")
@@ -15,7 +16,7 @@ class CarService:
         newCar._transmission = input("Transmission: ")
         newCar._extras =       input("Extras: ")
         newCar._id =           input("Id: ")
-        self.__car_repo.addCar(car)
+        self.__carRepo.addCar(newCar)
     
     def isValidCar(self, car):
         # ToDo
@@ -23,9 +24,14 @@ class CarService:
         return True
     
     def getCarList(self):
-        return self.__car_repo.getCarList()
+        return self.__carRepo.getCarList()
  
-
-
    # def get_car_category(car, category):
+    def getAndSortAvailableCars(self, attribute):
+        allCars = self.getCarList()
+        availableCars = []
+        for cars in allCars:
+            if cars.deleted == False:
+                availableCars.append(cars)
         
+        return sorted(availableCars, key=attrgetter(attribute))
