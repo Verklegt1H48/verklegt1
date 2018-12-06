@@ -4,7 +4,7 @@ class UserService:
         self._userRepo = UserRepository()
 
     def getUser(self):
-        return self._userRepo.getUser()
+        return self._userRepo.getUser(id)
 
     def addUser(self, user):
         self._userRepo.addUser(user)
