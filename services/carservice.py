@@ -30,5 +30,4 @@ class CarService:
         for cars in allCars:
             if cars.deleted == False:
                 availableCars.append(cars)
-        
         return sorted(availableCars, key=attrgetter(attribute))
