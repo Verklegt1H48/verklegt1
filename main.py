@@ -1,6 +1,6 @@
-from repositories.carrepository import CarRepository
-from operator import itemgetter,attrgetter
+from ui.customerui import CustomerUI
 from helpers.helpers import clearScreen
+
 
 def main():
     carRepo = CarRepository()
@@ -8,4 +8,9 @@ def main():
     sortedCars = sorted(cars, key=attrgetter('id'))
         
 main()
+
+
+ui = CustomerUI()
+
+ui.mainMenu()
 
