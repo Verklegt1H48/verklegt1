@@ -15,7 +15,6 @@ class CarService:
         newCar.seats =        input("Seats: ")
         newCar.transmission = input("Transmission: ")
         newCar.extras =       input("Extras: ")
-        #newCar_id =           input("Id: ")
         newCar.id =           len(self.getCarList())
         newCar.price =        input("Price: ")
         print(newCar)
@@ -26,7 +25,6 @@ class CarService:
     def getCarList(self):
         return self.__carRepo.getCarList()
  
-   # def get_car_category(car, category):
     def getAndSortAvailableCars(self, attribute):
         allCars = self.getCarList()
         availableCars = []
@@ -34,4 +32,12 @@ class CarService:
             if cars.deleted == False:
                 availableCars.append(cars)
         return sorted(availableCars, key=attrgetter(attribute))
+
+    def getAvailableCarsByCategory(self, category):
+        allCars = self.getCarList()
+        availableCars = []
+        for cars in allCars:
+            if cars.deleted == False and cars.category == category:
+                availableCars.append(cars)
+        return availableCars[0]
 
