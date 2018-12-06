@@ -15,9 +15,9 @@ class Car:
         self.__price = 0
 
     def __str__(self):
-        return "{},{},{},{},{},{},{},{},{},{}".format(self.__id, self.__manufacturer, self.__model,
-                                                   self.__category, self.__year, self. mileage,
-                                                   self.__seats, self.__transmission, self.__available, self.__price)
+        return "\n\nCategory: {}\n,Manufacturer: {}\n,Model: {}\n,Year: {}\n,Mileage: {}\n,Seats: {}\n,Transmission: {}\n,Extras: {}\n,Price: {}\n"\
+        .format(self.__category, self.__manufacturer, self.__model, self.__year, self. mileage, self.__seats, self.__transmission, self.__extras, self.__price)
+   
 
     def __repr__(self):
         return self.__str__()
