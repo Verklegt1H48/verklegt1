@@ -22,7 +22,8 @@ class CarRepository:
                          'Extras'       : str(car.extras).strip("[']").replace("', '",","),
                          'Deleted'      : car.deleted,
                          'Rent History' : str(car.rentHistory).strip("[']").replace("', '",","),
-                         'Available'    : car.available})
+                         'Available'    : car.available,
+                         'Price'        : car.price})
 
 
     #Function to open cars.csv and add an instance of car to the end of the file
@@ -58,6 +59,7 @@ class CarRepository:
                 newCar.deleted      = car['Deleted']
                 newCar.rentHistory  = car['Rent History'].strip("").split(",")
                 newCar.available    = car['Available']
+                newCar.price        = car['Price']
                 self.__cars.append(newCar)
 
         return self.__cars
