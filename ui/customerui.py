@@ -69,7 +69,7 @@ class CustomerUI:
         else :
             carToOrder = carList[int(self.__action) - 1]
             del carList
-            print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+            print("\nYou chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
             print("Current price is " + carToOrder.price + " isk per day")
             self.addInsurance(carToOrder)
             
