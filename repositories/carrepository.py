@@ -44,6 +44,7 @@ class CarRepository:
     #Function to open cars.csv with DictReader and make a list of cars from the dictionary
     def getCarList(self):
         self.__cars == []
+
         with open("./data/cars.csv", 'r') as carData:
             carDict = csv.DictReader(carData)
             for car in carDict:
