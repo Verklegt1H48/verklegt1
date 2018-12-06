@@ -8,9 +8,6 @@ class UserService:
 
     def addUser(self, user):
         self._userRepo.addUser(user)
-    
-
-        
 
     def getUserBySocial(self, social):
         for i in self._userRepo._userList:
