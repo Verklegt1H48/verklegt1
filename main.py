@@ -1,7 +1,16 @@
-from models.car import Car
-from ui.CustomerUI import CustomerUI
+from ui.customerui import CustomerUI
+#from helpers.helpers import clearScreen
 
 
+def main():
+    carRepo = CarRepository()
+    cars = carRepo.getCarList()
+    sortedCars = sorted(cars, key=attrgetter('id'))
+        
+main()
 
-UI = CustomerUI()
-UI.mainMenu()
+
+ui = CustomerUI()
+
+ui.mainMenu()
+
