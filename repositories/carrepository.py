@@ -8,7 +8,7 @@ class CarRepository:
 
     def addCar(self, car):
         with open("./data/cars.csv", "a+") as carData:
-            fieldnames = ["ID","Category","Manufacturer","Model","Year","Mileage","Seats","Transmission","Extras","Rent History","Deleted","Available"]
+            fieldnames = ["ID","Category","Manufacturer","Model","Year","Mileage","Seats","Transmission","Extras","Rent History","Deleted","Available","Price"]
             carDictWriter = csv.DictWriter(carData, fieldnames, restval="")
             carDictWriter.writerow({'ID'           : car.id,
                                     'Category'     : car.category,
@@ -21,7 +21,8 @@ class CarRepository:
                                     'Extras'       : car.extras,
                                     'Deleted'      : car.deleted,
                                     'Rent History' : car.rentHistory,
-                                    'Available'    : car.available})
+                                    'Available'    : car.available,
+                                    'Price'        : car.price})
 
     def getCarList(self):
         if self.__cars == []:
@@ -41,6 +42,7 @@ class CarRepository:
                     newCar.deleted      = car['Deleted']
                     newCar.rentHistory  = car['Rent History']
                     newCar.available    = car['Available']
+                    newCar.price        = car['Price']
                     self.__cars.append(newCar)
         return self.__cars
 
@@ -62,6 +64,7 @@ class CarRepository:
                     newCar.deleted      = car['Deleted']
                     newCar.rentHistory  = car['Rent History']
                     newCar.available    = car['Available']
+                    newCar.price        = car['Price']
                     self.__car = newCar
                     return self.__car
         return 0 #Returnar 0 til að byrja með
