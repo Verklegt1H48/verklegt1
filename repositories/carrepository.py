@@ -57,10 +57,13 @@ class CarRepository:
                 newCar.mileage      = car['Mileage']
                 newCar.seats        = car['Seats']
                 newCar.transmission = car['Transmission']
-                newCar.extras       = car['Extras'].strip("").split(",")
                 newCar.deleted      = car['Deleted']
                 newCar.rentHistory  = car['Rent History'].strip("").split(",")
                 newCar.available    = car['Available']
                 newCar.price        = car['Price']
+
+                for extra in car['Extras'].split(","):
+                    newCar.extras.append(extra)
+
                 self.__cars.append(newCar)
         return self.__cars
