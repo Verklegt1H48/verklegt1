@@ -9,3 +9,11 @@ def clearScreen():
     #mac and linux
     else:
         _ = system('clear')
+
+def resizeWindow():
+     #windows
+    if name == 'nt':
+        _ = system("mode CON: COLS=150")
+    #mac and linux
+    else:
+        _ = system("printf '\e[9;1t'")
