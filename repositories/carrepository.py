@@ -44,7 +44,7 @@ class CarRepository:
                     self.__cars.append(newCar)
         return self.__cars
 
-        def getCar(self, id):
+    def getCar(self, id):
         with open("./data/cars.csv", 'r') as carData:
             carDict = csv.DictReader(carData)
             for car in carDict:
