@@ -14,7 +14,9 @@ class CarService:
         return True
     
     def getCarList(self):
-        return self.__car_repo.getCars()
+        return self.__car_repo.getCarList()
  
+
+
    # def get_car_category(car, category):
         

@@ -63,7 +63,7 @@ class Car:
         return self.__extras
 
     @property
-    def history(self):
+    def rentHistory(self):
         return self.__rentHistory
 
     @property
@@ -77,7 +77,7 @@ class Car:
 #Setterar
     @id.setter
     def id(self, id):
-        self.__id = id
+        self.__id = int(id)
 
     @category.setter
     def category(self, category):
@@ -93,15 +93,15 @@ class Car:
 
     @year.setter
     def year(self, year):
-        self.__year = year
+        self.__year = int(year)
 
     @mileage.setter
     def mileage(self, mileage):
-        self.__mileage = mileage
+        self.__mileage = int(mileage)
 
     @seats.setter
     def seats(self, seats):
-        self.__seats = seats
+        self.__seats = int(seats)
 
     @transmission.setter
     def transmission(self, transmission):
@@ -111,9 +111,9 @@ class Car:
     def extras(self, extras):
         self.__extras.append(extras)
 
-    @history.setter 
-    def history(self, history):
-        self.__rentHistory.append(history)
+    @rentHistory.setter 
+    def rentHistory(self, rentHistory):
+        self.__rentHistory.append(rentHistory)
 
     @available.setter
     def available(self, available):
