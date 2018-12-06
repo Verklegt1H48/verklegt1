@@ -12,7 +12,7 @@ class CustomerUI:
            print("1. See available cars")
            print("2. Log in as customer")
            print("3. Log in as staff")
-           print("Press q to quit any time")
+           print("Press q to quit")
            self.__action = input("Choose an option: ")
            if self.__action == "q" :
             	return
@@ -31,12 +31,14 @@ class CustomerUI:
             print("1. By price category")
             print("2. By manufacturer")
             print("3. By availability")
-            self.__action = input("Choose an option: ")
-            if self.__action == "q" :
-            	return
+            print("Press q to quit and b to go back")
+            self.__action = input("Choose an option: ").lower()
             if self.__action == "b" :
-                self.mainMenu()
-            if self.__action == "1":
+                self.staffMenu()
+            elif self.__action == "q" :
+                return
+
+            elif self.__action == "1":
                 self.printCarList("category")
             elif self.__action == "2":
                 self.printCarList("manufacturer")
