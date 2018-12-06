@@ -11,7 +11,3 @@ def main():
 main()
 
 
-ui = CustomerUI()
-
-ui.mainMenu()
-
