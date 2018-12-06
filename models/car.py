@@ -128,6 +128,6 @@ class Car:
     def deleted(self, deleted):
         self.__deleted = int(deleted)
     
-    @available.setter
-    def available(self, price):
+    @price.setter
+    def price(self, price):
         self.__price = price
