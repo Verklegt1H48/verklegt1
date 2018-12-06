@@ -7,17 +7,20 @@ class CarService:
 
     def addCar(self):
         newCar = Car()
-        newCar.__category =     input("Category: ")
-        newCar.__manufacturer = input("Manufacturer: ")
-        newCar.__model =        input("Model: ")
-        newCar.__year =         input("Year: ")
-        newCar.__milage =       input("Milage: ")
-        newCar.__seats =        input("Seats: ")
-        newCar.__transmission = input("Transmission: ")
-        newCar.__extras =       input("Extras: ")
-        newCar.__id =           input("Id: ")
-        newCar.__price =        input("Price: ")
+        newCar.category =     input("Category: ")
+        newCar.manufacturer = input("Manufacturer: ")
+        newCar.model =        input("Model: ")
+        newCar.year =         input("Year: ")
+        newCar.milage =       input("Milage: ")
+        newCar.seats =        input("Seats: ")
+        newCar.transmission = input("Transmission: ")
+        newCar.extras =       input("Extras: ")
+        #newCar_id =           input("Id: ")
+        newCar.id =           len(self.getCarList())
+        newCar.price =        input("Price: ")
+        print(newCar)
         self.__carRepo.addCar(newCar)
+        
     
     
     def getCarList(self):
@@ -31,3 +34,4 @@ class CarService:
             if cars.deleted == False:
                 availableCars.append(cars)
         return sorted(availableCars, key=attrgetter(attribute))
+

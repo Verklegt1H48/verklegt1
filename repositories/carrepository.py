@@ -10,7 +10,8 @@ class CarRepository:
 
     #Function to write car objects into a file
     def carDictWriter(self, car, file):
-        Writer = csv.DictWriter(file, self.__fieldnames, restval="", delimiter=",")
+        print(car.category)
+        Writer = csv.DictWriter(file, self.__fieldnames, delimiter=",")
         Writer.writerow({'ID'           : car.id,
                          'Category'     : car.category,
                          'Manufacturer' : car.manufacturer,

@@ -5,10 +5,12 @@ class UserRepository:
 
     def __init__(self):
         self._userList = []
+        self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense","Address","Phone","Email","Pin"]
+
 
 
     def addUser(self, user):
-        with open("./data/users.txt", "a+") as usersFile:
+        with open("./data/users.csv", "a+") as usersFile:
             name = user.name()
             id = user.id()
             socialNumber = user.socialNumber()
@@ -22,7 +24,7 @@ class UserRepository:
             
     def getUserList(self):
         if self._userList == []:
-            with open("./data/users.txt", "r") as userData:
+            with open("./data/users.csv", "r") as userData:
                 userDict = csv.DictReader(userData)
                 for user in userDict:
                     newUser = User()
@@ -39,7 +41,7 @@ class UserRepository:
         return self._userList
 
     def getUser(self, id):
-        with open("./data/users.txt", "r") as userData:
+        with open("./data/users.csv", "r") as userData:
             userDict = csv.DictReader(userData)
             for user in userDict:
                 if id == user['id']:
