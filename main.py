@@ -1,7 +1,8 @@
-from models.car import Car
-from ui.CustomerUI import CustomerUI
+
+from ui.mainui import MainUI
+from helperfunctions.helpers import clearScreen
 
 
-
-UI = CustomerUI()
-UI.mainMenu()
+clearScreen()
+ui = MainUI()
+ui.mainMenu()

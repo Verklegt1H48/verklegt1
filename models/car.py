@@ -1,5 +1,5 @@
 class Car:  
-    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "", seats = "", transmission = ""):
+    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "", seats = "", transmission = "", price = ""):
         self.__category = category
         self.__manufacturer = manufacturer
         self.__model = model
@@ -12,11 +12,12 @@ class Car:
         self.__deleted = 0
         self.__rentHistory = []
         self.__available = 1
+        self.__price = 0
 
     def __str__(self):
-        return "{},{},{},{},{},{},{},{},{}".format(self.__id, self.__manufacturer, self.__model,
-                                                   self.__category, self.__year, self. mileage,
-                                                   self.__seats, self.__transmission, self.__available)
+        return "{},{},{},{},{},{},{},{},{}\n"\
+        .format(self.__category, self.__price, self.__manufacturer, self.__model, self.__year, self. mileage, self.__seats, self.__transmission, self.__extras)
+   
 
     def __repr__(self):
         return self.__str__()
@@ -29,6 +30,10 @@ class Car:
     @property
     def id(self):
         return self.__id
+    
+    @property
+    def price(self):
+        return self.__price
 
     @property
     def category(self):
@@ -52,7 +57,7 @@ class Car:
 
     @property
     def seats(self):
-        return self.seats
+        return self.__seats
 
     @property
     def transmission(self):
@@ -63,7 +68,7 @@ class Car:
         return self.__extras
 
     @property
-    def history(self):
+    def rentHistory(self):
         return self.__rentHistory
 
     @property
@@ -77,7 +82,7 @@ class Car:
 #Setterar
     @id.setter
     def id(self, id):
-        self.__id = id
+        self.__id = int(id)
 
     @category.setter
     def category(self, category):
@@ -101,7 +106,7 @@ class Car:
 
     @seats.setter
     def seats(self, seats):
-        self.__seats = seats
+        self.__seats = int(seats)
 
     @transmission.setter
     def transmission(self, transmission):
@@ -111,9 +116,9 @@ class Car:
     def extras(self, extras):
         self.__extras.append(extras)
 
-    @history.setter 
-    def history(self, history):
-        self.__rentHistory.append(history)
+    @rentHistory.setter 
+    def rentHistory(self, rentHistory):
+        self.__rentHistory.append(rentHistory)
 
     @available.setter
     def available(self, available):
@@ -122,3 +127,7 @@ class Car:
     @deleted.setter
     def deleted(self, deleted):
         self.__deleted = int(deleted)
+    
+    @price.setter
+    def price(self, price):
+        self.__price = price
