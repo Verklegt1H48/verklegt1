@@ -35,8 +35,6 @@ class UserRepository:
                     newUser.address         = user['address']
                     newUser.phone           = user['phone']
                     newUser.email           = user['email']
-                    #name, id, socialNumber, driverLicense, address, phone, email = line.split(",")
-                    #newUser = User(name, id, socialNumber, driverLicense, address, phone, email)
                     self._userList.append(newUser)
         return self._userList
 

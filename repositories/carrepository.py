@@ -1,5 +1,6 @@
 from models.car import Car
 import csv
+import os.path
 
 class CarRepository:
 
@@ -29,6 +30,9 @@ class CarRepository:
 
     #Function to open cars.csv and add an instance of car to the end of the file
     def addCar(self, car):
+        if not os.path.isfile('./data/cars.csv') :
+            with open("./data/cars.csv", "w+", newline = '') as carData:
+                csv.writer(carData).writerow(self.__fieldnames)
         with open("./data/cars.csv", "a+", newline = '') as carData:
             self.carDictWriter(car, carData)
             self.__cars.append(car)
@@ -44,26 +48,29 @@ class CarRepository:
 
     #Function to open cars.csv with DictReader and make a list of cars from the dictionary
     def getCarList(self):
-        self.__cars = []
-        with open("./data/cars.csv", 'r+') as carData:
-            carDict = csv.DictReader(carData)
-            for car in carDict:
-                newCar = Car()
-                newCar.id           = car['ID']
-                newCar.category     = car['Category']
-                newCar.manufacturer = car['Manufacturer']
-                newCar.model        = car['Model']
-                newCar.year         = car['Year']
-                newCar.mileage      = car['Mileage']
-                newCar.seats        = car['Seats']
-                newCar.transmission = car['Transmission']
-                newCar.deleted      = car['Deleted']
-                newCar.rentHistory  = car['Rent History'].strip("").split(",")
-                newCar.available    = car['Available']
-                newCar.price        = car['Price']
+        if self.__cars == [] :
+            try:
+                with open("./data/cars.csv", 'r') as carData:
+                    carDict = csv.DictReader(carData)
+                    for car in carDict:
+                        newCar = Car()
+                        newCar.id           = car['ID']
+                        newCar.category     = car['Category']
+                        newCar.manufacturer = car['Manufacturer']
+                        newCar.model        = car['Model']
+                        newCar.year         = car['Year']
+                        newCar.mileage      = car['Mileage']
+                        newCar.seats        = car['Seats']
+                        newCar.transmission = car['Transmission']
+                        newCar.deleted      = car['Deleted']
+                        newCar.rentHistory  = car['Rent History'].strip("").split(",")
+                        newCar.available    = car['Available']
+                        newCar.price        = car['Price']
 
-                for extra in car['Extras'].split(","):
-                    newCar.extras.append(extra)
+                        for extra in car['Extras'].split(","):
+                            newCar.extras.append(extra)
 
-                self.__cars.append(newCar)
+                        self.__cars.append(newCar)
+            except FileNotFoundError:
+                pass
         return self.__cars

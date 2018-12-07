@@ -32,6 +32,3 @@ class OrderService:
                 Orders.append(orders)
         
         return Orders
-        #sorted(Orders, key = attrgetter(attribute))
-
-        

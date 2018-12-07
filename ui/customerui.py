@@ -38,7 +38,7 @@ class CustomerUI:
     def printCarList(self, attribute):
         action = ""
         while action != "b":
-
+            action = ""
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
             for car in carList:
@@ -67,64 +67,72 @@ class CustomerUI:
                 currPrice = self.addInsurance(carToOrder)
                 if(currPrice != ""):
                     daysToRent = self.obtainPickupAndReturnDate()
-                    finalPrice = int(daysToRent.days) * int(currPrice)
-                    print("Your final price is " + str(finalPrice))
-                    exit("Lengra er eg ekki kominn med thessa utfaerslu vinur")
+                    if(daysToRent != ""):
+                        finalPrice = int(daysToRent.days) * int(currPrice)
+                        print("Your final price is " + str(finalPrice))
+                        exit("Lengra er eg ekki kominn med thessa utfaerslu")
 
 
     def addInsurance(self, carToOrder):
             
         action = ""
         while action != "b":
-            action = ""
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
                 print("Invalid input, try again")
             action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
-            if action == "y":    
+            clearScreen()
+            if action == "q" :
+                exit(1)
+            elif action == "y":    
                 totalPrice = str(int(carInsurance) + int(carToOrder.price))
                 print("Your total price per day is " + totalPrice + " isk")
                 return totalPrice
             elif action == "n":
                 print("Your total price per day is " + carToOrder.price + " isk")
                 return carToOrder.price
-            return ""
+            else:
+                pass
+        return ""
                     
 
 
     def obtainPickupAndReturnDate(self):
-        #ljotasti kodi ever
-        isValid = False
-        while not isValid:
+        action = ""
+        while action != "b":
             action = input("When will you pick up your car? (dd/mm/yy): ")
             if action == "b" :
-                self.seeAvailableCars()
+                return ""
             elif action == "q" :
-                return
+                exit(1)
             try:
                 pickupCar = datetime.strptime(action, "%d/%m/%y")
                 if pickupCar > datetime.today():
-                    isValid = True
+                    break
                 else:
                     raise Exception
             except:
+                clearScreen()
                 print("Invalid date input!")
                 
-        isValid = False
-        while not isValid:
+        action = ""
+        while action != "b":
             action = input("When will you return the car? (dd/mm/yy): ")
             if action == "b" :
-                self.seeAvailableCars()
+                return ""
             elif action == "q" :
-                return
+                exit(1)
             try:
                 returnCar = datetime.strptime(action, "%d/%m/%y")
                 if returnCar > pickupCar:
-                    isValid = True
+                    break
                 else:
                     raise Exception
             except:
+                clearScreen()
+                print("When will you pick up your car? (dd/mm/yy): " + str(pickupCar.day) +\
+                "/" + str(pickupCar.month) + "/" + str(pickupCar.year - 2000))
                 print("Invalid date input!")
         return returnCar - pickupCar
 
@@ -146,3 +154,5 @@ class CustomerUI:
         else :
             print("\nInvalid input, try again\n")
             self.customerMenu()
+
+    
