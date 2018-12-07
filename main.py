@@ -5,5 +5,4 @@ from helperfunctions.helpers import clearScreen
 
 clearScreen()
 ui = MainUI()
-
 ui.mainMenu()
