@@ -1,6 +1,9 @@
-from repositories.carrepository import CarRepository
-from ui.customerui import CustomerUI
 
-ui = CustomerUI()
+from ui.mainui import MainUI
+from helperfunctions.helpers import clearScreen
+
+
+clearScreen()
+ui = MainUI()
 
 ui.mainMenu()
