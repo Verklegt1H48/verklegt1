@@ -98,11 +98,11 @@ class Car:
 
     @year.setter
     def year(self, year):
-        self.__year = int(year)
+        self.__year = year
 
     @mileage.setter
     def mileage(self, mileage):
-        self.__mileage = int(mileage)
+        self.__mileage = mileage
 
     @seats.setter
     def seats(self, seats):
