@@ -8,9 +8,9 @@ class OrderService:
         self.__orderRepo = OrderRepository()
         self.__carService = CarService()
 
-    def addOrder(self, order):
+    def addOrder(self):
         newOrder = Order()
-        newOrder.id =          len(self.getOrderList)
+        newOrder.id =          len(self.getOrderList())
         newOrder.userId =      input("User ID: ")
         newOrder.carCategory = input("Car category: ")
         newOrder.payMethod =   input("Payment Method: ")
@@ -18,8 +18,6 @@ class OrderService:
         newOrder.returnDate =  input("Return date (dd/mm/yy): ")
         newOrder.status =      0
         newOrder.deleted =     0
-        newOrder.carId =       self.__carService.getAvailableCarsByCategory(newOrder.carCategory).__id
-
         self.__orderRepo.addOrder(newOrder)
 
     def getOrderList(self):
