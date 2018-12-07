@@ -51,8 +51,7 @@ class StaffUI:
         elif self.__action == "2" :
             self.staffCustomerMenu()
         elif self.__action == "3" :
-            #self.staffOrderMenu()
-            print('Ekkert komid')
+            self.orderMenu()
         else :
             print("\nInvalid input, try again\n")
             self.staffMenu()
@@ -79,22 +78,23 @@ class StaffUI:
             self.staffCarMenu()
 
     def orderMenu(self):
-        print("\n\n1. Orders")
+        print("1. New order") 
         print("2. Confirmed orders") 
         print("3. Unconfirmed orders")
         print("Press b to return to the previous page")
         print("Press q to quit")
+        self.__action = input("Choose an option: ").lower()
 
         if self.__action == "b" :
             self.staffMenu()
         elif self.__action == "q" :
             return
         elif self.__action == "1" :
-            self.staffCarMenu()
+            self.__orderService.addOrder()
         elif self.__action == "2" :
-            self.__orderService.getOrdersByStatus(1)
+            print(self.__orderService.getOrdersByStatus(1))
         elif self.__action == "3" :
-            self.__orderService.getOrdersByStatus(0)
+            print(self.__orderService.getOrdersByStatus(0))
         else :
             print("\nInvalid input, try again\n")
             self.orderMenu()
