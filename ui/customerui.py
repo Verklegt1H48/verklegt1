@@ -73,10 +73,8 @@ class CustomerUI:
             print("Current price is " + carToOrder.price + " isk per day")
             currPrice = self.addInsurance(carToOrder)
             daysToRent = self.obtainPickupAndReturnDate()
-            finalPrice = int(daysToRent.days) * currPrice #LAGA
+            finalPrice = int(daysToRent.days) * int(currPrice)
             print("Your final price is " + str(finalPrice))
-            
-
             
     
     def addInsurance(self, carToOrder):
@@ -102,11 +100,39 @@ class CustomerUI:
 
 
     def obtainPickupAndReturnDate(self):
-        pickupDate = input("When will you pick up your car? (dd/mm/yy): ")
-        pickupCar = datetime.strptime(pickupDate, "%d/%m/%y")
-        returnDate = input("When will you return the car? (dd/mm/yy): ")
-        returnCar = datetime.strptime(returnDate, "%d/%m/%y")
-        return returnCar - pickupCar
+        #ljotasti kodi ever
+            isValid = False
+            while not isValid:
+                self.__action = input("When will you pick up your car? (dd/mm/yy): ")
+                if self.__action == "b" :
+                    self.seeAvailableCars()
+                elif self.__action == "q" :
+                    return
+                try:
+                    pickupCar = datetime.strptime(self.__action, "%d/%m/%y")
+                    if pickupCar > datetime.today():
+                        isValid = True
+                    else:
+                        raise Exception
+                except:
+                    print("Invalid date input!")
+                    
+            isValid = False
+            while not isValid:
+                self.__action = input("When will you return the car? (dd/mm/yy): ")
+                if self.__action == "b" :
+                    self.seeAvailableCars()
+                elif self.__action == "q" :
+                    return
+                try:
+                    returnCar = datetime.strptime(self.__action, "%d/%m/%y")
+                    if returnCar > pickupCar:
+                        isValid = True
+                    else:
+                        raise Exception
+                except:
+                    print("Invalid date input!")
+            return returnCar - pickupCar
 
 
                 
