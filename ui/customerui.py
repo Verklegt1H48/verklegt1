@@ -1,4 +1,4 @@
-from models.car import Car
+#from models.car import Car
 from services.carservice import CarService
 from services.orderservice import OrderService
 from models.user import User
@@ -128,62 +128,11 @@ class CustomerUI:
                 print("Invalid date input!")
         return returnCar - pickupCar
 
-            elif self.__action == "1":
-                car = self.__carService.getCarList()
-                print(car)
-            
-            else :
-                print("\nInvalid input, try again\n")
-                self.customerCarMenu()
-
-    def staffMenu(self):
-        print("\n\n1. Car management")
-        print("2. Customer management") 
-        print("3. Orders")
-        print("Press b to return to the previous page")
-        print("Press q to quit")
-        self.__action = input("Choose an option: ").lower()
-
-        if self.__action == "b" :
-            self.mainMenu()
-        elif self.__action == "q" :
-            return
-        elif self.__action == "1" :
-            self.staffCarMenu()
-        elif self.__action == "2" :
-            self.staffCustomerMenu()
-        elif self.__action == "3" :
-            #self.staffOrderMenu()
-            print('Ekkert komid')
-        else :
-            print("\nInvalid input, try again\n")
-            self.staffMenu()
-
-    def orderMenu(self):
-        print("\n\n1. Orders")
-        print("2. Confirmed orders") 
-        print("3. Unconfirmed orders")
-        print("Press b to return to the previous page")
-        print("Press q to quit")
-
-        if self.__action == "b" :
-            self.staffMenu()
-        elif self.__action == "q" :
-            return
-        elif self.__action == "1" :
-            self.staffCarMenu()
-        elif self.__action == "2" :
-            self.__orderService.getOrdersByStatus(1)
-        elif self.__action == "3" :
-            self.__orderService.getOrdersByStatus(0)
-        else :
-            print("\nInvalid input, try again\n")
-            self.orderMenu()
 
     def customerMenu(self):
         print("\n\n1. Car management")
         print("2. *** viljum vid hafa orders her ?******") 
-        print("3. Return a car")
+        print("3. *** Return a car ***")
         print("Press b to return to the previous page")
         print("Press q to quit")
         action = input("Choose an option: ").lower()
@@ -196,29 +145,4 @@ class CustomerUI:
             self.seeAvailableCars()
         else :
             print("\nInvalid input, try again\n")
-            self.staffMenu()
-
-    def staffCustomerMenu(self):
-            print("\n\n1. Add a customer")
-            print("2. Remove a customer")
-            print("3. List all customers")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
-            self.__action = input("Choose an option: ").lower()
-
-            if self.__action == "b" :
-                self.staffMenu()
-
-            elif self.__action == "q" :
-                return
-
-            elif self.__action == "1":
-                self.__carService.addCar()
-
-            elif self.__action == "3":
-                car = self.__carService.getCarList()
-                print(car)
-            
-            else :
-                print("\nInvalid input, try again\n")
-                self.staffCarMenu()
+            self.customerMenu()
