@@ -3,4 +3,10 @@ ID,Category,Manufacturer,Model,Year,Mileage,Seats,Transmission,Extras,"Rent Hist
 1,B,Toyota,Avensis,2017,48513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/18, 04/05/18",1,1,10000
 2,C,Mercedes Benz,G430,2018,5412,7,Automatic,"GPS,Camera,Bluetooth audio, Heated steering wheel","2, 01/01/18, 04/05/18, 2, 01/01/18, 04/05/18",0,1,15000
 3,B,Toyota,Avensis,2016,148513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",0,1,10000
+<<<<<<< HEAD
 4,A,Toyota,Auris,2016,108513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",1,0,5000
+=======
+4,A,Toyota,Auris,2016,108513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",1,0,50000
+
+5,banani,benz,k10,1990,,5,auto,,,0,1,90000
+>>>>>>> 979abb1875afeaabce3ab2e7009fd03f04e63884

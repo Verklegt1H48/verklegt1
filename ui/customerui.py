@@ -1,11 +1,13 @@
 from models.car import Car
 from services.carservice import CarService
+from services.orderservice import OrderService
 from models.user import User
-
+from datetime import datetime
 class CustomerUI:
     
     def __init__(self):
         self.__carService = CarService()
+        self.__orderService = OrderService()
         self.__action = ""
     def mainMenu(self):
            print("Welcome to the best car rental in the world!")
@@ -49,14 +51,12 @@ class CustomerUI:
                 self.seeAvailableCars()
     
     def printCarList(self, attribute):
-        carList = []
         carList = self.__carService.getAndSortAvailableCars(attribute)
         counter = 1
         for car in carList:
             print(str(counter) + ". " + str(car))
             counter += 1
 
-        
         self.__action = input("\nPlease select the car you wish to book: ").lower()
         print("Press q to quit and b to go back")
         if self.__action == "b" :
@@ -71,7 +71,12 @@ class CustomerUI:
             del carList
             print("\nYou chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
             print("Current price is " + carToOrder.price + " isk per day")
-            self.addInsurance(carToOrder)
+            currPrice = self.addInsurance(carToOrder)
+            daysToRent = self.obtainPickupAndReturnDate()
+            finalPrice = int(daysToRent.days) * currPrice #LAGA
+            print("Your final price is " + str(finalPrice))
+            
+
             
     
     def addInsurance(self, carToOrder):
@@ -87,16 +92,24 @@ class CustomerUI:
         if self.__action == "y":    
             totalPrice = str(int(carInsurance) + int(carToOrder.price))
             print("Your total price per day is " + totalPrice + " isk")
+            return totalPrice
         elif self.__action == "n":
             print("Your total price per day is " + carToOrder.price + " isk")
+            return carToOrder.price
         else:
             print("\nInvalid input, try again\n")
             self.addInsurance(carToOrder)
 
 
-                
-        
+    def obtainPickupAndReturnDate(self):
+        pickupDate = input("When will you pick up your car? (dd/mm/yy): ")
+        pickupCar = datetime.strptime(pickupDate, "%d/%m/%y")
+        returnDate = input("When will you return the car? (dd/mm/yy): ")
+        returnCar = datetime.strptime(returnDate, "%d/%m/%y")
+        return returnCar - pickupCar
 
+
+                
     def staffCarMenu(self):
             print("\n\n1. Add a car")
             print("2. Remove a car")
@@ -164,6 +177,27 @@ class CustomerUI:
         else :
             print("\nInvalid input, try again\n")
             self.staffMenu()
+
+    def orderMenu(self):
+        print("\n\n1. Orders")
+        print("2. Confirmed orders") 
+        print("3. Unconfirmed orders")
+        print("Press b to return to the previous page")
+        print("Press q to quit")
+
+        if self.__action == "b" :
+            self.staffMenu()
+        elif self.__action == "q" :
+            return
+        elif self.__action == "1" :
+            self.staffCarMenu()
+        elif self.__action == "2" :
+            self.__orderService.getOrdersByStatus(1)
+        elif self.__action == "3" :
+            self.__orderService.getOrdersByStatus(0)
+        else :
+            print("\nInvalid input, try again\n")
+            self.orderMenu()
 
     def customerMenu(self):
         print("\n\n1. Car management")
