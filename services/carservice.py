@@ -11,16 +11,19 @@ class CarService:
         newCar.manufacturer = input("Manufacturer: ")
         newCar.model =        input("Model: ")
         newCar.year =         input("Year: ")
-        newCar.milage =       input("Milage: ")
+        newCar.mileage =       input("Mileage: ")
         newCar.seats =        input("Seats: ")
         newCar.transmission = input("Transmission: ")
         newCar.extras =       input("Extras: ")
         newCar.id =           len(self.getCarList())
         newCar.price =        input("Price: ")
-        print(newCar)
         self.__carRepo.addCar(newCar)
         
     
+    def isValidCar(self, car):
+        # ToDo
+        # ToDo
+        return True
     
     def getCarList(self):
         return self.__carRepo.getCarList()
