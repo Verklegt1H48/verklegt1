@@ -10,7 +10,6 @@ class CarRepository:
 
     #Function to write car objects into a file
     def carDictWriter(self, car, file):
-        print(car.category)
         Writer = csv.DictWriter(file, self.__fieldnames,restval = "", delimiter=",")
         Writer.writerow({'ID'           : car.id,
                          'Category'     : car.category,
@@ -32,6 +31,7 @@ class CarRepository:
     def addCar(self, car):
         with open("./data/cars.csv", "a+", newline = '') as carData:
             self.carDictWriter(car, carData)
+            self.__cars.append(car)
 
             
     #Function to open cars.csv and overwrite the whole list with an updated list of cars.
@@ -45,7 +45,7 @@ class CarRepository:
     #Function to open cars.csv with DictReader and make a list of cars from the dictionary
     def getCarList(self):
         self.__cars = []
-        with open("./data/cars.csv", 'r') as carData:
+        with open("./data/cars.csv", 'r+') as carData:
             carDict = csv.DictReader(carData)
             for car in carDict:
                 newCar = Car()

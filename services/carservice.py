@@ -15,7 +15,7 @@ class CarService:
         newCar.seats =        input("Seats: ")
         newCar.transmission = input("Transmission: ")
         newCar.extras =       input("Extras: ")
-        newCar.id =           len(self.getCarList())
+        newCar.id =           len(self.__carRepo.__cars)
         newCar.price =        input("Price: ")
         self.__carRepo.addCar(newCar)
         
