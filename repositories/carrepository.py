@@ -4,7 +4,7 @@ import os.path
 
 class CarRepository:
 
-
+    #Initialization of CarRepository
     def __init__(self):
         self.__cars = []
         self.__fieldnames = ["ID","Category","Manufacturer","Model","Year","Mileage","Seats","Transmission","Extras","Rent History","Deleted","Available","Price"]
@@ -26,18 +26,16 @@ class CarRepository:
                          'Available'    : car.available,
                          'Price'        : car.price})
 
-
-
     #Function to open cars.csv and add an instance of car to the end of the file
     def addCar(self, car):
-        if not os.path.isfile('./data/cars.csv') :
+        if not os.path.isfile('./data/cars.csv'):
             with open("./data/cars.csv", "w+", newline = '') as carData:
                 csv.writer(carData).writerow(self.__fieldnames)
-        with open("./data/cars.csv", "a+", newline = '') as carData:
-            self.carDictWriter(car, carData)
-            self.__cars.append(car)
+                self.carDictWriter(car, carData)
+        else:
+            with open("./data/cars.csv", "a+", newline = '') as carData:
+                self.carDictWriter(car, carData)
 
-            
     #Function to open cars.csv and overwrite the whole list with an updated list of cars.
     def overwriteCars(self, cars):
         with open("./data/cars.csv", "w+", newline = '') as carData:
@@ -45,10 +43,9 @@ class CarRepository:
             for car in cars:
                 self.carDictWriter(car, carData)
 
-
     #Function to open cars.csv with DictReader and make a list of cars from the dictionary
     def getCarList(self):
-        if self.__cars == [] :
+        if self.__cars == []:
             try:
                 with open("./data/cars.csv", 'r') as carData:
                     carDict = csv.DictReader(carData)
