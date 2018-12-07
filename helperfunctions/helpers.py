@@ -11,9 +11,9 @@ def clearScreen():
         _ = system('clear')
 
 def resizeWindow():
-     #windows
+    #windows
     if name == 'nt':
         _ = system("mode CON: COLS=150")
     #mac and linux
     else:
-        _ = system("printf '\e[9;1t'")
+        _ = system("printf '\\e[9;1t'")
