@@ -1,5 +1,7 @@
-from ui.customerui import CustomerUI
+from ui.mainui import MainUI
+from helperfunctions.helpers import clearScreen
 
-ui = CustomerUI()
+clearScreen()
+ui = MainUI()
 
 ui.mainMenu()
