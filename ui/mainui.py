@@ -13,19 +13,21 @@ class MainUI:
     def mainMenu(self):
         action = ""
         while action != "q":
-            print("Welcome to the best car rental in the world!")
+            clearScreen()
             print("1. See available cars")
             print("2. Log in as customer")
             print("3. Log in as staff")
             print("Press q to quit")
-            action = input("Choose an option: ")
+            if action != "":
+                print("Invalid input! Please try again.")
+            action = input("Choose an option: ").lower()
             clearScreen()
             if action == "1":
                 self.__customerui.seeAvailableCars()
+                action = ""
             elif action == "2":
                 self.__customerui.customerMenu()
+                action = ""
             elif action == "3":
                 self.__staffui.staffMenu()
-            else:
-                print("Invalid input, try again")
-                print("Concentrate, buddy!\n")
+                action = ""

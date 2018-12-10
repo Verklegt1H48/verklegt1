@@ -22,6 +22,6 @@ mainHeader = (r"""
  {_____)______|##    ##|___________|_____________|___|##    ##|__(______}
                 ##__##                                 ##__##        
 
-                        WELCOME TO SATANS CAR RENTAL
-                          PRESS ENTER TO CONTINUE
+                        WELCOME TO SANTAS CAR RENTAL
+                       PLEASE PRESS ENTER TO CONTINUE
 -------------------------------------------------------------------------- """)

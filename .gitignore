@@ -1,4 +1,8 @@
 __pycache__
 .vscode
 .DS_Store
+<<<<<<< HEAD
 *.pyc
+=======
+main.py
+>>>>>>> 974796a3d05d58423d0021801493072f64b4086b

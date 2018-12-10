@@ -1,6 +1,6 @@
 class Order:
 
-    def __init__(self,id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = False, deleted = False, pickUpData = "", returnDate = ""):
+    def __init__(self,id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = False, deleted = False, pickUpDate = "", returnDate = ""):
         self.__id = id
         self.__userId = userId
         self.__carCategory = carCategory
@@ -8,7 +8,7 @@ class Order:
         self.__payMethod = payMethod
         self.__status = status
         self.__deleted = deleted
-        self.__pickUpDate = pickUpData
+        self.__pickUpDate = pickUpDate
         self.__returnDate = returnDate
 
     def __str__(self):
@@ -59,7 +59,7 @@ class Order:
         self.__carCategory = value
 
     @pickUpDate.setter
-    def pickUpData(self, value):
+    def pickUpDate(self, value):
         self.__pickUpDate = value
 
     @returnDate.setter
