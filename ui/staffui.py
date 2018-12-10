@@ -4,6 +4,7 @@ from services.orderservice import OrderService
 from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
+from ui.headers import printHeader
 import sys
 #from ui.mainui import MainUI
 
@@ -97,15 +98,54 @@ class StaffUI:
                 sys.exit()
             elif action == "1":
                 self.__orderService.addOrder()
+                action = ""
             elif action == "2":
-                unconf = self.__orderService.getOrdersByStatus(1)
-                print(unconf)
+                self.printOrderList(1)
                 action = ""
             elif action == "3":
-                conf = self.__orderService.getOrdersByStatus(0)
-                print(conf)
+                self.printOrderList(0)
                 action = ""
-                
+
+    def printOrderList(self, status):
+        action = ""
+        while action != "b":
+            clearScreen()
+            orderList = self.__orderService.getOrdersByStatus(status)
+            counter = 1
+            printHeader("orderSelect")
+            for order in orderList:
+                print("{}{}".format(counter,order ))
+                counter += 1
+            if action != "":
+                print("Invalid input, try again")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            action = input("Please select the order you wish to change: ").lower()
+            if action == "q" :
+                exit(1)
+            elif action.isdecimal() == False:
+                pass
+            elif int(action) >= counter:
+                pass
+            elif int(action) <= 0:
+                pass
+            else:
+                self.inputOrderInfo(orderList[int(action) - 1])
+                action = ""
+                del orderList
+               
+    def inputOrderInfo(self, carToOrder):
+        clearScreen()
+        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+        print("Current price is " + carToOrder.price + " isk per day")
+        currPrice = ""
+        currPrice = self.addInsurance(carToOrder)
+        if(currPrice != ""):
+            daysToRent = self.obtainPickupAndReturnDate()
+            if(daysToRent != ""):
+                finalPrice = int(daysToRent.days) * int(currPrice)
+                print("Your final price is " + str(finalPrice) + " isk")
+        
     def removeCar(self):
         clearScreen()
         choice = ""

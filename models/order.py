@@ -1,6 +1,6 @@
 class Order:
 
-    def __init__(self, id = 0, userId = 0, carCategory = "", carId = 0, payMethod = "", status = 0, deleted = 0, pickUpDate = "", returnDate = ""):
+    def __init__(self, id = 0, userId = 0, carCategory = "", carId = "", payMethod = "", status = 0, deleted = 0, pickUpDate = "", returnDate = ""):
         self.__id = id
         self.__userId = userId
         self.__carCategory = carCategory
@@ -11,13 +11,9 @@ class Order:
         self.__pickUpDate = pickUpDate
         self.__returnDate = returnDate
 
-    def __str__(self):
-        return "{},{},{},{},{},{},{},{},{}".format(str(self.__id), str(self.__userId), self.__carCategory,\
-        str(self.__carId), self.__payMethod, self.__pickUpDate, self.__returnDate, str(self.__status), str(self.__deleted))
-
     def __repr__(self):
-        return self.__str__()
-
+        return "{:7}{:8}{:10}{:7}{:16}{:15}{:10}".format("", str(self.__userId), self.__carCategory,\
+        str(self.__carId), self.__payMethod, self.__pickUpDate, self.__returnDate)
 #Getters
     @property
     def id(self):
