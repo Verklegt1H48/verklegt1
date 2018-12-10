@@ -51,7 +51,8 @@ class CustomerUI:
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
-            
+
+            clearScreen()
             if action == "q" :
                 exit(1)
             elif action.isdecimal() == False:
@@ -163,6 +164,8 @@ class CustomerUI:
         print("\n\n1. Car management")
         print("2. *** viljum vid hafa orders her ?******") 
         print("3. **************************************")
+        print("4. Order List") #Notað temporarily til að skoða að orders væri að prentast rétt út
+        print("5. See car history") #Notað temporarily til að skoða hvort dagsetningar væru að prentast rétt út
         print("Press b to return to the previous page")
         print("Press q to quit")
         action = input("Choose an option: ").lower()
@@ -173,6 +176,13 @@ class CustomerUI:
             return
         elif action == "1" :
             self.seeAvailableCars()
+        elif action == "4" :
+            orders = self.__orderService.getOrderList()
+            print(orders)
+        elif action == "5" :
+            id = input("Enter Car Id: " )
+            self.__carService.getCarHistory(int(id))
+
         else :
             print("\nInvalid input, try again\n")
             self.customerMenu()
