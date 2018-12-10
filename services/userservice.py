@@ -3,8 +3,8 @@ class UserService:
     def __init__(self):
         self._userRepo = UserRepository()
 
-    def getUser(self):
-        return self._userRepo.getUser(id)
+    #def getUser(self):
+     #   return self._userRepo.getUser(id)
 
     def addUser(self, user):
         self._userRepo.addUser(user)
