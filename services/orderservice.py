@@ -16,10 +16,8 @@ class OrderService:
         newOrder.userId =      input("User ID: ")
         newOrder.carCategory = input("Car category: ")
         newOrder.payMethod =   input("Payment Method: ")
-        newOrder.pickupDate =  input("Pickup date (dd/mm/yy): ")
+        newOrder.pickUpDate =  input("Pickup date (dd/mm/yy): ")
         newOrder.returnDate =  input("Return date (dd/mm/yy): ")
-        newOrder.status =      0
-        newOrder.deleted =     0
         self.__orders.append(newOrder)
         self.__orderRepo.addOrder(newOrder)
 
@@ -30,7 +28,7 @@ class OrderService:
     def getOrdersByStatus(self, status):
         orders = []
         for order in self.__orders:
-            if order.status == status:
+            if order.status == status and order.deleted != 1:
                 orders.append(order)
         return orders
 
