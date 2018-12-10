@@ -50,8 +50,6 @@ class CustomerUI:
             clearScreen()
             if action == "q" :
                 exit(1)
-            elif action == "b":
-                pass
             elif action.isdecimal() == False:
                 pass
             elif int(action) >= counter:
