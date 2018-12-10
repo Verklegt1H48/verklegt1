@@ -14,7 +14,7 @@ class UserService:
         newUser = User()
         newUser.id              = len(self._users)
         newUser.name            = input("Full name: ")
-        newUser.email           = input("Email address: ")
+        newUser.email           = input("Email address: ").tolower()
         newUser.password        = getpass.getpass("Password: ")
         #passConfirm = input("Confirm password: ")
         newUser.socialNumber    = input("Social security number: ")
@@ -29,19 +29,6 @@ class UserService:
         self._users.append(newUser)
         self._userRepo.addUser(newUser)
 
-    def getUserBySocial(self, social):
-        for i in self._userRepo._userList:
-            if self._userRepo._userList[i].social == social:
-                return self._userRepo._userList[i]
-        
-        raise ValueError("User not found")
-    
-    def getUserById(self, id):
-        for i in self._userRepo._userList:
-            if self._userRepo._userList[i].id == id:
-                return self._userRepo._userList[i]
-        
-        raise ValueError("User not found")
 
     def getUserByLicense(self, license):
         for i in self._userRepo._userList:
