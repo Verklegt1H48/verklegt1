@@ -151,13 +151,13 @@ class StaffUI:
             print("This order is " + orderStatus)
             if action != "":
                 print("Invalid input, try again")
-            if orderToChange.carId == "0":
+            if orderToChange.carId == -1:
                 print("This order has not been assigned a car")
             else :
                 print("This order was assigned a car with ID: " + str(orderToChange.carId))
 
             print("1. To delete order")
-            if orderToChange.carId == 0:
+            if orderToChange.carId == -1:
                 print("2. To assigne a car to this order")
             print("Press b to return to the previous page")
             print("Press q to quit")
@@ -165,12 +165,19 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                orderToChange.deleted = 1
+                orderToChange.__deleted = 1
+                action = "b"
             elif action == "2" :
-                elCar = self.__carService.getFirstAvailableCarByCategory(orderToChange.carCategory)
-                print(elCar)
-                action = input("Would you like to assign this car to order Y/N: ").lower()
-        
+                self.carAssignment(orderToChange)
+                
+    
+    def carAssignment(self, order):
+        car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
+        print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
+        (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
+        car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
+        action = input("Would you like to assign this car to the order Y/N: ").lower()
+
     def addCar(self):
         newCar = Car()
         newCar.id            = len(self.__carService.__cars)
