@@ -8,7 +8,7 @@ class UserRepository:
     def __init__(self):
         self._userList = []
         self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense",
-                             "Address","Phone","Email","Password","NameOnCard","Number","CVV","ExpMonth","ExpYear"]
+                             "Address","Phone","Email","Password","NameOnCard","Number","CVV","ExpMonth","ExpYear","Employee","Pin"]
 
     # Function to write user objects into a file
     def userDictWriter(self, user, file):
@@ -25,7 +25,9 @@ class UserRepository:
                          'Number'         : user.number,
                          'CVV'            : user.cvv,
                          'ExpMonth'       : user.expMonth,
-                         'ExpYear'        : user.expYear})
+                         'ExpYear'        : user.expYear,
+                         'Employee'       : user.employee,
+                         'Pin'            : user.pin})
                        
                         
 
@@ -64,6 +66,8 @@ class UserRepository:
                         newUser.cvv             = user['CVV']
                         newUser.expMonth        = user['ExpMonth']
                         newUser.expYear         = user['ExpYear']
+                        newUser.employee        = user['Employee']
+                        newUser.pin             = user['Pin']
                         self._userList.append(newUser)
             except FileNotFoundError:
                 pass

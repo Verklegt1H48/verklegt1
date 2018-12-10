@@ -198,8 +198,10 @@ class CustomerUI:
         newUser.cvv             = input("CVV: ")
         newUser.expMonth        = input("Exp month(mm): ")
         newUser.expYear         = input("Exp year(yy): ")
-        UserService.__user
+        newUser.Employee        = 1
         UserService.addUser(newUser)
+    
+    
                 
     def logInAsUser(self):
         userEmail = self.getUserEmail()
