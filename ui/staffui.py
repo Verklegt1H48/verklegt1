@@ -1,11 +1,13 @@
 from models.car import Car
 from services.carservice import CarService
 from services.orderservice import OrderService
+from services.userservice import UserService
 from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
 import sys
+import getpass
 #from ui.mainui import MainUI
 
 class StaffUI:
@@ -14,6 +16,7 @@ class StaffUI:
         #self.__mainui = MainUI()
         self.__carService = CarService()
         self.__orderService = OrderService()
+        self.__userService = UserService()
 
     def staffMenu(self):
         action = ""
@@ -51,7 +54,7 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1":
-                self.__carService.addCar()
+                self.addCar()
                 action = ""
             elif action == "2":
                 self.removeCar()
@@ -77,7 +80,7 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
-                self.__carService.addCar()
+                self.addCar()
             elif action == "3":
                 car = self.__carService.getCarList()
                 print(car)
@@ -138,14 +141,46 @@ class StaffUI:
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + carToOrder.price + " isk per day")
-        currPrice = ""
-        currPrice = self.addInsurance(carToOrder)
-        if(currPrice != ""):
-            daysToRent = self.obtainPickupAndReturnDate()
-            if(daysToRent != ""):
-                finalPrice = int(daysToRent.days) * int(currPrice)
-                print("Your final price is " + str(finalPrice) + " isk")
+        #currPrice = ""
+        #currPrice = self.addInsurance(carToOrder)
+        #if(currPrice != ""):
+        #    daysToRent = self.obtainPickupAndReturnDate()
+        #    if(daysToRent != ""):
+        #        finalPrice = int(daysToRent.days) * int(currPrice)
+        #        print("Your final price is " + str(finalPrice) + " isk")
         
+    def addCar(self):
+        newCar = Car()
+        newCar.id            = len(self.__carService.__cars)
+        newCar.category      = input("Category: ")
+        newCar.manufacturer  = input("Manufacturer: ")
+        newCar.model         = input("Model: ")
+        newCar.year          = input("Year: ")
+        newCar.mileage       = input("Mileage: ")
+        newCar.seats         = input("Seats: ")
+        newCar.transmission  = input("Transmission: ")
+        newCar.extras        = input("Extras: ")
+        newCar.price         = input("Price: ")
+
+    def addCustomer(self):
+        newUser = User()
+        newUser.id              = len(self.__userService.__users)
+        newUser.name            = input("Full name: ")
+        newUser.email           = input("Email address: ")
+        newUser.password        = getpass.getpass("Password: ")
+        #passConfirm = input("Confirm password: ")
+        newUser.socialNumber    = input("Social security number: ")
+        newUser.driverLicense   = input("Driver license ID: ")
+        newUser.address         = input("Address: ")
+        newUser.phone           = input("Phone number: ")
+        newUser.nameOnCard      = input("Name on credit card: ")
+        newUser.number          = input("Credit card number: ")
+        newUser.cvv             = input("CVV: ")
+        newUser.expMonth        = input("Exp month(mm): ")
+        newUser.expYear         = input("Exp year(yy): ")
+        self.__userService.addUser(newUser)
+
+
     def removeCar(self):
         clearScreen()
         choice = ""

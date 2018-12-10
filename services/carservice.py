@@ -13,18 +13,7 @@ class CarService:
         self.__cars = self.__carRepo.getCarList()
         self.__orders = self.__orderRepo.getOrderList()
 
-    def addCar(self):
-        newCar = Car()
-        newCar.id            = len(self.__cars)
-        newCar.category      = input("Category: ")
-        newCar.manufacturer  = input("Manufacturer: ")
-        newCar.model         = input("Model: ")
-        newCar.year          = input("Year: ")
-        newCar.mileage       = input("Mileage: ")
-        newCar.seats         = input("Seats: ")
-        newCar.transmission  = input("Transmission: ")
-        newCar.extras        = input("Extras: ")
-        newCar.price         = input("Price: ")
+    def addCar(self, newCar):
         self.__cars.append(newCar)
         self.__carRepo.addCar(newCar)
 
