@@ -57,10 +57,10 @@ class CustomerUI:
             if action != "":
                 print("Invalid input, try again")
             if self.__isLoggedIn == True:
-                action = input("Please select the car you wish to book or 'b' to go back: ").lower()
+                action = input("Please select the car you wish to book: ").lower()
             else:
                 print("You need to log in to book a car")
-                action = input("Input 'login' to go to login screen or 'b' to go back: ")
+                action = input("Input 'login' to go to login screen: ")
                 if action == "login":
                     self.customerMenu()
            
@@ -91,6 +91,7 @@ class CustomerUI:
                 print("Your final price is " + str(finalPrice) + " isk")
             
     def addInsurance(self, carToOrder):
+       
         action = ""
         while action != "b":
             clearScreen()
@@ -197,22 +198,25 @@ class CustomerUI:
         newUser.cvv             = input("CVV: ")
         newUser.expMonth        = input("Exp month(mm): ")
         newUser.expYear         = input("Exp year(yy): ")
-        UserService.__user
+        newUser.Employee        = 1
         UserService.addUser(newUser)
+    
+    
                 
     def logInAsUser(self):
-        userEmail = self.getUserEmail().tolower()
+        userEmail = self.getUserEmail()
         self.getPassword(userEmail) 
         
     
     def getUserEmail(self):
         action = ""
+        clearScreen()
         while action != "b":
-            clearScreen()
             action = input("Enter email address: ")
             if(action == "q"):
                 exit(1)
             elif self.__userService.getUserByEmail(action) == "Not found":
+                clearScreen()
                 print("Email address not found!")
             else:
                 return action

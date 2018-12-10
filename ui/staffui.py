@@ -24,7 +24,7 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("1. Car management")
-            print("2. Customer management") 
+            print("2. User management") 
             print("3. Orders")
             print("Press b to return to the previous page")
             print("Press q to quit")
@@ -76,6 +76,7 @@ class StaffUI:
             print("1. Add a customer")
             print("2. Remove a customer")
             print("3. List all customers")
+            print("4. Add a new staff member")
             print("Press b to return to the previous page")
             print("Press q to quit")
             if action != "":
@@ -88,6 +89,10 @@ class StaffUI:
             elif action == "3":
                 car = self.__carService.getCarList()
                 print(car)
+            elif action == "4":
+                self.addStaffMember()
+                action = ""
+                clearScreen()
 
     def orderMenu(self):
         action = ""
@@ -215,3 +220,12 @@ class StaffUI:
             input("Press enter to continue")
         if choice == "q":
             sys.exit()
+
+    def addStaffMember(self):
+        clearScreen()
+        employeeName = input("Enter employee name: ")
+        employeeSocialNumber = input("Enter employee social security number: ")
+        employeePin = input("Enter unique employee number: ")
+        newUser = User(employeeName, employeeSocialNumber, employeePin, 0)
+        self.__userService.addUser(newUser)
+
