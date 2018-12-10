@@ -15,11 +15,14 @@ class CustomerUI:
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__isLoggedIn = False
+        self.__userName = ""
 
     def seeAvailableCars(self):
         action = ""
         while action != "b":
             clearScreen()
+            if self.__isLoggedIn:
+                print("Welcome " + self.__userName + "!")
             print("Press q to quit and b to go back")
             print("How would you like to sort the car list?")
             print("1. By price category")
@@ -52,12 +55,12 @@ class CustomerUI:
                 print("{:5}{}".format(counter,car))
                 counter += 1
             if action != "":
-                print("Invalid input, try again
+                print("Invalid input, try again")
             if self.__isLoggedIn == True:
-                action = input("Please select the car you wish to book: ").lower()
+                action = input("Please select the car you wish to book or 'b' to go back: ").lower()
             else:
                 print("You need to log in to book a car")
-                action = input("Input 'login' to go to login screen: ")
+                action = input("Input 'login' to go to login screen or 'b' to go back: ")
                 if action == "login":
                     self.customerMenu()
            
@@ -87,10 +90,7 @@ class CustomerUI:
                 finalPrice = int(daysToRent.days) * int(currPrice)
                 print("Your final price is " + str(finalPrice) + " isk")
             
-    
-
     def addInsurance(self, carToOrder):
-       
         action = ""
         while action != "b":
             clearScreen()
@@ -113,8 +113,6 @@ class CustomerUI:
                 pass
         return ""
                     
-
-
     def obtainPickupAndReturnDate(self):
         action = ""
         clearScreen()
@@ -135,8 +133,7 @@ class CustomerUI:
                 else:
                     raise Exception
             except:
-                print("Invalid date input")
-                
+                print("Invalid date input")    
         action = ""
         while action != "b":
             action = input("When will you return the car? (dd/mm/yy): ")
@@ -162,12 +159,10 @@ class CustomerUI:
                     raise Exception
             except:
                 print("Invalid date input")
-
         return returnCar - pickupCar
 
 
     def customerMenu(self):
-
         action = ""
         while action != "b":
             clearScreen()
@@ -182,24 +177,35 @@ class CustomerUI:
             if action == "1":
                 self.logInAsUser()
             elif action == "2":
-                self.createAccount()
-            
+                self.createAccount(self.__userService)
             if self.__isLoggedIn:
                 self.seeAvailableCars()
         
-    def createAccount(self):
+    def createAccount(self, UserService):
         clearScreen()
         newUser = User()
-        self.__userService.addUser(newUser)
-        self.customerMenu()
+        newUser.name            = input("Full name: ")
+        newUser.email           = input("Email address: ")
+        newUser.password        = getpass.getpass("Password: ")
+        #passConfirm = input("Confirm password: ")
+        newUser.socialNumber    = input("Social security number: ")
+        newUser.driverLicense   = input("Driver license ID: ")
+        newUser.address         = input("Address: ")
+        newUser.phone           = input("Phone number: ")
+        newUser.nameOnCard      = input("Name on credit card: ")
+        newUser.number          = input("Credit card number: ")
+        newUser.cvv             = input("CVV: ")
+        newUser.expMonth        = input("Exp month(mm): ")
+        newUser.expYear         = input("Exp year(yy): ")
+        UserService.__user
+        UserService.addUser(newUser)
                 
-    
     def logInAsUser(self):
-        userEmail = self.getUser()
+        userEmail = self.getUserEmail().tolower()
         self.getPassword(userEmail) 
         
     
-    def getUser(self):
+    def getUserEmail(self):
         action = ""
         while action != "b":
             clearScreen()
@@ -226,6 +232,6 @@ class CustomerUI:
 
             elif selectedUser.password == action:
                 clearScreen()
+                self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
-

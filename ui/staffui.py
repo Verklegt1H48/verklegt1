@@ -1,11 +1,14 @@
 from models.car import Car
 from services.carservice import CarService
 from services.orderservice import OrderService
+from services.userservice import UserService
 from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
+from ui.customerui import CustomerUI
 import sys
+import getpass
 #from ui.mainui import MainUI
 
 class StaffUI:
@@ -14,28 +17,7 @@ class StaffUI:
         #self.__mainui = MainUI()
         self.__carService = CarService()
         self.__orderService = OrderService()
-
-    def staffCarMenu(self):
-        action = ""
-        while action != "b":
-            clearScreen()
-            print("1. Add a car")
-            print("2. Remove a car")
-            print("3. List all cars")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
-            if action != "":
-                print("Invalid input! Please try again.")
-            action = input("Choose an option: ").lower()
-            if action == "q":
-                sys.exit()
-            elif action == "1":
-                self.__carService.addCar()
-            elif action == "3":
-                cars = self.__carService.getCarList()
-                for car in cars:
-                    print(car)
-                input("")
+        self.__userService = UserService()
 
     def staffMenu(self):
         action = ""
@@ -58,11 +40,37 @@ class StaffUI:
             elif action == "3" :
                 self.orderMenu()
 
+    def staffCarMenu(self):
+        action = ""
+        while action != "b":
+            clearScreen()
+            print("1. Add a car")
+            print("2. Remove a car")
+            print("3. List all cars")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            if action != "":
+                print("Invalid input! Please try again.")
+            action = input("Choose an option: ").lower()
+            if action == "q":
+                sys.exit()
+            elif action == "1":
+                self.addCar()
+                action = ""
+            elif action == "2":
+                self.removeCar()
+                action = ""
+            elif action == "3":
+                cars = self.__carService.getCarList()
+                for car in cars:
+                    print(car)
+                input("")
+
     def staffCustomerMenu(self):
         action = ""
         while action != "b":
             clearScreen()
-            print("\n\n1. Add a customer")
+            print("1. Add a customer")
             print("2. Remove a customer")
             print("3. List all customers")
             print("Press b to return to the previous page")
@@ -73,14 +81,10 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
-                self.__carService.addCar()
+                self.addUser()
             elif action == "3":
                 car = self.__carService.getCarList()
                 print(car)
-            
-            else :
-                print("\nInvalid input, try again\n")
-                self.staffCarMenu()
 
     def orderMenu(self):
         action = ""
@@ -133,8 +137,7 @@ class StaffUI:
                 self.inputOrderInfo(orderList[int(action) - 1])
                 action = ""
                 del orderList
-               
-
+              
     def inputOrderInfo(self, orderToChange):
         pass
         action = ""
@@ -167,4 +170,45 @@ class StaffUI:
                 elCar = self.__carService.getFirstAvailableCarByCategory(orderToChange.carCategory)
                 print(elCar)
                 action = input("Would you like to assign this car to order Y/N: ").lower()
+        
+    def addCar(self):
+        newCar = Car()
+        newCar.id            = len(self.__carService.__cars)
+        newCar.category      = input("Category: ")
+        newCar.manufacturer  = input("Manufacturer: ")
+        newCar.model         = input("Model: ")
+        newCar.year          = input("Year: ")
+        newCar.mileage       = input("Mileage: ")
+        newCar.seats         = input("Seats: ")
+        newCar.transmission  = input("Transmission: ")
+        newCar.extras        = input("Extras: ")
+        newCar.price         = input("Price: ")
 
+    def addUser(self):
+        CustomerUI.createAccount(self, self.__userService)
+
+
+    def removeCar(self):
+        clearScreen()
+        choice = ""
+        id = input("Enter the ID of the car you want to delete: ")
+        if id == "q":
+            sys.exit()
+        if id == "b":
+            return
+        choice = input("Are you sure you want to delete car with ID: \"{}\"? y/n: ".format(id)).lower()
+        while choice not in ("b","y","n","q"):
+            choice = input("Please input \"y\" or \"n\"!: ").lower()
+        clearScreen()
+        if choice == "y":
+            if self.__carService.deleteCar(id):
+                print("You have deleted the car with ID: \"{}\"".format(id))
+                input("Press enter to continue")
+            else:
+                print("No car with ID: \"{}\" exists. Please try again".format(id))
+                input("Press enter to continue")
+        if choice == "n":
+            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
+            input("Press enter to continue")
+        if choice == "q":
+            sys.exit()
