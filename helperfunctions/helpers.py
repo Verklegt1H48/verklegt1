@@ -17,3 +17,7 @@ def resizeWindow():
     #mac and linux
     else:
         _ = system("printf '\\e[9;1t'")
+
+def printList(self, list):
+    for object in list:
+        print(object)

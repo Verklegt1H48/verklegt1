@@ -30,7 +30,7 @@ class CarService:
         return True
     
     def getCarList(self):
-        return self.__carRepo.getCarList()
+        return self.__cars
  
     def getAndSortAvailableCars(self, attribute):
         availableCars = []

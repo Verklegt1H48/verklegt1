@@ -15,14 +15,14 @@ class CustomerUI:
     def seeAvailableCars(self):
         action = ""
         while action != "b":
-            action = ""
+            clearScreen()
             print("Press q to quit and b to go back")
             print("How would you like to sort the car list?")
             print("1. By price category")
             print("2. By manufacturer")
             print("3. By availability")
             if action != "":
-                print("Invalid input, try again\n")
+                print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
             clearScreen()
             if action == "q":
@@ -38,20 +38,17 @@ class CustomerUI:
     def printCarList(self, attribute):
         action = ""
         while action != "b":
-            action = ""
+            clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
             for car in carList:
-                print(str(counter) + ". " + str(car))
+                print(str(counter) + ". " + car)
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
             clearScreen()
-            if action == "q" :
-                exit(1)
-            elif action == "b":
-                pass
+            if action == "q":
             elif action.isdecimal() == False:
                 pass
             elif int(action) >= counter:
