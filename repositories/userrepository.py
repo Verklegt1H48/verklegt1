@@ -8,7 +8,7 @@ class UserRepository:
     def __init__(self):
         self._userList = []
         self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense",
-                             "Address","Phone","Email","Pin"]
+                             "Address","Phone","Email","Password","NameOnCard","Number","CVV","ExpMonth","ExpYear"]
 
     # Function to write user objects into a file
     def userDictWriter(self, user, file):
@@ -20,7 +20,14 @@ class UserRepository:
                          'Address'        : user.address,
                          'Phone'          : user.phone,
                          'Email'          : user.email,
-                         'Pin'            : user.pin})
+                         'Password'       : user.password,
+                         'NameOnCard'     : user.nameOnCard,
+                         'Number'         : user.number,
+                         'CVV'            : user.cvv,
+                         'ExpMonth'       : user.expMonth,
+                         'ExpYear'        : user.expYear})
+                       
+                        
 
     # Function to open users.csv and add an instance of user to the end of the file
     def addUser(self, user):
@@ -51,27 +58,14 @@ class UserRepository:
                         newUser.address         = user['Address']
                         newUser.phone           = user['Phone']
                         newUser.email           = user['Email']
-                        newUser.pin             = user['Pin']
+                        newUser.password        = user['Password']
+                        newUser.nameOnCard      = user['NameOnCard']
+                        newUser.number          = user['Number']
+                        newUser.cvv             = user['CVV']
+                        newUser.expMonth        = user['ExpMonth']
+                        newUser.expYear         = user['ExpYear']
                         self._userList.append(newUser)
             except FileNotFoundError:
                 pass
         return self._userList
 
-#    def getUser(self, id):
-#        if self._userList == []:
-#            with open("./data/users.csv", "r") as userData:
-#                userDict = csv.DictReader(userData)
-#                for user in userDict:
-#                    if id == user['id']:
-#                        newUser = User()
-#                        newUser.id              = user['id']
-#                        newUser.name            = user['name']
-#                        newUser.socialNumber    = user['socialNumber']
-#                        newUser.driverLicense   = user['driverLicense']
-#                        newUser.address         = user['address']
-#                        newUser.phone           = user['phone']
-#                        newUser.email           = user['email']
-#                        return newUser
-#            except FileNotFoundError:
-#                pass
-#        return 0 #Returnar 0 til að byrja með

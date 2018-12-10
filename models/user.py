@@ -1,23 +1,27 @@
-from models.creditcard import CreditCard
 class User:
 
     def __init__(self, name = "", id = 0, socialNumber = "", driverLicense = "", address = "", phone = "", email = ""):
-        self._name = name
-        self._id = id
-        self._socialNumber = socialNumber
-        self._driverLicense = driverLicense
-        self._address = address
-        self._phone = phone
-        self._email = email
-        self._creditCard = CreditCard()
-        self._rentHistory = []
-        self._deleted = False
-        self._employee = False
-        self._pin = ""
+        self.__name = name
+        self.__username = ""
+        self.__password = ""
+        self.__id = id
+        self.__socialNumber = socialNumber
+        self.__driverLicense = driverLicense
+        self.__address = address
+        self.__phone = phone
+        self.__email = email
+        self.__nameOnCard = ""
+        self.__number = ""
+        self.__cvv = ""
+        self.__expMonth = ""
+        self.__expYear = ""
+        self.__rentHistory = []
+        self.__deleted = False
+        self.__employee = False
 
 
     def __str__(self):
-        return "{},{},{},{},{},{},{}".format(self._name, self._id, self._socialNumber, self._driverLicense, self._address, self._phone, self._email)
+        return "{},{},{},{},{},{},{}".format(self.__name, self.__id, self.__socialNumber, self.__driverLicense, self.__address, self.__phone, self.__email)
 
 
     def __repr__(self):
@@ -30,6 +34,10 @@ class User:
     @property
     def name(self):
         return self.__name
+
+    @property
+    def password(self):
+        return self.__password
 
     @property
     def id(self):
@@ -75,6 +83,9 @@ class User:
     @name.setter
     def name(self, value):
         self.__name = value
+    @password.setter
+    def password(self, value):
+        self.__password = value
 
     @id.setter
     def id(self, value):
