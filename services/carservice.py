@@ -52,7 +52,7 @@ class CarService:
 
     def getFirstAvailableCarByCategory(self, category):
         for car in self.__cars:
-            if car.deleted is False and car.category == category:
+            if car.deleted == 0 and car.category == category:
                 return car
     
     def getCarOrders(self, id):

@@ -1,6 +1,6 @@
 class Order:
 
-    def __init__(self, id = 0, userId = 0, carCategory = "", carId = "", payMethod = "", status = 0, deleted = 0, pickUpDate = "", returnDate = ""):
+    def __init__(self, id = 0, userId = 0, carCategory = "", carId = "0", payMethod = "", status = 0, deleted = 0, pickUpDate = "", returnDate = ""):
         self.__id = id
         self.__userId = userId
         self.__carCategory = carCategory
