@@ -42,15 +42,15 @@ class OrderRepository:
     def getOrderList(self):
         if self.__orders == []:
             try:
-                with open("./data/orders.csv", "r+") as orderData:
+                with open("./data/orders.csv", "r") as orderData:
                     orderDict = csv.DictReader(orderData)
                     for order in orderDict:
                         newOrder = Order()
                         newOrder.id             = order['ID']
-                        newOrder.userId         = order['UserId']
+                        newOrder.userId         = order['UserID']
                         newOrder.carCategory    = order['CarCategory']
-                        newOrder.carId          = order['CarId']
-                        newOrder.payMethod      = order['PayMethod']
+                        newOrder.carId          = order['CarID']
+                        newOrder.payMethod      = order['Payment Method']
                         newOrder.pickUpDate     = order['PickUpDate']
                         newOrder.returnDate     = order['ReturnDate']
                         newOrder.status         = order['Status']
