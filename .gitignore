@@ -3,5 +3,3 @@ __pycache__/
 .DS_Store
 *.pyc
 main.py
-models/__pycache__/car.cpython-37.pyc
-models/__pycache__/user.cpython-37.pyc
