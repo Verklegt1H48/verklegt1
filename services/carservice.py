@@ -39,7 +39,7 @@ class CarService:
     def getAndSortAvailableCars(self, attribute):
         availableCars = []
         for car in self.__cars:
-            if car.deleted:
+            if not car.deleted:
                 availableCars.append(car)
         return sorted(availableCars, key=attrgetter(attribute))
 
