@@ -33,7 +33,7 @@ class Car:
     
     @property
     def price(self):
-        return self.__price
+        return int(self.__price)
 
     @property
     def category(self):
