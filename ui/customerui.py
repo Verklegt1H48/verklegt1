@@ -15,11 +15,14 @@ class CustomerUI:
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__isLoggedIn = False
+        self.__userName = ""
 
     def seeAvailableCars(self):
         action = ""
         while action != "b":
             clearScreen()
+            if self.__isLoggedIn:
+                print("Welcome " + self.__userName + "!")
             print("Press q to quit and b to go back")
             print("How would you like to sort the car list?")
             print("1. By price category")
@@ -198,11 +201,11 @@ class CustomerUI:
         UserService.addUser(newUser)
                 
     def logInAsUser(self):
-        userEmail = self.getUser()
+        userEmail = self.getUserEmail().tolower()
         self.getPassword(userEmail) 
         
     
-    def getUser(self):
+    def getUserEmail(self):
         action = ""
         while action != "b":
             clearScreen()
@@ -229,6 +232,6 @@ class CustomerUI:
 
             elif selectedUser.password == action:
                 clearScreen()
+                self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
-

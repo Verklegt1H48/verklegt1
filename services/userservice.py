@@ -31,4 +31,3 @@ class UserService:
     def isDeleted(self, user):
         #Todo: Implement
         return user.deleted()
-    
