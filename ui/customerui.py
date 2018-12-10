@@ -24,7 +24,6 @@ class CustomerUI:
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
-            clearScreen()
             if action == "q":
                 exit(1)
             elif action == "1":
@@ -38,17 +37,16 @@ class CustomerUI:
     def printCarList(self, attribute):
         action = ""
         while action != "b":
-            clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
             for car in carList:
-                print(str(counter) + ". " + car)
+                print("{:5}{}".format(counter,car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
-            clearScreen()
             if action == "q":
+                exit("1")
             elif action.isdecimal() == False:
                 pass
             elif int(action) >= counter:
