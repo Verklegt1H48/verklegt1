@@ -1,5 +1,7 @@
-class Car:  
-    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "", seats = "", transmission = "", price = ""):
+class Car:
+
+    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "",
+                 seats = "",transmission = "", price = ""):
         self.__category = category
         self.__manufacturer = manufacturer
         self.__model = model
@@ -14,13 +16,11 @@ class Car:
         self.__available = 1
         self.__price = 0
 
-    def __str__(self):
-        return "{},{},{},{},{},{},{},{},{}\n"\
-        .format(self.__category, self.__price, self.__manufacturer, self.__model, self.__year, self. mileage, self.__seats, self.__transmission, self.__extras)
-   
-
     def __repr__(self):
-        return self.__str__()
+        return "{:5}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("",self.__category, str(self.__price), self.__manufacturer,
+                                                                   str(self.__model), str(self.__year), str(self.__mileage),
+                                                                   str(self.__seats), self.__transmission,
+                                                                   str(self.__extras).strip("[']").replace("', '", ", "))
 
 #föllgit
     def deleteCar(self):
