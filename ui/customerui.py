@@ -51,7 +51,6 @@ class CustomerUI:
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
-
             clearScreen()
             if action == "q" :
                 exit(1)
