@@ -50,8 +50,6 @@ class CustomerUI:
             clearScreen()
             if action == "q" :
                 exit(1)
-            elif action == "b":
-                pass
             elif action.isdecimal() == False:
                 pass
             elif int(action) >= counter:
@@ -69,7 +67,7 @@ class CustomerUI:
                     daysToRent = self.obtainPickupAndReturnDate()
                     if(daysToRent != ""):
                         finalPrice = int(daysToRent.days) * int(currPrice)
-                        print("Your final price is " + str(finalPrice))
+                        print("Your final price is " + str(finalPrice) + " isk")
                         exit("Lengra er eg ekki kominn med thessa utfaerslu")
 
 
@@ -108,13 +106,16 @@ class CustomerUI:
                 exit(1)
             try:
                 pickupCar = datetime.strptime(action, "%d/%m/%y")
-                if pickupCar > datetime.today():
+                if (pickupCar - datetime.today()).days > 365:
+                    clearScreen()
+                    print("You can't order more than a year in advance")
+                    raise Exception
+                elif pickupCar > datetime.today():
                     break
                 else:
                     raise Exception
             except:
-                clearScreen()
-                print("Invalid date input!")
+                print("Invalid date input")
                 
         action = ""
         while action != "b":
@@ -125,15 +126,23 @@ class CustomerUI:
                 exit(1)
             try:
                 returnCar = datetime.strptime(action, "%d/%m/%y")
-                if returnCar > pickupCar:
+                if (returnCar - pickupCar).days > 365:
+                    clearScreen()
+                    if pickupCar.day < 10:
+                        dayString = "0" + str(pickupCar.day)
+                    if pickupCar.month < 10:
+                        monthString = "0" + str(pickupCar.month)
+                    yearString = str(pickupCar.year - 2000)
+                    print("When will you pick up your car? (dd/mm/yy): " + dayString + "/" + monthString + "/" + yearString)
+                    print("You can't have the car for more than a year")
+                    raise Exception
+                elif returnCar > pickupCar:
                     break
                 else:
                     raise Exception
             except:
-                clearScreen()
-                print("When will you pick up your car? (dd/mm/yy): " + str(pickupCar.day) +\
-                "/" + str(pickupCar.month) + "/" + str(pickupCar.year - 2000))
-                print("Invalid date input!")
+                print("Invalid date input")
+
         return returnCar - pickupCar
 
 
