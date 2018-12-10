@@ -28,15 +28,19 @@ class CustomerUI:
                 exit(1)
             elif action == "1":
                 self.printCarList("category")
+                action = ""
             elif action == "2":
                 self.printCarList("manufacturer")
+                action = ""
             elif action == "3":
-                self.printCarList("available") 
+                self.printCarList("available")
+                action = ""
                 
     
     def printCarList(self, attribute):
         action = ""
         while action != "b":
+            clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
             for car in carList:
@@ -45,7 +49,11 @@ class CustomerUI:
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
+<<<<<<< HEAD
             clearScreen()
+=======
+            
+>>>>>>> 76a54284e11c7dfe5a538406808b76968f18ff51
             if action == "q" :
                 exit(1)
             elif action.isdecimal() == False:
@@ -54,36 +62,39 @@ class CustomerUI:
                 pass
             elif int(action) <= 0:
                 pass
-            else :
+            else:
                 self.inputOrderInfo(carList[int(action) - 1])
+                action = ""
                 del carList
                
 
     def inputOrderInfo(self, carToOrder):
-            print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
-            print("Current price is " + carToOrder.price + " isk per day")
-            currPrice = ""
-            currPrice = self.addInsurance(carToOrder)
-            if(currPrice != ""):
-                daysToRent = self.obtainPickupAndReturnDate()
-                if(daysToRent != ""):
-                    finalPrice = int(daysToRent.days) * int(currPrice)
-                    print("Your final price is " + str(finalPrice) + " isk")
+        clearScreen()
+        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+        print("Current price is " + carToOrder.price + " isk per day")
+        currPrice = ""
+        currPrice = self.addInsurance(carToOrder)
+        if(currPrice != ""):
+            daysToRent = self.obtainPickupAndReturnDate()
+            if(daysToRent != ""):
+                finalPrice = int(daysToRent.days) * int(currPrice)
+                print("Your final price is " + str(finalPrice) + " isk")
             
     
     def paymentMethod(self):
         pass
 
     def addInsurance(self, carToOrder):
-            
+       
         action = ""
         while action != "b":
+            clearScreen()
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
                 print("Invalid input, try again")
             action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
-            clearScreen()
+            
             if action == "q" :
                 exit(1)
             elif action == "y":    
@@ -101,6 +112,7 @@ class CustomerUI:
 
     def obtainPickupAndReturnDate(self):
         action = ""
+        clearScreen()
         while action != "b":
             action = input("When will you pick up your car? (dd/mm/yy): ")
             if action == "b" :
@@ -153,6 +165,8 @@ class CustomerUI:
         print("\n\n1. Car management")
         print("2. *** viljum vid hafa orders her ?******") 
         print("3. **************************************")
+        print("4. Order List") #Notað temporarily til að skoða að orders væri að prentast rétt út
+        print("5. See car history") #Notað temporarily til að skoða hvort dagsetningar væru að prentast rétt út
         print("Press b to return to the previous page")
         print("Press q to quit")
         action = input("Choose an option: ").lower()
@@ -163,6 +177,13 @@ class CustomerUI:
             return
         elif action == "1" :
             self.seeAvailableCars()
+        elif action == "4" :
+            orders = self.__orderService.getOrderList()
+            print(orders)
+        elif action == "5" :
+            id = input("Enter Car Id: " )
+            self.__carService.getCarHistory(int(id))
+
         else :
             print("\nInvalid input, try again\n")
             self.customerMenu()

@@ -8,7 +8,7 @@ class OrderRepository:
     # Initialization of OrderRepository
     def __init__(self):
         self.__orders = []
-        self.__fieldnames = ["ID","UserID","CarCategory","CarID","Payment Method",
+        self.__fieldnames = ["ID","UserID","CarCategory","CarID","PayMethod",
                              "PickUpDate","ReturnDate","Status","Deleted"]
 
     # Function to write order objects into a file
@@ -18,7 +18,7 @@ class OrderRepository:
                          'UserID'           : order.userId,
                          'CarCategory'      : order.carCategory,
                          'CarID'            : order.carId,
-                         'Payment Method'   : order.payMethod,
+                         'PayMethod'        : order.payMethod,
                          'PickUpDate'       : order.pickUpDate,
                          'ReturnDate'       : order.returnDate,
                          'Status'           : order.status,
