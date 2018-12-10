@@ -52,7 +52,7 @@ class CustomerUI:
                 print("{:5}{}".format(counter,car))
                 counter += 1
             if action != "":
-                print("Invalid input, try again
+                print("Invalid input, try again")
             if self.__isLoggedIn == True:
                 action = input("Please select the car you wish to book or 'b' to go back: ").lower()
             else:
