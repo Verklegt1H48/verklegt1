@@ -140,18 +140,39 @@ class StaffUI:
                 self.inputOrderInfo(orderList[int(action) - 1])
                 action = ""
                 del orderList
-               
-    def inputOrderInfo(self, carToOrder):
-        clearScreen()
-        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
-        print("Current price is " + carToOrder.price + " isk per day")
-        #currPrice = ""
-        #currPrice = self.addInsurance(carToOrder)
-        #if(currPrice != ""):
-        #    daysToRent = self.obtainPickupAndReturnDate()
-        #    if(daysToRent != ""):
-        #        finalPrice = int(daysToRent.days) * int(currPrice)
-        #        print("Your final price is " + str(finalPrice) + " isk")
+              
+    def inputOrderInfo(self, orderToChange):
+        pass
+        action = ""
+        while action != "b":
+            clearScreen()
+            print("You chose an order with ID: " + str(orderToChange.id))
+            if orderToChange.status == 1:
+                orderStatus = "Confirmed"
+            else :
+                orderStatus = "Unconfirmed"
+            print("This order is " + orderStatus)
+            if action != "":
+                print("Invalid input, try again")
+            if orderToChange.carId == "0":
+                print("This order has not been assigned a car")
+            else :
+                print("This order was assigned a car with ID: " + str(orderToChange.carId))
+
+            print("1. To delete order")
+            if orderToChange.carId == 0:
+                print("2. To assigne a car to this order")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            action = input("Please select what you wish to change: ").lower()
+            if action == "q":
+                sys.exit()
+            elif action == "1" :
+                orderToChange.deleted = 1
+            elif action == "2" :
+                elCar = self.__carService.getFirstAvailableCarByCategory(orderToChange.carCategory)
+                print(elCar)
+                action = input("Would you like to assign this car to order Y/N: ").lower()
         
     def addCar(self):
         newCar = Car()
@@ -168,6 +189,7 @@ class StaffUI:
 
     def addUser(self):
         CustomerUI.createAccount(self, self.__userService)
+
 
     def removeCar(self):
         clearScreen()
