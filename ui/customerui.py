@@ -57,19 +57,24 @@ class CustomerUI:
             elif int(action) <= 0:
                 pass
             else :
-                carToOrder = carList[int(action) - 1]
+                self.inputOrderInfo(carList[int(action) - 1])
                 del carList
-                print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
-                print("Current price is " + carToOrder.price + " isk per day")
-                currPrice = ""
-                currPrice = self.addInsurance(carToOrder)
-                if(currPrice != ""):
-                    daysToRent = self.obtainPickupAndReturnDate()
-                    if(daysToRent != ""):
-                        finalPrice = int(daysToRent.days) * int(currPrice)
-                        print("Your final price is " + str(finalPrice) + " isk")
-                        exit("Lengra er eg ekki kominn med thessa utfaerslu")
+               
 
+    def inputOrderInfo(self, carToOrder):
+            print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+            print("Current price is " + carToOrder.price + " isk per day")
+            currPrice = ""
+            currPrice = self.addInsurance(carToOrder)
+            if(currPrice != ""):
+                daysToRent = self.obtainPickupAndReturnDate()
+                if(daysToRent != ""):
+                    finalPrice = int(daysToRent.days) * int(currPrice)
+                    print("Your final price is " + str(finalPrice) + " isk")
+            
+    
+    def paymentMethod(self):
+        pass
 
     def addInsurance(self, carToOrder):
             
