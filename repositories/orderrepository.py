@@ -8,7 +8,7 @@ class OrderRepository:
     # Initialization of OrderRepository
     def __init__(self):
         self.__orders = []
-        self.__fieldnames = ["ID","UserID","CarCategory","CarID","Payment Method",
+        self.__fieldnames = ["ID","UserID","CarCategory","CarID","PayMethod",
                              "PickUpDate","ReturnDate","Status","Deleted"]
 
     # Function to write order objects into a file
@@ -18,7 +18,7 @@ class OrderRepository:
                          'UserID'           : order.userId,
                          'CarCategory'      : order.carCategory,
                          'CarID'            : order.carId,
-                         'Payment Method'   : order.payMethod,
+                         'PayMethod'        : order.payMethod,
                          'PickUpDate'       : order.pickUpDate,
                          'ReturnDate'       : order.returnDate,
                          'Status'           : order.status,
@@ -42,14 +42,14 @@ class OrderRepository:
     def getOrderList(self):
         if self.__orders == []:
             try:
-                with open("./data/orders.csv", "r+") as orderData:
+                with open("./data/orders.csv", "r") as orderData:
                     orderDict = csv.DictReader(orderData)
                     for order in orderDict:
                         newOrder = Order()
                         newOrder.id             = order['ID']
-                        newOrder.userId         = order['UserId']
+                        newOrder.userId         = order['UserID']
                         newOrder.carCategory    = order['CarCategory']
-                        newOrder.carId          = order['CarId']
+                        newOrder.carId          = order['CarID']
                         newOrder.payMethod      = order['Payment Method']
                         newOrder.pickUpDate     = order['PickUpDate']
                         newOrder.returnDate     = order['ReturnDate']
