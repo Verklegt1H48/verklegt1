@@ -34,7 +34,7 @@ class CustomerUI:
             if action == "q":
                 exit(1)
             elif action == "1":
-                self.printCarList("category")
+                self.printCarList("price")
                 action = ""
             elif action == "2":
                 self.printCarList("manufacturer")

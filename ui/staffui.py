@@ -35,10 +35,13 @@ class StaffUI:
                 sys.exit()
             elif action == "1" :
                 self.staffCarMenu()
+                action = ""
             elif action == "2" :
                 self.staffCustomerMenu()
+                action = ""
             elif action == "3" :
                 self.orderMenu()
+                action = ""
 
     def staffCarMenu(self):
         action = ""
