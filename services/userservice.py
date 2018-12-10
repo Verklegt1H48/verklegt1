@@ -8,7 +8,7 @@ class UserService:
         self.__users = self.__userRepo.getUserList()
 
     #def getUser(self):
-     #   return self.__userRepo.getUser(id)
+    #   return self.__userRepo.getUser(id)
 
     def addUser(self, newUser):
         self.__users.append(newUser)
@@ -33,14 +33,13 @@ class UserService:
 #            if self.__userRepo.__userList[i].driverLicense == license:
 #                return self.__userRepo.__userList[i]
 #        raise ValueError("User not found")
+     #   return self._userRepo.getUser(id)
 
     def getUserByEmail(self, email):
         for user in self.__users:
             if user.email == email:
                 return user
         return "Not found"
-
-     
 
     def isEmployee(self, user):
         return user.employee()
@@ -55,4 +54,3 @@ class UserService:
     def isDeleted(self, user):
         #Todo: Implement
         return user.deleted()
-    
