@@ -1,0 +1,4 @@
+ID,Name,SocialNumber,DriversLicense,Address,Phone,Email,Password,NameOnCard,Number,CVV,ExpMonth,ExpYear
+0,Joi spoi,00,12,heima,9999999,msn@joi.is,joierspoi,Spoi joason,1234432112344321,111,01,21
+1,a,d,e,f,g,b,c,h,i,j,k,l
+2,Bjartur,123,123,123,123,bjartur@bjartur.is,bjartur,123,123,123,123,123
