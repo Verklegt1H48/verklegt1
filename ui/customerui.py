@@ -141,8 +141,8 @@ class CustomerUI:
         print("\n\n1. Car management")
         print("2. *** viljum vid hafa orders her ?******") 
         print("3. **************************************")
-        print("4. Order List")
-        print("5. See car history")
+        print("4. Order List") #Notað temporarily til að skoða að orders væri að prentast rétt út
+        print("5. See car history") #Notað temporarily til að skoða hvort dagsetningar væru að prentast rétt út
         print("Press b to return to the previous page")
         print("Press q to quit")
         action = input("Choose an option: ").lower()

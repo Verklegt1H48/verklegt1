@@ -62,6 +62,8 @@ class CarService:
                 carhistory.append(order)
         return carhistory
     
+    #Hér er breytt strengjum í datetime til að reikna allar dagsetningar á milli tveggja datetime-a
+    #Síðan er þeim breytt aftur í streng
     def getCarHistory(self, id):
         orders = self.getCarOrders(id)
         history = []
