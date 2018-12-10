@@ -4,13 +4,14 @@ from services.orderservice import OrderService
 from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
-
+import getpass
 
 class CustomerUI:
     
     def __init__(self):
         self.__carService = CarService()
         self.__orderService = OrderService()
+        self.__isLoggedIn = False
 
     def seeAvailableCars(self):
         action = ""
@@ -48,7 +49,13 @@ class CustomerUI:
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
-            action = input("Please select the car you wish to book: ").lower()
+            if self.__isLoggedIn == True:
+                action = input("Please select the car you wish to book: ").lower()
+            else:
+                print("You need to log in to book a car")
+                action = input("Input 'login' to go to login screen: ")
+                if action == "login":
+                    self.customerMenu()
             
             if action == "q" :
                 exit(1)
@@ -158,21 +165,59 @@ class CustomerUI:
 
 
     def customerMenu(self):
-        print("\n\n1. Car management")
-        print("2. *** viljum vid hafa orders her ?******") 
-        print("3. **************************************")
-        print("Press b to return to the previous page")
-        print("Press q to quit")
-        action = input("Choose an option: ").lower()
-
-        #if action == "b" :
-         #   self.__mainui.mainMenu()
-        if action == "q" :
-            return
-        elif action == "1" :
+        action = ""
+        while action != "b":
+            clearScreen()
+            print("1. Log in")
+            print("2. Sign up")
+            print("Press q to quit and b to go back") 
+            if action != "":
+                print("Invalid input, try again")
+            action = input("Choose an option: ").lower()
+            if action == "q" :
+                exit(1)
+            if action == "1":
+                self.logInAsUser()
+            elif action == "2":
+                pass
+                
+    
+    def logInAsUser(self):
+        username = self.getUsername()
+        password = self.getPassword(username) 
+        self.__isLoggedIn = True
+        if self.__isLoggedIn:
+            print("Welcome Gudni th")
             self.seeAvailableCars()
-        else :
-            print("\nInvalid input, try again\n")
-            self.customerMenu()
+    
+    def getUsername(self):
+        action = ""
+        while action != "b":
+            clearScreen()
+            action = input("Enter username: ")
+            if(action == "q"):
+                exit(1)
+            elif len(action) <= 2 or len(action) > 20:
+                print("Invalid username! Please try again")
+            else:
+                return action
+
+    def getPassword(self, username):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid password! Please try again")
+            print("Enter username: " + username)
+            action = getpass.getpass("Enter password: ")
+            if(action == "q"):
+                exit(1)
+            elif len(action) <= 8 or len(action) > 20:
+                pass
+            else:
+                return action
+
+                
+
 
     
