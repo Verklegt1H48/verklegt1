@@ -141,6 +141,8 @@ class CustomerUI:
         print("\n\n1. Car management")
         print("2. *** viljum vid hafa orders her ?******") 
         print("3. **************************************")
+        print("4. Order List")
+        print("5. See car history")
         print("Press b to return to the previous page")
         print("Press q to quit")
         action = input("Choose an option: ").lower()
@@ -151,6 +153,13 @@ class CustomerUI:
             return
         elif action == "1" :
             self.seeAvailableCars()
+        elif action == "4" :
+            orders = self.__orderService.getOrderList()
+            print(orders)
+        elif action == "5" :
+            id = input("Enter Car Id: " )
+            self.__carService.getCarHistory(int(id))
+
         else :
             print("\nInvalid input, try again\n")
             self.customerMenu()
