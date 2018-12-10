@@ -90,8 +90,6 @@ class CustomerUI:
                 finalPrice = int(daysToRent.days) * int(currPrice)
                 print("Your final price is " + str(finalPrice) + " isk")
             
-    
-
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
@@ -115,8 +113,6 @@ class CustomerUI:
                 pass
         return ""
                     
-
-
     def obtainPickupAndReturnDate(self):
         action = ""
         clearScreen()
@@ -137,8 +133,7 @@ class CustomerUI:
                 else:
                     raise Exception
             except:
-                print("Invalid date input")
-                
+                print("Invalid date input")    
         action = ""
         while action != "b":
             action = input("When will you return the car? (dd/mm/yy): ")
@@ -164,12 +159,10 @@ class CustomerUI:
                     raise Exception
             except:
                 print("Invalid date input")
-
         return returnCar - pickupCar
 
 
     def customerMenu(self):
-
         action = ""
         while action != "b":
             clearScreen()
@@ -184,18 +177,29 @@ class CustomerUI:
             if action == "1":
                 self.logInAsUser()
             elif action == "2":
-                self.createAccount()
-            
+                self.createAccount(self.__userService)
             if self.__isLoggedIn:
                 self.seeAvailableCars()
         
-    def createAccount(self):
+    def createAccount(self, UserService):
         clearScreen()
         newUser = User()
-        self.__userService.addUser(newUser)
-        self.customerMenu()
+        newUser.name            = input("Full name: ")
+        newUser.email           = input("Email address: ")
+        newUser.password        = getpass.getpass("Password: ")
+        #passConfirm = input("Confirm password: ")
+        newUser.socialNumber    = input("Social security number: ")
+        newUser.driverLicense   = input("Driver license ID: ")
+        newUser.address         = input("Address: ")
+        newUser.phone           = input("Phone number: ")
+        newUser.nameOnCard      = input("Name on credit card: ")
+        newUser.number          = input("Credit card number: ")
+        newUser.cvv             = input("CVV: ")
+        newUser.expMonth        = input("Exp month(mm): ")
+        newUser.expYear         = input("Exp year(yy): ")
+        UserService.__user
+        UserService.addUser(newUser)
                 
-    
     def logInAsUser(self):
         userEmail = self.getUserEmail().tolower()
         self.getPassword(userEmail) 

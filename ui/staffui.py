@@ -6,6 +6,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
+from ui.customerui import CustomerUI
 import sys
 import getpass
 #from ui.mainui import MainUI
@@ -80,7 +81,7 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
-                self.addCar()
+                self.addUser()
             elif action == "3":
                 car = self.__carService.getCarList()
                 print(car)
@@ -162,24 +163,8 @@ class StaffUI:
         newCar.extras        = input("Extras: ")
         newCar.price         = input("Price: ")
 
-    def addCustomer(self):
-        newUser = User()
-        newUser.id              = len(self.__userService.__users)
-        newUser.name            = input("Full name: ")
-        newUser.email           = input("Email address: ")
-        newUser.password        = getpass.getpass("Password: ")
-        #passConfirm = input("Confirm password: ")
-        newUser.socialNumber    = input("Social security number: ")
-        newUser.driverLicense   = input("Driver license ID: ")
-        newUser.address         = input("Address: ")
-        newUser.phone           = input("Phone number: ")
-        newUser.nameOnCard      = input("Name on credit card: ")
-        newUser.number          = input("Credit card number: ")
-        newUser.cvv             = input("CVV: ")
-        newUser.expMonth        = input("Exp month(mm): ")
-        newUser.expYear         = input("Exp year(yy): ")
-        self.__userService.addUser(newUser)
-
+    def addUser(self):
+        CustomerUI.createAccount(self, self.__userService)
 
     def removeCar(self):
         clearScreen()
