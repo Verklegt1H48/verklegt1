@@ -1,8 +1,10 @@
-
 from ui.mainui import MainUI
 from helperfunctions.helpers import clearScreen
+from repositories.carrepository import CarRepository
 
 
-clearScreen()
-ui = MainUI()
-ui.mainMenu()
+def main():
+    ui = MainUI()
+    ui.mainMenu()
+
+main()

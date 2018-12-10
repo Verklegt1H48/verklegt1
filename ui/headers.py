@@ -22,6 +22,9 @@ mainHeader = (r"""
  {_____)______|##    ##|___________|_____________|___|##    ##|__(______}
                 ##__##                                 ##__##        
 
-                        WELCOME TO SATANS CAR RENTAL
-                          PRESS ENTER TO CONTINUE
+                        WELCOME TO SANTAS CAR RENTAL
+                       PLEASE PRESS ENTER TO CONTINUE
 -------------------------------------------------------------------------- """)
+
+carSelectHeader = ("{:10}{:10}{:7}{:15}{:10}{:7}{:10}{:8}{:15}{:10}".format("Number","Category","Price","Manufacturer","Model","Year",
+                                                                            "Mileage","Seats","Transmission","Extras"))

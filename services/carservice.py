@@ -34,7 +34,7 @@ class CarService:
         return True
     
     def getCarList(self):
-        return self.__carRepo.getCarList()
+        return self.__cars
  
     def getAndSortAvailableCars(self, attribute):
         availableCars = []
@@ -46,13 +46,13 @@ class CarService:
     def getAvailableCarsByCategory(self, category):
         availableCars = []
         for car in self.__cars:
-            if car.deleted and car.category == category:
+            if car.deleted is False and car.category == category:
                 availableCars.append(car)
         return availableCars
 
     def getFirstAvailableCarByCategory(self, category):
         for car in self.__cars:
-            if car.deleted and car.category == category:
+            if car.deleted is False and car.category == category:
                 return car
     
     def getCarOrders(self, id):
