@@ -54,10 +54,10 @@ class CustomerUI:
             if action != "":
                 print("Invalid input, try again
             if self.__isLoggedIn == True:
-                action = input("Please select the car you wish to book: ").lower()
+                action = input("Please select the car you wish to book or 'b' to go back: ").lower()
             else:
                 print("You need to log in to book a car")
-                action = input("Input 'login' to go to login screen: ")
+                action = input("Input 'login' to go to login screen or 'b' to go back: ")
                 if action == "login":
                     self.customerMenu()
            
@@ -90,7 +90,6 @@ class CustomerUI:
     
 
     def addInsurance(self, carToOrder):
-       
         action = ""
         while action != "b":
             clearScreen()

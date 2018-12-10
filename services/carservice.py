@@ -27,11 +27,16 @@ class CarService:
         newCar.price         = input("Price: ")
         self.__cars.append(newCar)
         self.__carRepo.addCar(newCar)
-        
-    def isValidCar(self, car):
-        # ToDo
-        # ToDo
-        return True
+
+    def deleteCar(self, carID):
+        success = False
+        for car in self.__cars:
+            if car.id == int(carID):
+                car.deleted = 1
+                success = True
+        if success:
+            self.__carRepo.overwriteCars(self.__cars)
+        return success
     
     def getCarList(self):
         return self.__cars
