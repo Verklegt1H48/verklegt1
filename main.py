@@ -9,5 +9,4 @@ def main():
     input("")
     ui = MainUI()
     ui.mainMenu()
- 
 main()
