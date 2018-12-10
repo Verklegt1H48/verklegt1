@@ -1,8 +1,9 @@
+from datetime import datetime
 from models.car import Car
+from models.user import User
 from services.carservice import CarService
 from services.orderservice import OrderService
-from models.user import User
-from datetime import datetime
+from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
 
 
@@ -43,12 +44,18 @@ class CustomerUI:
             clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
+            printHeader("carSelect")
             for car in carList:
                 print("{:5}{}".format(counter,car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
+<<<<<<< HEAD
+=======
+
+            clearScreen()
+>>>>>>> 6036a8ad911331b90a7f218fcd9c69309eaddd5b
             if action == "q" :
                 exit(1)
             elif action.isdecimal() == False:
