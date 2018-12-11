@@ -151,20 +151,20 @@ class User:
 
     @nameOnCard.setter
     def nameOnCard(self, value):
-        self._nameOnCard = value
+        self.__nameOnCard = value
     
     @number.setter
     def number(self, value):
-        self._number = value
+        self.__number = value
 
     @cvv.setter
     def cvv(self, value):
-        self._cvv = value
+        self.__cvv = value
 
     @expMonth.setter
     def expMonth(self, value):
-        self._expMonth = value
+        self.__expMonth = value
 
     @expYear.setter
     def expYear(self, value):
-        self._expYear = value
+        self.__expYear = value

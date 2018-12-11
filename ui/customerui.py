@@ -34,7 +34,7 @@ class CustomerUI:
             if action == "q":
                 exit(1)
             elif action == "1":
-                self.printCarList("price")
+                self.printCarList("category")
                 action = ""
             elif action == "2":
                 self.printCarList("manufacturer")
@@ -176,34 +176,18 @@ class CustomerUI:
             if action == "q" :
                 exit(1)
             if action == "1":
+                action = ""
                 self.logInAsUser()
             elif action == "2":
+                action = ""
                 self.createAccount(self.__userService)
             if self.__isLoggedIn:
                 self.seeAvailableCars()
-        
-    def createAccount(self, UserService):
-        clearScreen()
-        newUser = User()
-        newUser.name            = input("Full name: ")
-        newUser.email           = input("Email address: ")
-        newUser.password        = getpass.getpass("Password: ")
-        #passConfirm = input("Confirm password: ")
-        newUser.socialNumber    = input("Social security number: ")
-        newUser.driverLicense   = input("Driver license ID: ")
-        newUser.address         = input("Address: ")
-        newUser.phone           = input("Phone number: ")
-        newUser.nameOnCard      = input("Name on credit card: ")
-        newUser.number          = input("Credit card number: ")
-        newUser.cvv             = input("CVV: ")
-        newUser.expMonth        = input("Exp month(mm): ")
-        newUser.expYear         = input("Exp year(yy): ")
-        newUser.Employee        = 1
-        UserService.addUser(newUser)
-    
     
                 
     def logInAsUser(self):
+        if self.__isLoggedIn:
+            print("Logged out as" + self.__userName)
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
@@ -241,3 +225,125 @@ class CustomerUI:
                 self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
+
+
+    def createAccount(self, UserService):
+        clearScreen()
+        newUser = User()
+        newUser.name = self.getValidName()
+        newUser.email = self.getValidEmail()
+        newUser.password = self.getValidPassword()
+        newUser.socialNumber = self.getValidSocialNumber()
+        newUser.driverLicense = self.getValidDriverLicense()
+        newUser.address = self.getValidAddress()
+        newUser.phone = self.getValidPhone()
+        checkDate = True
+        while checkDate:
+            newUser.nameOnCard = self.getValidNameOnCard()
+            newUser.number = self.getValidNumber()
+            newUser.cvv = self.getValidCvv()
+            newUser.expMonth = self.getValidExpMonth()
+            newUser.expYear = self.getValidExpYear(newUser.expMonth)
+            if newUser.expYear == "-1":
+                print("Please try another card")
+            else:
+                checkDate = False
+        newUser.Employee = 1
+        UserService.addUser(newUser)
+
+    def getValidName(self):
+        isValidName = True
+        while isValidName:
+            name = input("Full name: ")
+            clearScreen()
+            isValidName = self.__userService.isValidName(name)
+        return name
+
+    def getValidEmail(self):
+        isValidEmail = True
+        while isValidEmail:
+            email = input("Email address: ")
+            clearScreen()
+            isValidEmail = self.__userService.isValidEmail(email)
+        return email
+
+    def getValidPassword(self):
+        isValidPassword = True
+        while isValidPassword:
+            password = getpass.getpass("Password: ")
+            clearScreen()
+            isValidPassword = self.__userService.isValidPassword(password)
+        return password
+
+    def getValidSocialNumber(self):
+        isValidSocialNumber = True
+        while isValidSocialNumber:
+            socialNumber = input("Social security number: ")
+            clearScreen()
+            isValidSocialNumber = self.__userService.isValidSocialNumber(socialNumber)
+        return socialNumber
+
+    def getValidDriverLicense(self):
+        isValidDriverLicense = True
+        while isValidDriverLicense:
+            driverLicense = input("Driver license ID: ")
+            clearScreen()
+            isValidDriverLicense = self.__userService.isValidDriverLicense(driverLicense)
+        return driverLicense
+
+    def getValidAddress(self):
+        isValidAddress = True
+        while isValidAddress:
+            address = input("Address: ")
+            clearScreen()
+            isValidAddress = self.__userService.isValidAddress(address)
+        return address
+
+    def getValidPhone(self):
+        isValidPhone = True
+        while isValidPhone:
+            phone = input("Phone number: ")
+            clearScreen()
+            isValidPhone = self.__userService.isValidPhone(phone)
+        return phone
+
+    def getValidNameOnCard(self):
+        isValidNameOnCard = True
+        while isValidNameOnCard:
+            nameOnCard = input("Name on credit card: ")
+            clearScreen()
+            isValidNameOnCard = self.__userService.isValidNameOnCard(nameOnCard)
+        return nameOnCard
+
+    def getValidNumber(self):
+        isValidNumber = True
+        while isValidNumber:
+            number = input("Credit card number: ")
+            clearScreen()
+            isValidNumber = self.__userService.isValidNumber(number)
+        return number
+    
+    def getValidCvv(self):
+        isValidCvv = True
+        while isValidCvv:
+            cvv = input("CVV: ")
+            clearScreen()
+            isValidCvv = self.__userService.isValidCvv(cvv)
+        return cvv
+
+    def getValidExpMonth(self):
+        isValidExpMonth = True
+        while isValidExpMonth:
+            expMonth = input("Exp month(mm): ")
+            clearScreen()
+            isValidExpMonth = self.__userService.isValidExpMonth(expMonth)
+        return expMonth
+
+    def getValidExpYear(self, expMonth):
+        expYear = input("Exp year(yy): ")
+        clearScreen()
+        isValidExpYear = self.__userService.isValidExpYear(expYear, expMonth)
+        if isValidExpYear == False:
+            return "-1"
+        else:
+            return expYear   
