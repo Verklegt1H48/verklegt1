@@ -190,7 +190,6 @@ class StaffUI:
 
     def addCar(self):
         newCar = Car()
-        newCar.id            = len(self.__carService.__cars)
         newCar.category      = input("Category: ")
         newCar.manufacturer  = input("Manufacturer: ")
         newCar.model         = input("Model: ")
@@ -200,6 +199,9 @@ class StaffUI:
         newCar.transmission  = input("Transmission: ")
         newCar.extras        = input("Extras: ")
         newCar.price         = input("Price: ")
+        self.__carService.addCar(newCar)
+        input("You have successfully added a new car. Please press Enter to continue")
+
 
     def addUser(self):
         CustomerUI.createAccount(self, self.__userService)
