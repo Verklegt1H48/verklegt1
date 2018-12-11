@@ -105,7 +105,7 @@ class CustomerUI:
        
         action = ""
         while action != "b":
-            clearScreen()
+            #clearScreen()
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
@@ -119,7 +119,7 @@ class CustomerUI:
                 print("Your total price per day is " + totalPrice + " isk")
                 return totalPrice
             elif action == "n":
-                print("Your total price per day is " + carToOrder.price + " isk")
+                print("Your total price per day is " + str(carToOrder.price) + " isk")
                 return carToOrder.price
             else:
                 pass

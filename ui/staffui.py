@@ -1,4 +1,5 @@
 from models.car import Car
+from models.order import Order
 from services.carservice import CarService
 from services.orderservice import OrderService
 from services.userservice import UserService
@@ -109,7 +110,7 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
-            print("1. New order") 
+            print("1. New order")
             print("2. Confirmed orders") 
             print("3. Unconfirmed orders")
             print("Press b to return to the previous page")
@@ -120,7 +121,14 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
-                self.__orderService.addOrder()
+                newOrder = Order()
+                newOrder.userId      = input("User ID: ")
+                newOrder.carCategory = input("Car Category: ")
+                car = self.carSelectionByCategory(newOrder.carCategory)
+                newOrder.carId       = car.id
+                newOrder.payMethod  = input("Payment Method: ")
+                newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
+                self.__orderService.addOrder(newOrder)
                 action = ""
             elif action == "2":
                 self.printOrderList(1)
