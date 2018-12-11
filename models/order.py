@@ -1,7 +1,7 @@
 class Order:
 
-    def __init__(self, id = 0, userId = 0, carCategory = "", carId = -1, payMethod = "", status = 0, deleted = 0, pickUpDate = "", returnDate = ""):
-        self.__id = id
+    def __init__(self, userId = 0, carCategory = "", carId = -1, payMethod = "", pickUpDate = "", returnDate = "", status = 0, deleted = 0):
+        self.__id = 0
         self.__userId = userId
         self.__carCategory = carCategory
         self.__carId = carId
