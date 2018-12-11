@@ -70,6 +70,7 @@ class StaffUI:
             elif action == "3":
                 cars = self.__carService.getCarList()
                 action = ""
+                clearScreen()
                 for car in cars:
                     print(car)
                 input("")
@@ -90,6 +91,8 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
+                action = ""
+                clearScreen()
                 self.addUser()
             #elif action == "2":
                 #self.__userService.deleteUser()
@@ -97,9 +100,10 @@ class StaffUI:
             elif action == "3":
                 users = self.__userService.getUserList()
                 action = ""
+                clearScreen()
                 for user in users:
                     print(user)
-                input("")
+                input("Input any key to go back: ")
             elif action == "4":
                 self.addStaffMember()
                 action = ""
