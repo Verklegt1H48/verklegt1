@@ -25,9 +25,10 @@ class CustomerUI:
                 print("Welcome " + self.__userName + "!")
             print("Press q to quit and b to go back")
             print("How would you like to sort the car list?")
-            print("1. By price category")
+            print("1. By price")
             print("2. By manufacturer")
             print("3. By availability")
+            print("4. By category")
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
@@ -41,6 +42,9 @@ class CustomerUI:
                 action = ""
             elif action == "3":
                 self.printCarList("available")
+                action = ""
+            elif action == "4":
+                self.printCarList("category")
                 action = ""
                 
     
