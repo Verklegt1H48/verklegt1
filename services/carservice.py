@@ -14,6 +14,7 @@ class CarService:
         self.__orders = self.__orderRepo.getOrderList()
 
     def addCar(self, newCar):
+        newCar.id = len(self.__cars)
         self.__cars.append(newCar)
         self.__carRepo.addCar(newCar)
 
@@ -72,8 +73,3 @@ class CarService:
                 history.append(datetime.strftime(date, "%d/%m/%y"))
         print(history)
         return history
-            
-
-
-
-
