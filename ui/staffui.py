@@ -18,6 +18,8 @@ class StaffUI:
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__userService = UserService()
+        self.__isLoggedIn = False
+        self.__userName = ""
 
     def staffMenu(self):
         action = ""
@@ -223,6 +225,53 @@ class StaffUI:
         employeeName = input("Enter employee name: ")
         employeeSocialNumber = input("Enter employee social security number: ")
         employeePin = input("Enter unique employee number: ")
-        newUser = User(employeeName, employeeSocialNumber, employeePin, 0)
+        newUser = User(employeeName, employeeSocialNumber, 0, employeePin)
         self.__userService.addUser(newUser)
 
+
+    def logInAsStaff(self):
+        staffSocial = self.getStaffSocial()
+        if staffSocial != "":
+            self.getStaffPin(staffSocial)
+            if self.__isLoggedIn:
+                self.staffMenu()
+        
+    
+    def getStaffSocial(self):
+        action = ""
+        clearScreen()
+        while action != "b":
+            action = input("Enter your social security number: ")
+            selectedUser = self.__userService.getUserBySocial(action)
+            if(action == "q"):
+                exit(1)
+            elif selectedUser == "Not found":
+                clearScreen()
+                print("Staff member not found!")
+            else:
+                if selectedUser.employee == "0":
+                    return action
+                else:
+                    clearScreen()
+                    print("Staff member not found!")
+                    
+        return ""
+
+    def getStaffPin(self, staffSocial):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid pin!")
+
+            print("Enter your social security number: " + staffSocial)
+            action = getpass.getpass("Enter your unique employee number: ")
+            selectedUser = self.__userService.getUserBySocial(staffSocial)
+
+            if(action == "q"):
+                exit(1)
+            elif selectedUser.pin == action:
+                clearScreen()
+                self.__userName = selectedUser.name
+                self.__isLoggedIn = True
+                return

@@ -205,7 +205,8 @@ class CustomerUI:
                 
     def logInAsUser(self):
         userEmail = self.getUserEmail()
-        self.getPassword(userEmail) 
+        if userEmail != "":
+            self.getPassword(userEmail) 
         
     
     def getUserEmail(self):
@@ -220,13 +221,14 @@ class CustomerUI:
                 print("Email address not found!")
             else:
                 return action
+        return ""
 
     def getPassword(self, userEmail):
         action = ""
         while action != "b":
             clearScreen()
             if action != "":
-                print("Invalid email and password combination!")
+                print("Invalid password!")
 
             print("Enter email address: " + userEmail)
             action = getpass.getpass("Enter password: ")
