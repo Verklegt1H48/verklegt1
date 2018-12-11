@@ -18,13 +18,15 @@ class StaffUI:
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__userService = UserService()
+        self.__isLoggedIn = False
+        self.__userName = ""
 
     def staffMenu(self):
         action = ""
         while action != "b":
             clearScreen()
             print("1. Car management")
-            print("2. Customer management") 
+            print("2. User management") 
             print("3. Orders")
             print("Press b to return to the previous page")
             print("Press q to quit")
@@ -76,6 +78,7 @@ class StaffUI:
             print("1. Add a customer")
             print("2. Remove a customer")
             print("3. List all customers")
+            print("4. Add a new staff member")
             print("Press b to return to the previous page")
             print("Press q to quit")
             if action != "":
@@ -88,6 +91,10 @@ class StaffUI:
             elif action == "3":
                 car = self.__carService.getCarList()
                 print(car)
+            elif action == "4":
+                self.addStaffMember()
+                action = ""
+                clearScreen()
 
     def orderMenu(self):
         action = ""
@@ -154,13 +161,13 @@ class StaffUI:
             print("This order is " + orderStatus)
             if action != "":
                 print("Invalid input, try again")
-            if orderToChange.carId == "0":
+            if orderToChange.carId == -1:
                 print("This order has not been assigned a car")
             else :
                 print("This order was assigned a car with ID: " + str(orderToChange.carId))
 
             print("1. To delete order")
-            if orderToChange.carId == 0:
+            if orderToChange.carId == -1:
                 print("2. To assigne a car to this order")
             print("Press b to return to the previous page")
             print("Press q to quit")
@@ -168,12 +175,19 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                orderToChange.deleted = 1
+                orderToChange.__deleted = 1
+                action = "b"
             elif action == "2" :
-                elCar = self.__carService.getFirstAvailableCarByCategory(orderToChange.carCategory)
-                print(elCar)
-                action = input("Would you like to assign this car to order Y/N: ").lower()
-        
+                self.carAssignment(orderToChange)
+                
+    
+    def carAssignment(self, order):
+        car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
+        print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
+        (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
+        car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
+        action = input("Would you like to assign this car to the order Y/N: ").lower()
+
     def addCar(self):
         newCar = Car()
         newCar.id            = len(self.__carService.__cars)
@@ -215,3 +229,59 @@ class StaffUI:
             input("Press enter to continue")
         if choice == "q":
             sys.exit()
+
+    def addStaffMember(self):
+        clearScreen()
+        employeeName = input("Enter employee name: ")
+        employeeSocialNumber = input("Enter employee social security number: ")
+        employeePin = input("Enter unique employee number: ")
+        newUser = User(employeeName, employeeSocialNumber, 0, employeePin)
+        self.__userService.addUser(newUser)
+
+
+    def logInAsStaff(self):
+        staffSocial = self.getStaffSocial()
+        if staffSocial != "":
+            self.getStaffPin(staffSocial)
+            if self.__isLoggedIn:
+                self.staffMenu()
+        
+    
+    def getStaffSocial(self):
+        action = ""
+        clearScreen()
+        while action != "b":
+            action = input("Enter your social security number: ")
+            selectedUser = self.__userService.getUserBySocial(action)
+            if(action == "q"):
+                exit(1)
+            elif selectedUser == "Not found":
+                clearScreen()
+                print("Staff member not found!")
+            else:
+                if selectedUser.employee == "0":
+                    return action
+                else:
+                    clearScreen()
+                    print("Staff member not found!")
+                    
+        return ""
+
+    def getStaffPin(self, staffSocial):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid pin!")
+
+            print("Enter your social security number: " + staffSocial)
+            action = getpass.getpass("Enter your unique employee number: ")
+            selectedUser = self.__userService.getUserBySocial(staffSocial)
+
+            if(action == "q"):
+                exit(1)
+            elif selectedUser.pin == action:
+                clearScreen()
+                self.__userName = selectedUser.name
+                self.__isLoggedIn = True
+                return

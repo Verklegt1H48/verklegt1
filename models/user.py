@@ -1,23 +1,24 @@
 class User:
 
-    def __init__(self, name = "", id = 0, socialNumber = "", driverLicense = "", address = "", phone = "", email = ""):
+    def __init__(self, name = "", socialNumber = "", employee = 1, pin = "", password = "", id = 0, driverLicense = "",
+                address = "", phone = "", email = "", nameOnCard = "", number = "", cvv = "", expMonth = "", expYear = "" ):
         self.__name = name
-        self.__username = ""
-        self.__password = ""
+        self.__password = password
         self.__id = id
         self.__socialNumber = socialNumber
         self.__driverLicense = driverLicense
         self.__address = address
         self.__phone = phone
         self.__email = email
-        self.__nameOnCard = ""
-        self.__number = ""
-        self.__cvv = ""
-        self.__expMonth = ""
-        self.__expYear = ""
+        self.__nameOnCard = nameOnCard
+        self.__number = number
+        self.__cvv = cvv
+        self.__expMonth = expMonth
+        self.__expYear = expYear
         self.__rentHistory = []
         self.__deleted = False
-        self.__employee = False
+        self.__employee = employee
+        self.__pin = pin
 
 
     def __str__(self):
@@ -50,6 +51,26 @@ class User:
     @property
     def driverLicense(self):
         return self.__driverLicense
+
+    @property
+    def nameOnCard(self):
+        return self.__nameOnCard
+
+    @property
+    def number(self):
+        return self.__number
+
+    @property
+    def cvv(self):
+        return self.__cvv
+
+    @property
+    def expMonth(self):
+        return self.__expMonth
+
+    @property
+    def expYear(self):
+        return self.__expYear
 
     @property
     def address(self):
@@ -127,3 +148,23 @@ class User:
     @deleted.setter
     def deleted(self, value):
         self.__deleted = value
+
+    @nameOnCard.setter
+    def nameOnCard(self, value):
+        self._nameOnCard = value
+    
+    @number.setter
+    def number(self, value):
+        self._number = value
+
+    @cvv.setter
+    def cvv(self, value):
+        self._cvv = value
+
+    @expMonth.setter
+    def expMonth(self, value):
+        self._expMonth = value
+
+    @expYear.setter
+    def expYear(self, value):
+        self._expYear = value
