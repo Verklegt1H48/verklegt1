@@ -78,7 +78,6 @@ class OrderService:
         return orders
     def obtainPickupAndReturnDate(self):
         action = ""
-        clearScreen()
         while action != "b":
             action = input("When will you pick up your car? (dd/mm/yy): ")
             if action == "b" :
@@ -94,6 +93,7 @@ class OrderService:
                 elif pickupCar > datetime.today():
                     break
                 else:
+                    clearScreen()
                     raise Exception
             except:
                 print("Invalid date input")
