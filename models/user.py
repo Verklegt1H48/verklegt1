@@ -21,12 +21,14 @@ class User:
         self.__pin = pin
 
 
-    def __str__(self):
-        return "{},{},{},{},{},{},{}".format(self.__name, self.__id, self.__socialNumber, self.__driverLicense, self.__address, self.__phone, self.__email)
-
-
     def __repr__(self):
-        return self.__str__()
+        return "{:2}{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format("", str(self.__name), str(self.__id), str(self.__socialNumber), 
+                                                        str(self.__driverLicense), str(self.__address), str(self.__phone), 
+                                                        str(self.__email))
+
+
+    #def __repr__(self):
+     #   return self.__str__()
 
     def deleteUser(self):
         self.__deleted = True

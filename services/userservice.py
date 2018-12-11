@@ -151,3 +151,6 @@ class UserService:
            #     return False
         else:
             return True
+
+    def getUserList(self):
+        return self.__users
