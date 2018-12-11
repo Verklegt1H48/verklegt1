@@ -14,6 +14,9 @@ class Order:
     def __repr__(self):
         return "{:7}{:8}{:10}{:7}{:16}{:15}{:10}".format("", str(self.__userId), self.__carCategory,\
         str(self.__carId), self.__payMethod, self.__pickUpDate, self.__returnDate)
+
+    def deleteUser(self):
+        self.__deleted = 1
 #Getters
     @property
     def id(self):

@@ -123,7 +123,7 @@ class StaffUI:
     def printOrderList(self, status):
         action = ""
         while action != "b":
-            clearScreen()
+            #clearScreen()
             orderList = self.__orderService.getOrdersByStatus(status)
             counter = 1
             printHeader("orderSelect")
@@ -152,7 +152,7 @@ class StaffUI:
         pass
         action = ""
         while action != "b":
-            clearScreen()
+            #clearScreen()
             print("You chose an order with ID: " + str(orderToChange.id))
             if orderToChange.status == 1:
                 orderStatus = "Confirmed"
@@ -175,18 +175,28 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                orderToChange.__deleted = 1
+                self.__orderService.deleteOrder(orderToChange.id)
                 action = "b"
             elif action == "2" :
                 self.carAssignment(orderToChange)
+                action = "b"
                 
     
     def carAssignment(self, order):
         car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
+        if car == None:
+                print("\n ***No car available in that category***\n")
+                return
         print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
         (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
         car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
+
         action = input("Would you like to assign this car to the order Y/N: ").lower()
+        if action == "y" :
+           self.__orderService.assigneCarToOrder(car,order)
+        else :
+            pass
+
 
     def addCar(self):
         newCar = Car()
