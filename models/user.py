@@ -1,6 +1,6 @@
 class User:
 
-    def __init__(self, name = "", socialNumber = "", pin = 0, employee = 1, password = "", id = 0, driverLicense = "",
+    def __init__(self, name = "", socialNumber = "", employee = 1, pin = "", password = "", id = 0, driverLicense = "",
                 address = "", phone = "", email = "", nameOnCard = "", number = "", cvv = "", expMonth = "", expYear = "" ):
         self.__name = name
         self.__password = password
@@ -17,7 +17,7 @@ class User:
         self.__expYear = expYear
         self.__rentHistory = []
         self.__deleted = False
-        self.__employee = 1
+        self.__employee = employee
         self.__pin = pin
 
 

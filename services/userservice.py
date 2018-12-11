@@ -18,6 +18,12 @@ class UserService:
                 return user
         return "Not found"
 
+    def getUserBySocial(self, socialNumber):
+        for user in self.__users:
+            if user.socialNumber == socialNumber:
+                return user
+        return "Not found"
+
     def isEmployee(self, user):
         return user.employee()
 

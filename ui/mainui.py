@@ -29,5 +29,5 @@ class MainUI:
                 self.__customerui.customerMenu()
                 action = ""
             elif action == "3":
-                self.__staffui.staffMenu()
+                self.__staffui.logInAsStaff()
                 action = ""
