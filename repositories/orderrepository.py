@@ -31,6 +31,7 @@ class OrderRepository:
             if isEmpty:
                 csv.writer(orderData).writerow(self.__fieldnames)
             self.orderDictWriter(order, orderData)
+            self.__orders.append(order)
 
     # Function to open orders.csv and overwrite the whole list with an updated list of orders.
     def overwriteOrders(self, orders):
