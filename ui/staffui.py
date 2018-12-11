@@ -52,6 +52,7 @@ class StaffUI:
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
+           # print("4. List all unavaliable cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
             if action != "":
@@ -67,6 +68,7 @@ class StaffUI:
                 action = ""
             elif action == "3":
                 cars = self.__carService.getCarList()
+                action = ""
                 for car in cars:
                     print(car)
                 input("")
@@ -88,6 +90,9 @@ class StaffUI:
                 sys.exit()
             elif action == "1":
                 self.addUser()
+            #elif action == "2":
+                #self.__userService.deleteUser()
+                #action = ""
             elif action == "3":
                 car = self.__carService.getCarList()
                 print(car)
