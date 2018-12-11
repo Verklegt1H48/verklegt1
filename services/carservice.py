@@ -73,3 +73,57 @@ class CarService:
                 history.append(datetime.strftime(date, "%d/%m/%y"))
         print(history)
         return history
+
+    def isValidCategory(self, category):
+        if category in ("A", "B", "C", "D"):
+            return True
+        else:
+            return False
+
+    def isValidManufacturer(self, manufacturer):
+        if (0 < len(manufacturer) <= 15) and all(x.isalnum() or x.isspace() for x in manufacturer):
+            return True
+        else:
+            return False
+
+    def isValidModel(self, model):
+        if (1990):
+            return True
+        else:
+            return False
+
+    def isValidYear(self, year):
+        if year.isdecimal() and (1900 <= int(year) <datetime.today().year + 2):
+            return True
+        else:
+            return False
+
+    def isValidMileage(self, mileage):
+        if mileage.isdecimal() and (0 <= int(mileage) < 100000):
+            return True
+        else:
+            return False
+
+    def isValidSeats(self, seats):
+        if seats.isdecimal() and (0 < int(seats) <= 10):
+            return True
+        else:
+            return False
+
+    def isValidTransmission(self, transmission):
+        if transmission in ("Manual", "Automatic"):
+            return True
+        else:
+            return False
+
+    def isValidExtras(self, extras):
+        if extras.isalnum() and (0 < len(extras) < 40):
+            return True
+        else:
+            return False
+
+    def isValidPrice(self, price):
+        if price in ("5000", "10000", "15000", "20000"):
+            return True
+        else:
+            return False
