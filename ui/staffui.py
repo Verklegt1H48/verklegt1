@@ -95,8 +95,11 @@ class StaffUI:
                 #self.__userService.deleteUser()
                 #action = ""
             elif action == "3":
-                car = self.__carService.getCarList()
-                print(car)
+                users = self.__userService.getUserList()
+                action = ""
+                for user in users:
+                    print(user)
+                input("")
             elif action == "4":
                 self.addStaffMember()
                 action = ""
