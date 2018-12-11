@@ -23,12 +23,13 @@ class StaffUI:
 
     def staffMenu(self):
         action = ""
-        while action != "b":
+        while action != "b": 
             clearScreen()
+            print("Welcome " + self.__userName + "!") 
             print("1. Car management")
             print("2. User management") 
             print("3. Orders")
-            print("Press b to return to the previous page")
+            print("Press b to sign out")
             print("Press q to quit")
             if action != "":
                 print("Invalid input! Please try again.")
@@ -36,14 +37,14 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1" :
+                action = ""
                 self.staffCarMenu()
-                action = ""
             elif action == "2" :
+                action = ""
                 self.staffCustomerMenu()
-                action = ""
             elif action == "3" :
-                self.orderMenu()
                 action = ""
+                self.orderMenu()
 
     def staffCarMenu(self):
         action = ""
@@ -52,6 +53,7 @@ class StaffUI:
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
+           # print("4. List all unavaliable cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
             if action != "":
@@ -67,6 +69,7 @@ class StaffUI:
                 action = ""
             elif action == "3":
                 cars = self.__carService.getCarList()
+                action = ""
                 for car in cars:
                     print(car)
                 input("")
@@ -88,9 +91,15 @@ class StaffUI:
                 sys.exit()
             elif action == "1":
                 self.addUser()
+            #elif action == "2":
+                #self.__userService.deleteUser()
+                #action = ""
             elif action == "3":
-                car = self.__carService.getCarList()
-                print(car)
+                users = self.__userService.getUserList()
+                action = ""
+                for user in users:
+                    print(user)
+                input("")
             elif action == "4":
                 self.addStaffMember()
                 action = ""
@@ -163,10 +172,13 @@ class StaffUI:
             print("This order is " + orderStatus)
             if orderToChange.carId == -1:
                 print("This order has not been assigned a car\n")
+            if action != "":
+                print("Invalid input, try again")
             else :
-                print("This order was assigned a car with ID: " + str(orderToChange.carId)+ "\n")
+                print("This order was assigned a car with ID: " + str(orderToChange.carId))
 
             print("1. To delete order")
+
             print("2. To confirm order")
             if orderToChange.carId == -1:
                 print("3. To assign a car to this order")
@@ -176,8 +188,7 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                self.__orderService.deleteOrder(orderToChange.id)
-                action = "b"
+                orderToChange.deleted = 1
             elif action == "2" :
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
@@ -236,6 +247,7 @@ class StaffUI:
 
     def addCar(self):
         newCar = Car()
+        newCar.id            = len(self.__carService.__cars)
         newCar.category      = input("Category: ")
         newCar.manufacturer  = input("Manufacturer: ")
         newCar.model         = input("Model: ")
@@ -245,9 +257,6 @@ class StaffUI:
         newCar.transmission  = input("Transmission: ")
         newCar.extras        = input("Extras: ")
         newCar.price         = input("Price: ")
-        self.__carService.addCar(newCar)
-        input("You have successfully added a new car. Please press Enter to continue")
-
 
     def addUser(self):
         CustomerUI.createAccount(self, self.__userService)
@@ -333,4 +342,3 @@ class StaffUI:
                 self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
-
