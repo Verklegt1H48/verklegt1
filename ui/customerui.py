@@ -148,8 +148,6 @@ class CustomerUI:
     
                 
     def logInAsUser(self):
-        if self.__isLoggedIn:
-            print("Logged out as" + self.__userName)
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
