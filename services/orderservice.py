@@ -1,4 +1,5 @@
 from repositories.orderrepository import OrderRepository
+from repositories.carrepository import CarRepository
 from services.carservice import CarService
 from models.order import Order
 from helperfunctions.helpers import clearScreen
@@ -9,8 +10,10 @@ class OrderService:
 
     def __init__(self):
         self.__orderRepo = OrderRepository()
+        self.__carRepo = CarRepository()
         self.__carService = CarService()
         self.__orders = self.__orderRepo.getOrderList()
+        self.__cars = self.__carRepo.getCarList()
 
     def addOrder(self):
         newOrder = Order()
@@ -49,6 +52,22 @@ class OrderService:
             elif action == "3":
                 self.printOrderList(0)
                 action = ""
+
+    def deleteOrder(self, orderID):
+        for order in self.__orders:
+            if order.id == int(orderID):
+                order.deleted = 1
+            self.__orderRepo.overwriteOrders(self.__orders)
+    
+    def assigneCarToOrder(self, theCar, theOrder):
+        for order in self.__orders:
+            if order.id == int(theOrder.id):
+                theOrder.carId = theCar.id
+        for car in self.__cars:
+            if car.id == int(theCar.id):
+                theCar.available = 0
+        self.__carRepo.overwriteCars(self.__cars)
+        self.__orderRepo.overwriteOrders(self.__orders)
 
     
     def getOrdersByStatus(self, status):
