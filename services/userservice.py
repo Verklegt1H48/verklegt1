@@ -65,6 +65,9 @@ class UserService:
     def isValidSocialNumber(self, socialNumber):
         if socialNumber == "q":
             exit(1)
+        elif socialNumber.isdecimal() == False:
+            print("Social security number can only contain numbers")
+            return True
         elif len(socialNumber) != 10:
             print("Social security number must be 10 digits long")
             return True
@@ -74,6 +77,9 @@ class UserService:
     def isValidDriverLicense(self, driverLicense):
         if driverLicense == "q":
             exit(1)
+        elif driverLicense.isdecimal() == False:
+            print("Driver license ID can only contain numbers")
+            return True
         elif len(driverLicense) != 9:
             print("Driver license ID must be 9 digits long")
             return True
@@ -92,6 +98,9 @@ class UserService:
     def isValidPhone(self, phone):
         if phone == "q":
             exit(1)
+        elif phone.isdecimal() == False:
+            print("Phone number can only contain numbers")
+            return True
         elif len(phone) < 7:
             print("Phone number must be at least 7 digits long")
             return True
@@ -101,8 +110,8 @@ class UserService:
     def isValidNameOnCard(self, nameOnCard):
         if nameOnCard == "q":
             exit(1)
-        elif len(nameOnCard) > 50:
-            print("Name is too long")
+        elif len(nameOnCard) > 50 or len(nameOnCard) <= 0:
+            print("Invalid name length")
             return True
         else:
             return False
@@ -110,7 +119,10 @@ class UserService:
     def isValidNumber(self, number):
         if number == "q":
             exit(1)
-        elif len(number) > 23:#!= 16:
+        elif number.isdecimal() == False:
+            print("Credit card number can only contain numbers")
+            return True
+        elif len(number) != 16:
             print("Credit card number must be 16 digits long")
             return True
         else:
@@ -119,6 +131,9 @@ class UserService:
     def isValidCvv(self, cvv):
         if cvv == "q":
             exit(1)
+        elif cvv.isdecimal() == False:
+            print("CVV code can only contain numbers")
+            return True
         elif len(cvv) != 3:
             print("CVV code must be 3 digits long")
             return True
@@ -139,16 +154,16 @@ class UserService:
 
     def isValidExpYear(self, expYear, expMonth):
         year = int(datetime.today().year) - 2000
-        #month = int(datetime.today().month)
+        month = int(datetime.today().month)
         if expYear == "q":
             exit(1)
         elif int(expYear) < year :
             print("Card is Expired")
             return False
-        #elif int(expYear) == year:
-         #   if int(expMonth) <= month:
-          #      print("Card is expired")
-           #     return False
+        elif int(expYear) == year:
+            if int(expMonth) <= month:
+                print("Card is expired")
+                return False
         else:
             return True
 
