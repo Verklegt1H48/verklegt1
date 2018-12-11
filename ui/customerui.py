@@ -232,6 +232,7 @@ class CustomerUI:
         newUser = User()
         newUser.name = self.getValidName()
         newUser.email = self.getValidEmail()
+
         newUser.password = self.getValidPassword()
         newUser.socialNumber = self.getValidSocialNumber()
         newUser.driverLicense = self.getValidDriverLicense()
@@ -273,6 +274,14 @@ class CustomerUI:
             password = getpass.getpass("Password: ")
             clearScreen()
             isValidPassword = self.__userService.isValidPassword(password)
+            confirmPassword = getpass.getpass("Confirm password: ")
+            if confirmPassword == password:
+                pass
+                clearScreen()
+            else:
+                clearScreen()
+                print("Passwords don't match, please try again")
+                isValidPassword = True
         return password
 
     def getValidSocialNumber(self):
