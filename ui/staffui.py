@@ -23,12 +23,13 @@ class StaffUI:
 
     def staffMenu(self):
         action = ""
-        while action != "b":
+        while action != "b": 
             clearScreen()
+            print("Welcome " + self.__userName + "!") 
             print("1. Car management")
             print("2. User management") 
             print("3. Orders")
-            print("Press b to return to the previous page")
+            print("Press b to sign out")
             print("Press q to quit")
             if action != "":
                 print("Invalid input! Please try again.")
@@ -36,14 +37,14 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1" :
+                action = ""
                 self.staffCarMenu()
-                action = ""
             elif action == "2" :
+                action = ""
                 self.staffCustomerMenu()
-                action = ""
             elif action == "3" :
-                self.orderMenu()
                 action = ""
+                self.orderMenu()
 
     def staffCarMenu(self):
         action = ""
@@ -166,13 +167,13 @@ class StaffUI:
             print("This order is " + orderStatus)
             if action != "":
                 print("Invalid input, try again")
-            if orderToChange.carId == -1:
+            if orderToChange.carId == "0":
                 print("This order has not been assigned a car")
             else :
                 print("This order was assigned a car with ID: " + str(orderToChange.carId))
 
             print("1. To delete order")
-            if orderToChange.carId == -1:
+            if orderToChange.carId == 0:
                 print("2. To assigne a car to this order")
             print("Press b to return to the previous page")
             print("Press q to quit")
@@ -180,21 +181,15 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                orderToChange.__deleted = 1
-                action = "b"
+                orderToChange.deleted = 1
             elif action == "2" :
-                self.carAssignment(orderToChange)
-                
-    
-    def carAssignment(self, order):
-        car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
-        print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
-        (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
-        car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
-        action = input("Would you like to assign this car to the order Y/N: ").lower()
-
+                elCar = self.__carService.getFirstAvailableCarByCategory(orderToChange.carCategory)
+                print(elCar)
+                action = input("Would you like to assign this car to order Y/N: ").lower()
+        
     def addCar(self):
         newCar = Car()
+        newCar.id            = len(self.__carService.__cars)
         newCar.category      = input("Category: ")
         newCar.manufacturer  = input("Manufacturer: ")
         newCar.model         = input("Model: ")
@@ -204,9 +199,6 @@ class StaffUI:
         newCar.transmission  = input("Transmission: ")
         newCar.extras        = input("Extras: ")
         newCar.price         = input("Price: ")
-        self.__carService.addCar(newCar)
-        input("You have successfully added a new car. Please press Enter to continue")
-
 
     def addUser(self):
         CustomerUI.createAccount(self, self.__userService)

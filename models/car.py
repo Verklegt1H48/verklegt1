@@ -122,7 +122,7 @@ class Car:
 
     @available.setter
     def available(self, available):
-        self.__available = available
+        self.__available = int(available)
 
     @deleted.setter
     def deleted(self, deleted):
