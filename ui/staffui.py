@@ -23,7 +23,7 @@ class StaffUI:
 
     def staffMenu(self):
         action = ""
-        while action != "b": 
+        while action != "b":
             clearScreen()
             print("Welcome " + self.__userName + "!") 
             print("1. Car management")
@@ -37,14 +37,14 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1" :
-                action = ""
                 self.staffCarMenu()
+                action = ""
             elif action == "2" :
-                action = ""
                 self.staffCustomerMenu()
-            elif action == "3" :
                 action = ""
+            elif action == "3" :
                 self.orderMenu()
+                action = ""
 
     def staffCarMenu(self):
         action = ""
@@ -174,28 +174,34 @@ class StaffUI:
                 print("This order has not been assigned a car\n")
             if action != "":
                 print("Invalid input, try again")
+
+            if orderToChange.carId == -1:
+                print("This order has not been assigned a car\n")
+
             else :
-                print("This order was assigned a car with ID: " + str(orderToChange.carId))
+                print("This order was assigned a car with ID: " + str(orderToChange.carId)+ "\n")
 
             print("1. To delete order")
 
             print("2. To confirm order")
             if orderToChange.carId == -1:
                 print("3. To assign a car to this order")
+
             print("Press b to return to the previous page")
             print("Press q to quit")
             action = input("Please select what you wish to change: ").lower()
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                orderToChange.deleted = 1
+                self.__orderService.deleteOrder(orderToChange.id)
+                action = "b"
             elif action == "2" :
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
             elif action == "3" :
                 self.carAssignment(orderToChange)
                 action = "b"
-                
+
     
     def carAssignment(self, order):
         car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
@@ -206,6 +212,7 @@ class StaffUI:
         print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
         (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
         car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
+
 
         action = ""
         while action != "b":
@@ -247,20 +254,20 @@ class StaffUI:
 
     def addCar(self):
         newCar = Car()
-        newCar.id            = len(self.__carService.__cars)
-        newCar.category      = input("Category: ")
-        newCar.manufacturer  = input("Manufacturer: ")
-        newCar.model         = input("Model: ")
-        newCar.year          = input("Year: ")
-        newCar.mileage       = input("Mileage: ")
-        newCar.seats         = input("Seats: ")
-        newCar.transmission  = input("Transmission: ")
-        newCar.extras        = input("Extras: ")
-        newCar.price         = input("Price: ")
+        self.getValidCategory(newCar, self.__carService)
+        self.getValidManufacturer(newCar, self.__carService)
+        self.getValidModel(newCar, self.__carService)
+        self.getValidYear(newCar, self.__carService)
+        self.getValidMileage(newCar, self.__carService)
+        self.getValidSeats(newCar, self.__carService)
+        self.getValidTransmission(newCar, self.__carService)
+        self.getValidExtras(newCar, self.__carService)
+        self.getValidPrice(newCar, self.__carService)
+        self.__carService.addCar(newCar)
+        input("You have successfully added a new car. Please press Enter to continue")
 
     def addUser(self):
         CustomerUI.createAccount(self, self.__userService)
-
 
     def removeCar(self):
         clearScreen()
@@ -321,7 +328,6 @@ class StaffUI:
                 else:
                     clearScreen()
                     print("Staff member not found!")
-                    
         return ""
 
     def getStaffPin(self, staffSocial):
@@ -342,3 +348,114 @@ class StaffUI:
                 self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
+
+    def getValidCategory(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            category = input("Category: ").upper()
+            if service.isValidCategory(category):
+                car.category = category
+                isValid = True
+            else:
+                print("Invalid input. Category must be 'A', 'B', 'C' or 'D'")
+                input("Please press enter to try again")
+
+    def getValidManufacturer(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            manufacturer = input("Manufacturer: ")
+            if service.isValidManufacturer(manufacturer):
+                car.manufacturer = manufacturer.capitalize()
+                isValid = True
+            else:
+                print("Invalid input. Manufacturer must be less than 15 letters")
+                input("Please press enter to try again")
+
+    def getValidModel(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            model = input("Model: ")
+            if service.isValidModel(model):
+                car.model = model.capitalize()
+                isValid = True
+            else:
+                print("Invalid input. Model must be less than 15 letters")
+                input("Please press enter to try again")
+
+    def getValidYear(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            year = input("Year: ")
+            if service.isValidYear(year):
+                car.year = year
+                isValid = True
+            else:
+                print("Invalid input. Year must be a valid year between 1900 and {}".format(datetime.today().year + 1))
+                input("Please press enter to try again")
+
+    def getValidMileage(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            mileage = input("Mileage: ")
+            if service.isValidMileage(mileage):
+                car.mileage = mileage
+                isValid = True
+            else:
+                print("Invalid input. Mileage must be an integer between 0 and 100000")
+                input("Please press enter to try again")
+
+    def getValidSeats(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            seats = input("Seats: ")
+            if service.isValidSeats(seats):
+                car.seats = seats
+                isValid = True
+            else:
+                print("Invalid input. Number of seats must be between 1 and 10")
+                input("Please press enter to try again")
+
+    def getValidTransmission(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            transmission = input("Transmission: ").capitalize()
+            if service.isValidTransmission(transmission):
+                car.transmission = transmission.capitalize()
+                isValid = True
+            else:
+                print("Invalid input. Transmission must be either \"Manual\" or \"Automatic\"")
+                input("Please press enter to try again")
+
+    def getValidExtras(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            print("Input all extras seperated with a comma")
+            print("If there are no extras input \"None\"")
+            extras = input("Extras: ")
+            if service.isValidExtras(extras):
+                car.extras = extras
+                isValid = True
+            else:
+                print("Invalid input. Extras must be less than 40 letters long")
+                input("Please press enter to try again")
+
+    def getValidPrice(self, car, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            price = input("Price: ")
+            if service.isValidPrice(price):
+                car.price = price
+                isValid = True
+            else:
+                print("Invalid input. Price must be \"5000\", \"10000\", \"15000\" or \"20000\"")
+                input("Please press enter to try again")
+                
