@@ -153,14 +153,14 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
+            if action != "":
+                print("Invalid input, try again")
             print("You chose an order with ID: " + str(orderToChange.id))
             if orderToChange.status == 1:
                 orderStatus = "Confirmed"
             else :
                 orderStatus = "Unconfirmed"
             print("This order is " + orderStatus)
-            if action != "":
-                print("Invalid input, try again")
             if orderToChange.carId == -1:
                 print("This order has not been assigned a car\n")
             else :
@@ -169,7 +169,7 @@ class StaffUI:
             print("1. To delete order")
             print("2. To confirm order")
             if orderToChange.carId == -1:
-                print("3. To assigne a car to this order")
+                print("3. To assign a car to this order")
             print("Press b to return to the previous page")
             print("Press q to quit")
             action = input("Please select what you wish to change: ").lower()
@@ -196,12 +196,19 @@ class StaffUI:
         (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
         car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
 
-        action = input("Would you like to assign this car to the order Y/N: ").lower()
-        if action == "y" :
-           self.__orderService.assigneCarToOrder(car,order)
-        else :
-            car = self.carSelectionByCategory(order.carCategory)
-            self.__orderService.assigneCarToOrder(car,order)
+        action = ""
+        while action != "b":
+            action = input("Would you like to assign this car to the order Y/N: ").lower()
+            if action == "q" :
+                sys.exit()
+            if action == "y" :
+                self.__orderService.assigneCarToOrder(car,order)
+            elif action == "n" :
+                car = self.carSelectionByCategory(order.carCategory)
+                self.__orderService.assigneCarToOrder(car,order)
+            if action != "":
+                print("Invalid input, try again")
+            
 
     def carSelectionByCategory(self, category):
         action = ""
