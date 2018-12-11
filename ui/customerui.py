@@ -67,6 +67,8 @@ class CustomerUI:
                 action2 = input("Input 'login' to go to login screen: ")
                 if action2 == "login":
                     self.customerMenu()
+                elif action2 == "b" or action2 == "q":
+                    action = action2
                 else:
                     pass
            
@@ -190,26 +192,25 @@ class CustomerUI:
     def createAccount(self, UserService):
         clearScreen()
         newUser = User()
-        newUser.name = self.getValidName()
-        newUser.email = self.getValidEmail()
-
-        newUser.password = self.getValidPassword()
-        newUser.socialNumber = self.getValidSocialNumber()
-        newUser.driverLicense = self.getValidDriverLicense()
-        newUser.address = self.getValidAddress()
-        newUser.phone = self.getValidPhone()
+        newUser.name            = self.getValidName()
+        newUser.email           = self.getValidEmail()
+        newUser.password        = self.getValidPassword()
+        newUser.socialNumber    = self.getValidSocialNumber()
+        newUser.driverLicense   = self.getValidDriverLicense()
+        newUser.address         = self.getValidAddress()
+        newUser.phone           = self.getValidPhone()
+        newUser.Employee        = 1
         checkDate = True
         while checkDate:
-            newUser.nameOnCard = self.getValidNameOnCard()
-            newUser.number = self.getValidNumber()
-            newUser.cvv = self.getValidCvv()
-            newUser.expMonth = self.getValidExpMonth()
-            newUser.expYear = self.getValidExpYear(newUser.expMonth)
+            newUser.nameOnCard  = self.getValidNameOnCard()
+            newUser.number      = self.getValidNumber()
+            newUser.cvv         = self.getValidCvv()
+            newUser.expMonth    = self.getValidExpMonth()
+            newUser.expYear     = self.getValidExpYear(newUser.expMonth)
             if newUser.expYear == "-1":
                 print("Please try another card")
             else:
                 checkDate = False
-        newUser.Employee = 1
         UserService.addUser(newUser)
 
     def getValidName(self):
