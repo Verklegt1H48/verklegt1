@@ -66,7 +66,7 @@ class OrderService:
 
     def confirmOrder(self, orderID):
         for order in self.__orders:
-            if order.id == int(orderID):
+            if order.id == int(orderID) and order.carId != -1:
                 order.status = 1
             self.__orderRepo.overwriteOrders(self.__orders)
     
