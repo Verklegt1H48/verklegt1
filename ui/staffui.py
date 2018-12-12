@@ -54,7 +54,7 @@ class StaffUI:
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
-           # print("4. List all unavaliable cars")
+            print("4. List all currently rented cars")
             print("Press b to return to the previous page")
             print("Press q to quit")
             if action != "":
@@ -70,7 +70,6 @@ class StaffUI:
                 action = ""
             elif action == "3":
                 clearScreen()
-                counter = 1
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
@@ -88,6 +87,8 @@ class StaffUI:
             print("2. Remove a customer")
             print("3. List all customers")
             print("4. Add a new staff member")
+            print("5. Remove a customer")
+            print("6. List all customers") ### Todo Implement
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -103,7 +104,6 @@ class StaffUI:
                 action = ""
                 clearScreen()
                 self.removeUser()
-                
             elif action == "3":
                 clearScreen()
                 users = self.__userService.getUserList()
@@ -135,15 +135,7 @@ class StaffUI:
                 sys.exit()
             elif action == "1":
                 clearScreen()
-                newOrder = Order()
-                self.getValidUserId(newOrder, self.__userService)
-                self.getValidCarCategory(newOrder, self.__carService)
-                car = self.carSelectionByCategory(newOrder.carCategory)
-                newOrder.carId = car.id
-                self.getValidPayment(newOrder, self.__orderService)
-                newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
-                draslGildi = ""
-                self.__orderService.addOrder(newOrder)
+                self.addOrder()
                 action = ""
             elif action == "2":
                 clearScreen()
@@ -162,7 +154,7 @@ class StaffUI:
             counter = 1
             printHeader("orderSelect")
             for order in orderList:
-                print("{}{}".format(counter,order ))
+                print("{}{}".format(counter,order))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
@@ -202,7 +194,6 @@ class StaffUI:
 
             if orderToChange.carId == -1:
                 print("This order has not been assigned a car\n")
-
             else :
                 print("This order was assigned a car with ID: " + str(orderToChange.carId)+ "\n")
 
@@ -349,6 +340,17 @@ class StaffUI:
         employeePin = input("Enter unique employee number: ")
         newUser = User(employeeName, employeeSocialNumber, 0, employeePin)
         self.__userService.addUser(newUser)
+
+    def addOrder(self):
+        newOrder = Order()
+        self.getValidUserId(newOrder, self.__userService)
+        self.getValidCarCategory(newOrder, self.__carService)
+        car = self.carSelectionByCategory(newOrder.carCategory)
+        newOrder.carId = car.id
+        self.getValidPayment(newOrder, self.__orderService)
+        newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
+        draslGildi = ""
+        self.__orderService.addOrder(newOrder)
 
     def logInAsStaff(self):
         staffSocial = self.getStaffSocial()
