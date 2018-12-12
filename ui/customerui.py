@@ -1,6 +1,7 @@
 from datetime import datetime
 from models.car import Car
 from models.user import User
+from models.order import Order
 from services.userservice import UserService
 from services.carservice import CarService
 from services.orderservice import OrderService
@@ -15,7 +16,7 @@ class CustomerUI:
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__isLoggedIn = False
-        self.__userName = ""
+        self.__currUser = User()
 
     def seeAvailableCars(self):
         action = ""
@@ -28,9 +29,10 @@ class CustomerUI:
                 print("You are not logged in!")
             print("These are your options:")
             print("")
-            print("1. Sort cars by price category")
+            print("1. Sort cars by Price")
             print("2. Sort cars by manufacturer")
             print("3. Sort cars by availability")
+            print("4. Sort cars by Category")
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -38,7 +40,7 @@ class CustomerUI:
             action = input("Choose an option: ").lower()
             if action == "q":
                 exit(1)
-            elif action == "1":
+            elif action in ("1", "4")
                 self.printCarList("category")
                 action = ""
             elif action == "2":
