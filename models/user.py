@@ -16,22 +16,17 @@ class User:
         self.__expMonth = expMonth
         self.__expYear = expYear
         self.__rentHistory = []
-        self.__deleted = False
+        self.__deleted = 0
         self.__employee = employee
         self.__pin = pin
 
 
     def __repr__(self):
-        return "{:2}{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format("", str(self.__name), str(self.__id), str(self.__socialNumber), 
+        return "{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format(str(self.__name), str(self.__id), str(self.__socialNumber), 
                                                         str(self.__driverLicense), str(self.__address), str(self.__phone), 
                                                         str(self.__email))
 
 
-    #def __repr__(self):
-     #   return self.__str__()
-
-    def deleteUser(self):
-        self.__deleted = True
 
 #Getterar
     @property

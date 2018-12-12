@@ -77,21 +77,67 @@ class CustomerUI:
             if self.__isLoggedIn:
                 action = input("Please enter which car you wish to book, b to go back or q to quit: ").lower()
             else:
-                action = input("Enter \"login\" to go to login screen, b to go back or q to quit: ")
-                if action == "login":
+                loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ")
+                if loginAction == "login":
                     self.customerMenu()
-                    action = ""
+                else:
+                    action = "_"
             if action == "q" :
                 exit(1)
             if action.isdecimal() and (0 < int(action) < counter):
                 carToOrder = carList[int(action) - 1]
                 pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
-                newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, "", pickUpDate, returnDate)
-                PayMent = self.getValidPayment(newOrder, self.__orderService)
+                paymentMethod = self.selectPaymentMethod()
+                newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
                 self.__orderService.addOrder(newOrder)
                 action = ""
-                del carList
-               
+                self.orderConfirmation()
+    
+    def orderConfirmation(self):
+        clearScreen()
+        action = ""
+        while action != "b":
+            clearScreen()
+            print("Congratulations! Your order has been booked under the name " + self.__currUser.name)
+            print("b. Go back to car menu")
+            print("q. Exit program")
+            if action != "":
+                print("Invalid input! Please try again.")
+            action = input("Choose an option: ").lower()
+            if action == "q":
+                exit(1)
+        return
+    
+
+
+    def selectPaymentMethod(self):
+        action = ""
+        while action != "b":
+            clearScreen()
+            print("-> Select payment method")
+            print("These are your options:")
+            print("")
+            print("1. Debet card")
+            print("2. Credit card")
+            print("3. Cash")
+            print("b. Go back")
+            print("q. Exit program")
+            if action != "":
+                print("Invalid input! Please try again.")
+            action = input("Choose an option: ").lower()
+            if action == "q":
+                exit(1)
+            elif action == "1":
+                clearScreen()
+                return "DEBET"
+            elif action == "2":
+                clearScreen()
+                return "CREDIT"
+            elif action == "3":
+                clearScreen()
+                return "CASH"
+        return ""
+
     def inputOrderInfo(self, carToOrder):
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
