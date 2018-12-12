@@ -32,6 +32,12 @@ class UserService:
         #Todo: Implement
         return user.deleted()
 
+    def isValidUserId(self, UserId):
+        for user in self.__users:
+            if user.id == UserId:
+                return True
+        return False
+
     def isValidName(self, name):
         if name == "q":
             exit(1)
