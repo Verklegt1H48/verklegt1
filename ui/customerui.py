@@ -5,10 +5,9 @@ from models.order import Order
 from services.userservice import UserService
 from services.carservice import CarService
 from services.orderservice import OrderService
-#from ui.staffui import getValidPayment
 from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
-import getpass
+import getpass, sys
 
 class CustomerUI:
     
@@ -87,15 +86,14 @@ class CustomerUI:
             if action == "q" :
                 exit(1)
             if action.isdecimal() and (0 < int(action) < counter):
-                action = ""
                 carToOrder = carList[int(action) - 1]
                 pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
                 paymentMethod = self.selectPaymentMethod()
                 if paymentMethod != "":
                     newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
                     self.__orderService.addOrder(newOrder)
-                    action = ""
                     self.orderConfirmation()
+                action = ""
     
     def orderConfirmation(self):
         clearScreen()
@@ -111,8 +109,6 @@ class CustomerUI:
             if action == "q":
                 exit(1)
         return
-    
-
 
     def selectPaymentMethod(self):
         action = ""
@@ -149,11 +145,11 @@ class CustomerUI:
         currPrice = ""
         currPrice = self.addInsurance(carToOrder)
         if(currPrice != ""):
-            pickUpDate, returnDate, daysToRent = self.__orderService.obtainPickupAndReturnDate()
-            if(daysToRent != ""):
-                finalPrice = int(daysToRent.days) * int(currPrice)
-                print("Your final price is " + str(finalPrice) + " isk")
-                return pickUpDate, returnDate
+            pickUpDate, returnDate = getValidPickUpAndReturnDate(self.__orderService)
+            finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
+            print("Your final price is " + str(finalPrice) + " isk")
+            return pickUpDate, returnDate
+
 
     def addInsurance(self, carToOrder):
         action = ""
@@ -362,6 +358,44 @@ def getValidExpYear(userService, expMonth):
     else:
         return expYear
 
+def getValidPickUpAndReturnDate(service):
+    action = ""
+    clearScreen()
+    while action != "b":
+        action = input("When will you pick up your car? (dd/mm/yy): ")
+        if action == "b" :
+            return "", ""
+        elif action == "q" :
+            sys.exit()
+        pickUpCar = service.isValidPickUpDate(action)
+        pickUpDate = action
+        action = ""
+        if pickUpCar == "Year":
+            print("You can't order more than a year in advance")
+        elif pickUpCar == "Past":
+            print("Pick up date must be a future date")
+        else:
+            break     
+    while action != "b":
+        clearScreen()
+        action = input("When will you return the car? (dd/mm/yy): ")
+        if action == "b" :
+            return "0", "0"
+        elif action == "q" :
+            sys.exit()
+        returnCar = service.isValidReturnDate(action, pickUpCar)
+        if returnCar == "Year":
+            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+            print("You can't have the car for more than a year")
+        if returnCar == "Past":
+            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+            print("The car can not be returned before it is picked up")
+        else:
+            returnDate = action
+            break
+    return pickUpDate, returnDate
+
+
 def createAccount(service):
     clearScreen()
     newUser = User()
@@ -384,5 +418,5 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.__users.append(newUser)
+    service.users.append(newUser)
     service.addUser(newUser)

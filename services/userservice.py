@@ -180,3 +180,12 @@ class UserService:
 
     def getUserList(self):
         return self.__users
+
+    @property
+    def users(self):
+        return self.__users
+
+#Setterar
+    @users.setter
+    def users(self, value):
+        self.__users = value
