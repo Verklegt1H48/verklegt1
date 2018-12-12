@@ -87,13 +87,15 @@ class CustomerUI:
             if action == "q" :
                 exit(1)
             if action.isdecimal() and (0 < int(action) < counter):
+                action = ""
                 carToOrder = carList[int(action) - 1]
                 pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
                 paymentMethod = self.selectPaymentMethod()
-                newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
-                self.__orderService.addOrder(newOrder)
-                action = ""
-                self.orderConfirmation()
+                if paymentMethod != "":
+                    newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
+                    self.__orderService.addOrder(newOrder)
+                    action = ""
+                    self.orderConfirmation()
     
     def orderConfirmation(self):
         clearScreen()
@@ -158,7 +160,7 @@ class CustomerUI:
         while action != "b":
             #clearScreen()
             print("Press q to quit and b to go back")  
-            carInsurance = str(int(carToOrder.price) / 10)
+            carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
                 clearScreen()
                 print("Invalid input, try again")
