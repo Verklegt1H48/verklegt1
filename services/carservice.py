@@ -27,6 +27,16 @@ class CarService:
         if success:
             self.__carRepo.overwriteCars(self.__cars)
         return success
+
+    def makeCarAvailable(self, carID):
+        success = False
+        for car in self.__cars:
+            if car.id == int(carID):
+                car.available = 1
+                success = True
+        if success:
+            self.__carRepo.overwriteCars(self.__cars)
+        return success
     
     def getCarList(self):
         return self.__cars
@@ -96,7 +106,7 @@ class CarService:
             return False
 
     def isValidMileage(self, mileage):
-        if mileage.isdecimal() and (0 <= int(mileage) < 100000):
+        if mileage.isdecimal() and (0 <= int(mileage) < 1000000):
             return True
         else:
             return False
@@ -114,13 +124,8 @@ class CarService:
             return False
 
     def isValidExtras(self, extras):
-        if extras.isalnum() and (0 < len(extras) < 40):
+        if (0 < len(extras) < 40):
             return True
         else:
             return False
 
-    def isValidPrice(self, price):
-        if price in ("5000", "10000", "15000", "20000"):
-            return True
-        else:
-            return False

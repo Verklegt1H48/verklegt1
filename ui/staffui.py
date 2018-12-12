@@ -53,7 +53,7 @@ class StaffUI:
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
-            print("4. List all currently rented cars")
+            print("4. Return car")
             print("Press b to return to the previous page")
             print("Press q to quit")
             if action != "":
@@ -77,6 +77,40 @@ class StaffUI:
                         print("{}{}".format(car.id,car))
                 print("Input any key to go back: ")
                 input("")
+            elif action == "4":
+                clearScreen()
+                printHeader("carSelect")
+                cars = self.__carService.getCarList()
+                action = ""
+                for car in cars:
+                    if car.available != 1:
+                        print("{}{}".format(car.id,car))
+                self.markCarAvailable(cars)
+
+    def markCarAvailable(self, cars):
+        choice = ""
+        id = input("Enter the ID of the car you want to mark as available: ")
+        if id == "q":
+            sys.exit()
+        if id == "b":
+            return
+        choice = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
+        while choice not in ("b","y","n","q"):
+            choice = input("Please input \"y\" or \"n\"!: ").lower()
+        clearScreen()
+        if choice == "y":
+            if self.__carService.makeCarAvailable(id):
+                print("Car with ID \"{}\" is now available".format(id))
+                input("Press enter to continue")
+            else:
+                print("No car with ID: \"{}\" exists. Please try again".format(id))
+                input("Press enter to continue")
+        if choice == "n":
+            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
+            input("Press enter to continue")
+        if choice == "q":
+            sys.exit()
+
 
     def staffCustomerMenu(self):
         action = ""
@@ -227,7 +261,6 @@ class StaffUI:
         (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
         car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
 
-
         action = ""
         while action != "b":
             action = input("Would you like to assign this car to the order Y/N: ").lower()
@@ -275,12 +308,9 @@ class StaffUI:
         self.getValidSeats(newCar, self.__carService)
         self.getValidTransmission(newCar, self.__carService)
         self.getValidExtras(newCar, self.__carService)
-        self.getValidPrice(newCar, self.__carService)
         self.__carService.addCar(newCar)
         input("You have successfully added a new car. Please press Enter to continue")
 
-    #def addUser(self):
-        #CustomerUI.createAccount(self, self.__userService)
 
     def removeCar(self):
         clearScreen()
@@ -404,6 +434,15 @@ class StaffUI:
             if service.isValidCategory(category):
                 car.category = category
                 isValid = True
+                if category == "A":
+                    car.price == "5000"
+                elif category == "B":
+                    car.price == "10000"
+                elif category == "C":
+                    car.price == "15000"
+                else:
+                    car.price == "20000"
+
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
                 input("Press any key to try again: ")
@@ -530,15 +569,5 @@ class StaffUI:
                 print("Invalid input. Extras must be less than 40 letters long")
                 input("Please press enter to try again")
 
-    def getValidPrice(self, car, service):
-        isValid = False
-        while not isValid:
-            clearScreen()
-            price = input("Price: ")
-            if service.isValidPrice(price):
-                car.price = price
-                isValid = True
-            else:
-                print("Invalid input. Price must be \"5000\", \"10000\", \"15000\" or \"20000\"")
-                input("Please press enter to try again")
+
                 

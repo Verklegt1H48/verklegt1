@@ -36,9 +36,6 @@ class UserService:
         return success
 
 
-    def isDeleted(self, user):
-        #Todo: Implement
-        return user.deleted()
 
     def isValidUserId(self, UserId):
         for user in self.__users:
