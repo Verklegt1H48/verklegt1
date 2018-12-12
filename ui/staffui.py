@@ -85,8 +85,8 @@ class StaffUI:
             print("2. Remove a customer")
             print("3. List all customers")
             print("4. Add a new staff member")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
@@ -103,6 +103,7 @@ class StaffUI:
                 users = self.__userService.getUserList()
                 action = ""
                 clearScreen()
+                printHeader("userSelectHeader")
                 for user in users:
                     if user.employee == "1":
                         print(user)
@@ -133,7 +134,7 @@ class StaffUI:
                 newOrder.carCategory = input("Car Category: ")
                 car = self.carSelectionByCategory(newOrder.carCategory)
                 newOrder.carId       = car.id
-                newOrder.payMethod  = input("Payment Method: ")
+                newOrder.payMethod   = input("Payment Method: ")
                 newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
                 self.__orderService.addOrder(newOrder)
                 action = ""
