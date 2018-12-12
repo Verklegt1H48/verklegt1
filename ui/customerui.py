@@ -70,7 +70,7 @@ class CustomerUI:
             print("These are the cars you have chosen to see:")
             printHeader("carSelect")
             for car in carList:
-                print("{:5}{}".format(counter,car))
+                print("{:5}{}".format(str(counter),car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
@@ -154,7 +154,6 @@ class CustomerUI:
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
-            clearScreen()
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":

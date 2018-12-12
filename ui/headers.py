@@ -28,7 +28,7 @@ welcomeScreen = (r"""
                        PLEASE PRESS ENTER TO CONTINUE
 -------------------------------------------------------------------------- """)
 
-carSelectHeader = ("{:11}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("ID","Category","Price",
+carSelectHeader = ("{:5}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("ID","Category","Price",
                                                                             "Manufacturer","Model","Year",
                                                                             "Mileage","Seats","Transmission",
                                                                             "Extras"))
