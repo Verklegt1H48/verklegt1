@@ -75,8 +75,8 @@ class StaffUI:
                 cars = self.__carService.getCarList()
                 action = ""
                 for car in cars:
-                    print("{}{}".format(counter,car ))
-                    counter += 1
+                    if car.deleted != 1:
+                        print("{}{}".format(car.id,car))
                 print("Input any key to go back: ")
                 input("")
 
@@ -109,7 +109,7 @@ class StaffUI:
                 users = self.__userService.getUserList()
                 action = ""
                 clearScreen()
-                printHeader("userSelectHeader")
+                printHeader("userSelect")
                 for user in users:
                     if user.employee == "1" and user.deleted == "0":
                         print(user)
