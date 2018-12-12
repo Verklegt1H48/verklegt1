@@ -158,7 +158,7 @@ class CustomerUI:
         while action != "b":
             #clearScreen()
             print("Press q to quit and b to go back")  
-            carInsurance = str(int(int(carToOrder.price) / 10))
+            carInsurance = str(int(carToOrder.price) / 10)
             if action != "":
                 clearScreen()
                 print("Invalid input, try again")
