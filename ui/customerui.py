@@ -16,7 +16,7 @@ class CustomerUI:
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__isLoggedIn = False
-        self.__userName = ""
+        self.__currUser = User()
 
     def seeAvailableCars(self):
         action = ""
