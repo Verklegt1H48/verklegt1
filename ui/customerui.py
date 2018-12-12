@@ -156,8 +156,6 @@ class CustomerUI:
     
                 
     def logInAsUser(self):
-        if self.__isLoggedIn:
-            print("Logged out as" + self.__userName)
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
@@ -219,7 +217,6 @@ class CustomerUI:
                 print("Please try another card")
             else:
                 checkDate = False
-        newUser.Employee = 1
         UserService.addUser(newUser)
 
     def getValidName(self):
