@@ -145,7 +145,7 @@ class StaffUI:
                 clearScreen()
                 printHeader("userSelect")
                 for user in users:
-                    if user.employee == "1" and user.deleted == "0":
+                    if str(user.employee) == "1" and str(user.deleted) == "0":
                         print(user)
                 social = input("Input social security number of customer: ")
                 clearScreen()
