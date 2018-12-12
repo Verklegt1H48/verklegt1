@@ -82,7 +82,7 @@ class OrderService:
         while action != "b":
             action = input("When will you pick up your car? (dd/mm/yy): ")
             if action == "b" :
-                return ""
+                return "", "", ""
             elif action == "q" :
                 exit(1)
             try:
@@ -97,13 +97,15 @@ class OrderService:
                     clearScreen()
                     raise Exception
             except:
+                clearScreen()
                 print("Invalid date input")
         pickUpDate = action  
         action = ""
         while action != "b":
+            clearScreen()
             action = input("When will you return the car? (dd/mm/yy): ")
             if action == "b" :
-                return ""
+                return "", "", ""
             elif action == "q" :
                 exit(1)
             try:
@@ -123,6 +125,7 @@ class OrderService:
                 else:
                     raise Exception
             except:
+                clearScreen()
                 print("Invalid date input")
         returnDate = action
         daysToRent = returnCar - pickupCar

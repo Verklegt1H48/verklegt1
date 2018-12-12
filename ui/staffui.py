@@ -74,6 +74,7 @@ class StaffUI:
                 clearScreen()
                 for car in cars:
                     print(car)
+                print("Input any key to go back: ")
                 input("")
 
     def staffCustomerMenu(self):
@@ -103,7 +104,8 @@ class StaffUI:
                 action = ""
                 clearScreen()
                 for user in users:
-                    print(user)
+                    if user.employee == "1":
+                        print(user)
                 input("Input any key to go back: ")
             elif action == "4":
                 self.addStaffMember()
@@ -125,6 +127,7 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
+                clearScreen()
                 newOrder = Order()
                 self.getValidUserId(newOrder, self.__userService)
                 self.getValidCarCategory(newOrder, self.__carService)
@@ -136,9 +139,11 @@ class StaffUI:
                 self.__orderService.addOrder(newOrder)
                 action = ""
             elif action == "2":
+                clearScreen()
                 self.printOrderList(1)
                 action = ""
             elif action == "3":
+                clearScreen()
                 self.printOrderList(0)
                 action = ""
 
