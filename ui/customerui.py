@@ -129,55 +129,6 @@ class CustomerUI:
                 pass
         return ""
                     
-    def obtainPickupAndReturnDate(self):
-        action = ""
-        clearScreen()
-        while action != "b":
-            action = input("When will you pick up your car? (dd/mm/yy): ")
-            if action == "b" :
-                return ""
-            elif action == "q" :
-                exit(1)
-            try:
-                pickupCar = datetime.strptime(action, "%d/%m/%y")
-                if (pickupCar - datetime.today()).days > 365:
-                    clearScreen()
-                    print("You can't order more than a year in advance")
-                    raise Exception
-                elif pickupCar > datetime.today():
-                    break
-                else:
-                    raise Exception
-            except:
-                print("Invalid date input")    
-        action = ""
-        while action != "b":
-            action = input("When will you return the car? (dd/mm/yy): ")
-            if action == "b" :
-                return ""
-            elif action == "q" :
-                exit(1)
-            try:
-                returnCar = datetime.strptime(action, "%d/%m/%y")
-                if (returnCar - pickupCar).days > 365:
-                    clearScreen()
-                    if pickupCar.day < 10:
-                        dayString = "0" + str(pickupCar.day)
-                    if pickupCar.month < 10:
-                        monthString = "0" + str(pickupCar.month)
-                    yearString = str(pickupCar.year - 2000)
-                    print("When will you pick up your car? (dd/mm/yy): " + dayString + "/" + monthString + "/" + yearString)
-                    print("You can't have the car for more than a year")
-                    raise Exception
-                elif returnCar > pickupCar:
-                    break
-                else:
-                    raise Exception
-            except:
-                print("Invalid date input")
-        return returnCar - pickupCar
-
-
     def customerMenu(self):
         action = ""
         while action != "b":
