@@ -102,7 +102,6 @@ class OrderService:
         pickUpDate = action  
         action = ""
         while action != "b":
-            #clearScreen()
             action = input("When will you return the car? (dd/mm/yy): ")
             if action == "b" :
                 return "", "", ""
