@@ -95,8 +95,8 @@ class CustomerUI:
 
     def inputOrderInfo(self, carToOrder):
         clearScreen()
+        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
-        print("Current price is " + carToOrder.price + " isk per day")
         currPrice = ""
         currPrice = self.addInsurance(carToOrder)
         if(currPrice != ""):
