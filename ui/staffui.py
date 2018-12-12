@@ -88,8 +88,8 @@ class StaffUI:
             print("2. Remove a customer")
             print("3. List all customers")
             print("4. Add a new staff member")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
@@ -108,6 +108,8 @@ class StaffUI:
                 clearScreen()
                 users = self.__userService.getUserList()
                 action = ""
+                clearScreen()
+                printHeader("userSelectHeader")
                 for user in users:
                     if user.employee == "1" and user.deleted == "0":
                         print(user)
