@@ -87,10 +87,7 @@ class CarService:
             return False
 
     def isValidModel(self, model):
-        if (1990):
-            return True
-        else:
-            return False
+        return self.isValidManufacturer(model)
 
     def isValidYear(self, year):
         if year.isdecimal() and (1900 <= int(year) <datetime.today().year + 2):
