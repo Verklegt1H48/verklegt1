@@ -1,19 +1,16 @@
 from helperfunctions.helpers import clearScreen
+import getpass
 
 def printHeader(header):
-    if header == "login":
-        print(loginHeader)
-    elif header == "main":
-        print(mainHeader)
+    if header == "welcome":
+        print(welcomeScreen)
+        getpass.getpass("")
     elif header == "carSelect":
         print(carSelectHeader)
     elif header == "orderSelect":
         print(orderSelectHeader)
 
-
-loginHeader = "rass"
-
-mainHeader = (r"""
+welcomeScreen = (r"""
 
                        ____________________
                      //|           |        \
@@ -29,9 +26,11 @@ mainHeader = (r"""
                        PLEASE PRESS ENTER TO CONTINUE
 -------------------------------------------------------------------------- """)
 
-carSelectHeader = ("{:10}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("Number","Category","Price","Manufacturer",
-                                                                            "Model","Year", "Mileage","Seats",
-                                                                            "Transmission","Extras"))
+carSelectHeader = ("{:10}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("Number","Category","Price",
+                                                                            "Manufacturer","Model","Year",
+                                                                            "Mileage","Seats","Transmission",
+                                                                            "Extras"))
 
-orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number","UserID","Category","CarID","Payment Method",
-                             "Pick Up Date","Return Date"))
+orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number","UserID","Category",
+                                                               "CarID","Payment Method",
+                                                               "Pick Up Date","Return Date"))

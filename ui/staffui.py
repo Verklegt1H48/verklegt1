@@ -370,7 +370,7 @@ class StaffUI:
                 car.category = category
                 isValid = True
             else:
-                print("Invalid input. Category must be 'A', 'B', 'C' or 'D'")
+                print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
                 input("Please press enter to try again")
 
     def getValidManufacturer(self, car, service):
