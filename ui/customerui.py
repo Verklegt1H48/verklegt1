@@ -24,7 +24,7 @@ class CustomerUI:
             clearScreen()
             print("-> See Available Cars")
             if self.__isLoggedIn:
-                print("Welcome " + self.__userName + "!")
+                print("Welcome " + self.__currUser.name + "!")
             else:
                 print("You are not logged in!")
             print("These are your options:")
@@ -40,7 +40,7 @@ class CustomerUI:
             action = input("Choose an option: ").lower()
             if action == "q":
                 exit(1)
-            elif action in ("1", "4")
+            elif action in ("1", "4"):
                 self.printCarList("category")
                 action = ""
             elif action == "2":
@@ -64,7 +64,7 @@ class CustomerUI:
             if attribute == "available":
                 print("-> Sort cars by availability")
             if self.__isLoggedIn:
-                print("You are logged in as: {}".format(self.__userName))
+                print("You are logged in as: {}".format(self.__currUser.name))
             else:
                 print("You are not logged in. You need to login to book a car.")
             print("These are the cars you have chosen to see:")
@@ -90,20 +90,22 @@ class CustomerUI:
                 self.__orderService.addOrder(newOrder)
                 newOrder = Order()
                 action = ""
+                del carList
                
 
     def inputOrderInfo(self, carToOrder):
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
-        print("Current price is " + carToOrder.price + " isk per day")
+        print("Current price is " + str(carToOrder.price) + " isk per day")
         currPrice = ""
         currPrice = self.addInsurance(carToOrder)
         if(currPrice != ""):
-            daysToRent = self.obtainPickupAndReturnDate()
+            pickUpDate, returnDate, daysToRent = self.__orderService.obtainPickupAndReturnDate()
             if(daysToRent != ""):
                 finalPrice = int(daysToRent.days) * int(currPrice)
                 print("Your final price is " + str(finalPrice) + " isk")
-            
+                return pickUpDate, returnDate
+
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
@@ -121,61 +123,12 @@ class CustomerUI:
                 print("Your total price per day is " + totalPrice + " isk")
                 return totalPrice
             elif action == "n":
-                print("Your total price per day is " + carToOrder.price + " isk")
+                print("Your total price per day is " + str(carToOrder.price) + " isk")
                 return carToOrder.price
             else:
                 pass
         return ""
                     
-    def obtainPickupAndReturnDate(self):
-        action = ""
-        clearScreen()
-        while action != "b":
-            action = input("When will you pick up your car? (dd/mm/yy): ")
-            if action == "b" :
-                return ""
-            elif action == "q" :
-                exit(1)
-            try:
-                pickupCar = datetime.strptime(action, "%d/%m/%y")
-                if (pickupCar - datetime.today()).days > 365:
-                    clearScreen()
-                    print("You can't order more than a year in advance")
-                    raise Exception
-                elif pickupCar > datetime.today():
-                    break
-                else:
-                    raise Exception
-            except:
-                print("Invalid date input")    
-        action = ""
-        while action != "b":
-            action = input("When will you return the car? (dd/mm/yy): ")
-            if action == "b" :
-                return ""
-            elif action == "q" :
-                exit(1)
-            try:
-                returnCar = datetime.strptime(action, "%d/%m/%y")
-                if (returnCar - pickupCar).days > 365:
-                    clearScreen()
-                    if pickupCar.day < 10:
-                        dayString = "0" + str(pickupCar.day)
-                    if pickupCar.month < 10:
-                        monthString = "0" + str(pickupCar.month)
-                    yearString = str(pickupCar.year - 2000)
-                    print("When will you pick up your car? (dd/mm/yy): " + dayString + "/" + monthString + "/" + yearString)
-                    print("You can't have the car for more than a year")
-                    raise Exception
-                elif returnCar > pickupCar:
-                    break
-                else:
-                    raise Exception
-            except:
-                print("Invalid date input")
-        return returnCar - pickupCar
-
-
     def customerMenu(self):
         action = ""
         while action != "b":
@@ -203,8 +156,6 @@ class CustomerUI:
     
                 
     def logInAsUser(self):
-        if self.__isLoggedIn:
-            print("Logged out as" + self.__userName)
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
@@ -239,7 +190,7 @@ class CustomerUI:
 
             elif selectedUser.password == action:
                 clearScreen()
-                self.__userName = selectedUser.name
+                self.__currUser = selectedUser
                 self.__isLoggedIn = True
                 return
 
@@ -254,18 +205,18 @@ class CustomerUI:
         newUser.driverLicense   = self.getValidDriverLicense()
         newUser.address         = self.getValidAddress()
         newUser.phone           = self.getValidPhone()
+        newUser.Employee        = 1
         checkDate = True
         while checkDate:
-            newUser.nameOnCard = self.getValidNameOnCard()
-            newUser.number = self.getValidNumber()
-            newUser.cvv = self.getValidCvv()
-            newUser.expMonth = self.getValidExpMonth()
-            newUser.expYear = self.getValidExpYear(newUser.expMonth)
+            newUser.nameOnCard  = self.getValidNameOnCard()
+            newUser.number      = self.getValidNumber()
+            newUser.cvv         = self.getValidCvv()
+            newUser.expMonth    = self.getValidExpMonth()
+            newUser.expYear     = self.getValidExpYear(newUser.expMonth)
             if newUser.expYear == "-1":
                 print("Please try another card")
             else:
                 checkDate = False
-        newUser.Employee = 1
         UserService.addUser(newUser)
 
     def getValidName(self):
@@ -290,6 +241,14 @@ class CustomerUI:
             password = getpass.getpass("Password: ")
             clearScreen()
             isValidPassword = self.__userService.isValidPassword(password)
+            confirmPassword = getpass.getpass("Confirm password: ")
+            if confirmPassword == password:
+                pass
+                clearScreen()
+            else:
+                clearScreen()
+                print("Passwords don't match, please try again")
+                isValidPassword = True
         return password
 
     def getValidSocialNumber(self):
