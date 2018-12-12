@@ -80,6 +80,8 @@ class CustomerUI:
                 loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ")
                 if loginAction == "login":
                     self.customerMenu()
+                elif loginAction == "q" or loginAction == "b":
+                    action = loginAction
                 else:
                     action = "_"
             if action == "q" :
@@ -154,10 +156,11 @@ class CustomerUI:
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
-            clearScreen()
+            #clearScreen()
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
+                clearScreen()
                 print("Invalid input, try again")
             action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
             
