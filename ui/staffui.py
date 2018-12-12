@@ -74,7 +74,7 @@ class StaffUI:
                 cars = self.__carService.getCarList()
                 for car in cars:
                     if car.deleted != 1:
-                        print("{}{}".format(car.id,car))
+                        print("{:3}{}".format(car.id,car))
                 print("Input any key to go back: ")
                 input("")
             elif action == "4":
@@ -82,6 +82,7 @@ class StaffUI:
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
+                ### getAvailability  NOTA ÞETTA FALL
                 for car in cars:
                     if car.available != 1:
                         print("{}{}".format(car.id,car))
@@ -120,8 +121,8 @@ class StaffUI:
             print("2. Remove a customer")
             print("3. List all customers")
             print("4. Add a new staff member")
-            print("5. Remove a customer")
-            print("6. List all customers") ### Todo Implement
+            print("5. Remove a staff member")
+            print("6. List all staff members") ### Todo Implement
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -132,7 +133,7 @@ class StaffUI:
             elif action == "1":
                 action = ""
                 clearScreen()
-                self.addUser()
+                createAccount(self.__userService)
             elif action == "2":
                 action = ""
                 clearScreen()
@@ -447,13 +448,13 @@ class StaffUI:
                 car.category = category
                 isValid = True
                 if category == "A":
-                    car.price == "5000"
+                    car.price == 5000
                 elif category == "B":
-                    car.price == "10000"
+                    car.price == 10000
                 elif category == "C":
-                    car.price == "15000"
+                    car.price == 15000
                 else:
-                    car.price == "20000"
+                    car.price == 20000
 
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
@@ -540,7 +541,7 @@ class StaffUI:
                 car.mileage = mileage
                 isValid = True
             else:
-                print("Invalid input. Mileage must be an integer between 0 and 100000")
+                print("Invalid input. Mileage must be an integer between 0 and 1000000")
                 input("Please press enter to try again")
 
     def getValidSeats(self, car, service):
