@@ -17,7 +17,7 @@ class Car:
         self.__price = 0
 
     def __repr__(self):
-        return "{:5}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("",self.__category, str(self.__price), self.__manufacturer,
+        return "{:10}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("",self.__category, str(self.__price), self.__manufacturer,
                                                                    str(self.__model), str(self.__year), str(self.__mileage),
                                                                    str(self.__seats), self.__transmission,
                                                                    str(self.__extras).strip("[']").replace("', '", ", "))

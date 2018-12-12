@@ -69,11 +69,14 @@ class StaffUI:
                 self.removeCar()
                 action = ""
             elif action == "3":
+                clearScreen()
+                counter = 1
+                printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
-                clearScreen()
                 for car in cars:
-                    print(car)
+                    print("{}{}".format(counter,car ))
+                    counter += 1
                 input("")
 
     def staffCustomerMenu(self):
@@ -99,9 +102,9 @@ class StaffUI:
                 #self.__userService.deleteUser()
                 #action = ""
             elif action == "3":
+                clearScreen()
                 users = self.__userService.getUserList()
                 action = ""
-                clearScreen()
                 for user in users:
                     print(user)
                 input("Input any key to go back: ")
