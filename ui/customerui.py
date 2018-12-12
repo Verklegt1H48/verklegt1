@@ -87,7 +87,6 @@ class CustomerUI:
                 self.__orderService.addOrder(newOrder)
                 newOrder = Order()
                 action = ""
-                del carList
                
 
     def inputOrderInfo(self, carToOrder):
@@ -103,11 +102,10 @@ class CustomerUI:
                 print("Your final price is " + str(finalPrice) + " isk")
                 return pickUpDate, returnDate
             
-    def addInsurance(self, carToOrder):
-       
+    def addInsurance(self, carToOrder): 
         action = ""
         while action != "b":
-            #clearScreen()
+            clearScreen()
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
@@ -116,11 +114,13 @@ class CustomerUI:
             
             if action == "q" :
                 exit(1)
-            elif action == "y":    
+            elif action == "y":
+                clearScreen()   
                 totalPrice = str(int(carInsurance) + int(carToOrder.price))
                 print("Your total price per day is " + totalPrice + " isk")
                 return totalPrice
             elif action == "n":
+                clearScreen()
                 print("Your total price per day is " + str(carToOrder.price) + " isk")
                 return carToOrder.price
             else:
