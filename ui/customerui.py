@@ -84,9 +84,12 @@ class CustomerUI:
             if action == "q" :
                 exit(1)
             if action.isdecimal() and (0 < int(action) < counter):
-                self.inputOrderInfo(carList[int(action) - 1])
+                carToOrder = carList[int(action) - 1]
+                pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
+                newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, "*payment*", pickUpDate, returnDate)
+                self.__orderService.addOrder(newOrder)
+                newOrder = Order()
                 action = ""
-                del carList #Er thetta naudsynlegt i Python?
                
 
     def inputOrderInfo(self, carToOrder):
