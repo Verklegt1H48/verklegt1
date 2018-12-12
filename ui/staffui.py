@@ -62,16 +62,16 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1":
+                action = ""
                 self.addCar()
-                action = ""
             elif action == "2":
-                self.removeCar()
                 action = ""
+                self.removeCar()
             elif action == "3":
+                action = ""
                 clearScreen()
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
-                action = ""
                 for car in cars:
                     if car.deleted != 1:
                         print("{}{}".format(car.id,car))
@@ -146,7 +146,17 @@ class StaffUI:
                 for user in users:
                     if user.employee == "1" and user.deleted == "0":
                         print(user)
-                input("Input any key to go back: ")
+                social = input("Input social security number of customer: ")
+                clearScreen()
+                if social == "q":
+                    exit(1)
+                elif social != "b":
+                    userBySocial = self.__userService.getUserBySocial(social) 
+                    if userBySocial == "Not found":
+                        print("User not found, check if social security number is correct or user exists")
+                    else:
+                        print(userBySocial)
+                    input("Press enter to go back")
             elif action == "4":
                 self.addStaffMember()
                 action = ""
@@ -383,7 +393,9 @@ class StaffUI:
 
     def logInAsStaff(self):
         staffSocial = self.getStaffSocial()
-        if staffSocial != "":
+        if staffSocial == "b":
+            pass
+        elif staffSocial != "":
             self.getStaffPin(staffSocial)
             if self.__isLoggedIn:
                 self.staffMenu()
@@ -392,7 +404,7 @@ class StaffUI:
         action = ""
         clearScreen()
         while action != "b":
-            action = input("Enter your social security number: ")
+            action = input("Enter your social security number: ").lower()
             selectedUser = self.__userService.getUserBySocial(action)
             if(action == "q"):
                 exit(1)
