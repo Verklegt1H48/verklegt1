@@ -384,5 +384,4 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.__users.append(newUser)
     service.addUser(newUser)
