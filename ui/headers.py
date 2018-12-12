@@ -9,6 +9,8 @@ def printHeader(header):
         print(carSelectHeader)
     elif header == "orderSelect":
         print(orderSelectHeader)
+    elif header == "userSelectHeader":
+        print(userSelectHeader)
 
 welcomeScreen = (r"""
 
@@ -26,7 +28,7 @@ welcomeScreen = (r"""
                        PLEASE PRESS ENTER TO CONTINUE
 -------------------------------------------------------------------------- """)
 
-carSelectHeader = ("{:10}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("Number","Category","Price",
+carSelectHeader = ("{:11}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("Number","Category","Price",
                                                                             "Manufacturer","Model","Year",
                                                                             "Mileage","Seats","Transmission",
                                                                             "Extras"))
@@ -34,3 +36,6 @@ carSelectHeader = ("{:10}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("Num
 orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number","UserID","Category",
                                                                "CarID","Payment Method",
                                                                "Pick Up Date","Return Date"))
+
+userSelectHeader = ("{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format("Name","ID","Social","License nr.",
+                                                                "Address","Phone","email"))

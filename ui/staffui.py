@@ -69,11 +69,14 @@ class StaffUI:
                 self.removeCar()
                 action = ""
             elif action == "3":
+                clearScreen()
+                counter = 1
+                printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
-                clearScreen()
                 for car in cars:
-                    print(car)
+                    print("{}{}".format(counter,car ))
+                    counter += 1
                 print("Input any key to go back: ")
                 input("")
 
@@ -85,8 +88,8 @@ class StaffUI:
             print("2. Remove a customer")
             print("3. List all customers")
             print("4. Add a new staff member")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
@@ -102,9 +105,11 @@ class StaffUI:
                 self.removeUser()
                 
             elif action == "3":
+                clearScreen()
                 users = self.__userService.getUserList()
                 action = ""
                 clearScreen()
+                printHeader("userSelectHeader")
                 for user in users:
                     if user.employee == "1" and user.deleted == "0":
                         print(user)
