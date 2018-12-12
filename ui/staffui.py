@@ -69,11 +69,14 @@ class StaffUI:
                 self.removeCar()
                 action = ""
             elif action == "3":
+                clearScreen()
+                counter = 1
+                printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
-                clearScreen()
                 for car in cars:
-                    print(car)
+                    print("{}{}".format(counter,car ))
+                    counter += 1
                 print("Input any key to go back: ")
                 input("")
 
@@ -102,6 +105,7 @@ class StaffUI:
                 self.removeUser()
                 
             elif action == "3":
+                clearScreen()
                 users = self.__userService.getUserList()
                 action = ""
                 clearScreen()
