@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-from ui.customerui import CustomerUI
+#from ui.customerui import CustomerUI
 import sys
 import getpass
 #from ui.mainui import MainUI
@@ -282,8 +282,8 @@ class StaffUI:
         self.__carService.addCar(newCar)
         input("You have successfully added a new car. Please press Enter to continue")
 
-    def addUser(self):
-        CustomerUI.createAccount(self, self.__userService)
+    #def addUser(self):
+        #CustomerUI.createAccount(self, self.__userService)
 
     def removeCar(self):
         clearScreen()
