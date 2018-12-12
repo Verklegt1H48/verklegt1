@@ -156,10 +156,7 @@ class CustomerUI:
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
-<<<<<<< HEAD
-=======
             #clearScreen()
->>>>>>> f1d84235edc1d2399419899fc31a32fea9b3e9d9
             print("Press q to quit and b to go back")  
             carInsurance = str(int(carToOrder.price) / 10)
             if action != "":
