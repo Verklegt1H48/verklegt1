@@ -23,30 +23,6 @@ class OrderService:
 
     def getOrderList(self):
         return self.__orders
-    
-    def getCategory(self):
-        action = ""
-        while action != "b":
-            clearScreen()
-            print("1. Small ") 
-            print("2. Confirmed orders") 
-            print("3. Unconfirmed orders")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
-            if action != "":
-                print("Invalid input! Please try again.")
-            action = input("Choose an option: ").lower()
-            if action == "q" :
-                sys.exit()
-            elif action == "1":
-                self.__orderService.addOrder()
-                action = ""
-            elif action == "2":
-                self.printOrderList(1)
-                action = ""
-            elif action == "3":
-                self.printOrderList(0)
-                action = ""
 
     def deleteOrder(self, orderID):
         for order in self.__orders:
