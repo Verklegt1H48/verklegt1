@@ -75,8 +75,8 @@ class StaffUI:
                 cars = self.__carService.getCarList()
                 action = ""
                 for car in cars:
-                    print("{}{}".format(counter,car ))
-                    counter += 1
+                    if car.deleted != 1:
+                        print("{}{}".format(car.id,car))
                 print("Input any key to go back: ")
                 input("")
 
@@ -109,7 +109,7 @@ class StaffUI:
                 users = self.__userService.getUserList()
                 action = ""
                 clearScreen()
-                printHeader("userSelectHeader")
+                printHeader("userSelect")
                 for user in users:
                     if user.employee == "1" and user.deleted == "0":
                         print(user)
@@ -139,7 +139,7 @@ class StaffUI:
                 self.getValidUserId(newOrder, self.__userService)
                 self.getValidCarCategory(newOrder, self.__carService)
                 car = self.carSelectionByCategory(newOrder.carCategory)
-                newOrder.carId       = car.id
+                newOrder.carId = car.id
                 self.getValidPayment(newOrder, self.__orderService)
                 newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
                 draslGildi = ""
@@ -405,7 +405,7 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
-                input("Please press enter to try again")
+                input("Press any key to try again: ")
     
     def getValidCarCategory(self, order, service):
         isValid = False
@@ -417,7 +417,7 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
-                input("Please press enter to try again")
+                input("Press any key to try again: ")
 
     def getValidPayment(self, order, service):
         isValid = False
@@ -429,7 +429,7 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
-                input("Please press enter to try again")
+                input("Press any key to try again: ")
 
     def getValidUserId(self, order, service):
         isValid = False
