@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-#from ui.customerui import CustomerUI
+from ui.customerui import createAccount
 import sys
 import getpass
 #from ui.mainui import MainUI
@@ -15,7 +15,6 @@ import getpass
 class StaffUI:
 
     def __init__(self):
-        #self.__mainui = MainUI()
         self.__carService = CarService()
         self.__orderService = OrderService()
         self.__userService = UserService()
