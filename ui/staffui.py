@@ -146,7 +146,17 @@ class StaffUI:
                 for user in users:
                     if user.employee == "1" and user.deleted == "0":
                         print(user)
-                input("Input any key to go back: ")
+                social = input("Input social security number of customer: ")
+                clearScreen()
+                if social == "q":
+                    exit(1)
+                elif social != "b":
+                    userBySocial = self.__userService.getUserBySocial(social) 
+                    if userBySocial == "Not found":
+                        print("User not found, check if social security number is correct or user exists")
+                    else:
+                        print(userBySocial)
+                    input("Press enter to go back")
             elif action == "4":
                 self.addStaffMember()
                 action = ""
