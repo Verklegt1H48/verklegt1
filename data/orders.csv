@@ -11,3 +11,4 @@ ID,UserID,CarCategory,CarID,Payment Method,PickUpDate,ReturnDate,Status,Deleted
 9,2,C,2,*payment*,15/01/19,16/01/19,0,0
 10,2,C,2,*payment*,12/10/19,12/11/19,1,0
 11,52,A,0,,12/12/18,13/12/18,0,0
+12,3,A,0,CREDIT,13/12/18,14/12/18,0,0

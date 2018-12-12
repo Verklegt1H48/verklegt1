@@ -126,12 +126,13 @@ class StaffUI:
                 sys.exit()
             elif action == "1":
                 newOrder = Order()
-                newOrder.userId      = input("User ID: ")
-                newOrder.carCategory = input("Car Category: ")
+                self.getValidUserId(newOrder, self.__userService)
+                self.getValidCarCategory(newOrder, self.__carService)
                 car = self.carSelectionByCategory(newOrder.carCategory)
                 newOrder.carId       = car.id
-                newOrder.payMethod  = input("Payment Method: ")
+                self.getValidPayment(newOrder, self.__orderService)
                 newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
+                draslGildi = ""
                 self.__orderService.addOrder(newOrder)
                 action = ""
             elif action == "2":
@@ -213,7 +214,6 @@ class StaffUI:
             elif action == "3" :
                 self.carAssignment(orderToChange)
                 action = "b"
-
     
     def carAssignment(self, order):
         car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
@@ -237,8 +237,7 @@ class StaffUI:
                 car = self.carSelectionByCategory(order.carCategory)
                 self.__orderService.assigneCarToOrder(car,order)
             if action != "":
-                print("Invalid input, try again")
-            
+                print("Invalid input, try again")      
 
     def carSelectionByCategory(self, category):
         action = ""
@@ -314,7 +313,6 @@ class StaffUI:
         newUser = User(employeeName, employeeSocialNumber, 0, employeePin)
         self.__userService.addUser(newUser)
 
-
     def logInAsStaff(self):
         staffSocial = self.getStaffSocial()
         if staffSocial != "":
@@ -322,7 +320,6 @@ class StaffUI:
             if self.__isLoggedIn:
                 self.staffMenu()
         
-    
     def getStaffSocial(self):
         action = ""
         clearScreen()
@@ -371,6 +368,42 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
+                input("Please press enter to try again")
+    
+    def getValidCarCategory(self, order, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            category = input("Car Category: ").upper()
+            if service.isValidCategory(category):
+                order.carCategory = category
+                isValid = True
+            else:
+                print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
+                input("Please press enter to try again")
+
+    def getValidPayment(self, order, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            PayMethod = input("Payment Method: ").upper()
+            if service.isValidPayMethod(PayMethod):
+                order.payMethod = PayMethod
+                isValid = True
+            else:
+                print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
+                input("Please press enter to try again")
+
+    def getValidUserId(self, order, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            UserId = input("User ID: ")
+            if service.isValidUserId(UserId):
+                order.userId = UserId
+                isValid = True
+            else:
+                print("Invalid input. User ID not found")
                 input("Please press enter to try again")
 
     def getValidManufacturer(self, car, service):
