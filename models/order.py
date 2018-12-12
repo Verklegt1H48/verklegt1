@@ -1,6 +1,7 @@
 class Order:
 
-    def __init__(self, userId = 0, carCategory = "", carId = -1, payMethod = "", pickUpDate = "", returnDate = "", status = 0, deleted = 0):
+    def __init__(self, userId = 0, carCategory = "", carId = -1, payMethod = "", pickUpDate = "", 
+                 returnDate = "", status = 0, deleted = 0):
         self.__id = 0
         self.__userId = userId
         self.__carCategory = carCategory
@@ -12,8 +13,9 @@ class Order:
         self.__returnDate = returnDate
 
     def __repr__(self):
-        return "{:7}{:8}{:10}{:7}{:16}{:15}{:10}".format("", str(self.__userId), self.__carCategory,\
-        str(self.__carId), self.__payMethod, self.__pickUpDate, self.__returnDate)
+        return "{:7}{:8}{:10}{:7}{:16}{:15}{:10}".format("", str(self.__userId), self.__carCategory,
+                                                         str(self.__carId), self.__payMethod,
+                                                         self.__pickUpDate, self.__returnDate)
 
     def deleteUser(self):
         self.__deleted = 1

@@ -5,8 +5,7 @@ from helperfunctions.helpers import clearScreen
 
 
 def main():
-    printHeader("main")
-    input("")
+    #printHeader("welcome")
     ui = MainUI()
     ui.mainMenu()
 main()

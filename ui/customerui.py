@@ -1,3 +1,4 @@
+from datetime import datetime
 from models.car import Car
 from models.user import User
 from models.order import Order
@@ -21,20 +22,25 @@ class CustomerUI:
         action = ""
         while action != "b":
             clearScreen()
+            print("-> See Available Cars")
             if self.__isLoggedIn:
-                print("Welcome " + self.__currUser.name + "!")
-            print("Press q to quit and b to go back")
-            print("How would you like to sort the car list?")
-            print("1. By price")
-            print("2. By manufacturer")
-            print("3. By availability")
-            print("4. By category")
+                print("Welcome " + self.__userName + "!")
+            else:
+                print("You are not logged in!")
+            print("These are your options:")
+            print("")
+            print("1. Sort cars by Price")
+            print("2. Sort cars by manufacturer")
+            print("3. Sort cars by availability")
+            print("4. Sort cars by Category")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
             if action == "q":
                 exit(1)
-            elif action == "1":
+            elif action in ("1", "4"):
                 self.printCarList("category")
                 action = ""
             elif action == "2":
@@ -42,9 +48,6 @@ class CustomerUI:
                 action = ""
             elif action == "3":
                 self.printCarList("available")
-                action = ""
-            elif action == "4":
-                self.printCarList("category")
                 action = ""
                 
     
@@ -54,33 +57,33 @@ class CustomerUI:
             clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
+            if attribute == "category":
+                print("-> Sort cars by price category")
+            if attribute == "manufacturer":
+                print("-> Sort cars by manufacturer")
+            if attribute == "available":
+                print("-> Sort cars by availability")
+            if self.__isLoggedIn:
+                print("You are logged in as: {}".format(self.__userName))
+            else:
+                print("You are not logged in. You need to login to book a car.")
+            print("These are the cars you have chosen to see:")
             printHeader("carSelect")
             for car in carList:
                 print("{:5}{}".format(counter,car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
-            if self.__isLoggedIn == True:
-                action = input("Please select the car you wish to book: ").lower()
+            if self.__isLoggedIn:
+                action = input("Please enter which car you wish to book, b to go back or q to quit: ").lower()
             else:
-                print("You need to log in to book a car")
-                action2 = input("Input 'login' to go to login screen: ")
-                if action2 == "login":
+                action = input("Enter \"login\" to go to login screen, b to go back or q to quit: ")
+                if action == "login":
                     self.customerMenu()
-                elif action2 == "b" or action2 == "q":
-                    action = action2
-                else:
-                    pass
-           
+                    action = ""
             if action == "q" :
                 exit(1)
-            elif action.isdecimal() == False:
-                pass
-            elif int(action) >= counter:
-                pass
-            elif int(action) <= 0:
-                pass
-            else:
+            if action.isdecimal() and (0 < int(action) < counter):
                 carToOrder = carList[int(action) - 1]
                 pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
                 newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, "*payment*", pickUpDate, returnDate)
@@ -92,7 +95,7 @@ class CustomerUI:
 
     def inputOrderInfo(self, carToOrder):
         clearScreen()
-        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
         currPrice = ""
         currPrice = self.addInsurance(carToOrder)
@@ -102,12 +105,11 @@ class CustomerUI:
                 finalPrice = int(daysToRent.days) * int(currPrice)
                 print("Your final price is " + str(finalPrice) + " isk")
                 return pickUpDate, returnDate
-            
+
     def addInsurance(self, carToOrder):
-       
         action = ""
         while action != "b":
-            #clearScreen()
+            clearScreen()
             print("Press q to quit and b to go back")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
@@ -131,9 +133,13 @@ class CustomerUI:
         action = ""
         while action != "b":
             clearScreen()
+            print("->Customer login screen")
+            print("")
+            print("These are your options")
             print("1. Log in")
             print("2. Sign up")
-            print("Press q to quit and b to go back") 
+            print("b. Go back")
+            print("q. Exit program") 
             if action != "":
                 print("Invalid input, try again")
             action = input("Choose an option: ").lower()
@@ -316,4 +322,5 @@ class CustomerUI:
         if isValidExpYear == False:
             return "-1"
         else:
-            return expYear   
+            return expYear
+    
