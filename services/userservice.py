@@ -42,7 +42,7 @@ class UserService:
 
     def isValidUserId(self, UserId):
         for user in self.__users:
-            if user.id == UserId:
+            if user.id == UserId and user.employee == 1:
                 return True
         return False
 

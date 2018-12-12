@@ -134,7 +134,7 @@ class StaffUI:
                 self.getValidUserId(newOrder, self.__userService)
                 self.getValidCarCategory(newOrder, self.__carService)
                 car = self.carSelectionByCategory(newOrder.carCategory)
-                newOrder.carId       = car.id
+                newOrder.carId = car.id
                 self.getValidPayment(newOrder, self.__orderService)
                 newOrder.pickUpDate, newOrder.returnDate, draslGildi = self.__orderService.obtainPickupAndReturnDate()
                 draslGildi = ""
@@ -400,7 +400,7 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
-                input("Please press enter to try again")
+                input("Press any key to try again: ")
     
     def getValidCarCategory(self, order, service):
         isValid = False
@@ -412,7 +412,7 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
-                input("Please press enter to try again")
+                input("Press any key to try again: ")
 
     def getValidPayment(self, order, service):
         isValid = False
@@ -424,7 +424,7 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
-                input("Please press enter to try again")
+                input("Press any key to try again: ")
 
     def getValidUserId(self, order, service):
         isValid = False
