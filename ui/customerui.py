@@ -5,6 +5,7 @@ from models.order import Order
 from services.userservice import UserService
 from services.carservice import CarService
 from services.orderservice import OrderService
+#from ui.staffui import getValidPayment
 from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
 import getpass
@@ -49,8 +50,7 @@ class CustomerUI:
             elif action == "3":
                 self.printCarList("available")
                 action = ""
-                
-    
+                 
     def printCarList(self, attribute):
         action = ""
         while action != "b":
@@ -86,12 +86,12 @@ class CustomerUI:
             if action.isdecimal() and (0 < int(action) < counter):
                 carToOrder = carList[int(action) - 1]
                 pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
-                newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, "*payment*", pickUpDate, returnDate)
+                newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, "", pickUpDate, returnDate)
+                PayMent = self.getValidPayment(newOrder, self.__orderService)
                 self.__orderService.addOrder(newOrder)
-                newOrder = Order()
                 action = ""
+                del carList
                
-
     def inputOrderInfo(self, carToOrder):
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
@@ -117,13 +117,11 @@ class CustomerUI:
             
             if action == "q" :
                 exit(1)
-            elif action == "y":
-                clearScreen()   
+            elif action == "y":    
                 totalPrice = str(int(carInsurance) + int(carToOrder.price))
                 print("Your total price per day is " + totalPrice + " isk")
                 return totalPrice
             elif action == "n":
-                clearScreen()
                 print("Your total price per day is " + str(carToOrder.price) + " isk")
                 return carToOrder.price
             else:
@@ -154,14 +152,12 @@ class CustomerUI:
                 self.createAccount(self.__userService)
             if self.__isLoggedIn:
                 self.seeAvailableCars()
-    
-                
+      
     def logInAsUser(self):
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
         
-    
     def getUserEmail(self):
         action = ""
         clearScreen()
@@ -195,7 +191,6 @@ class CustomerUI:
                 self.__isLoggedIn = True
                 return
 
-
     def createAccount(self, UserService):
         clearScreen()
         newUser = User()
@@ -219,6 +214,8 @@ class CustomerUI:
             else:
                 checkDate = False
         UserService.addUser(newUser)
+
+#validation
 
     def getValidName(self):
         isValidName = True
@@ -325,3 +322,14 @@ class CustomerUI:
         else:
             return expYear
     
+    def getValidPayment(self, order, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            PayMethod = input("Payment Method: ").upper()
+            if service.isValidPayMethod(PayMethod):
+                order.payMethod = PayMethod
+                isValid = True
+            else:
+                print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
+                input("Please press enter to try again")
