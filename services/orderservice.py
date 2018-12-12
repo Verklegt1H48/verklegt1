@@ -76,6 +76,7 @@ class OrderService:
             if order.status == status and order.deleted != 1:
                 orders.append(order)
         return orders
+
     def obtainPickupAndReturnDate(self):
         action = ""
         while action != "b":
@@ -129,5 +130,11 @@ class OrderService:
         returnDate = action
         daysToRent = returnCar - pickupCar
         return pickUpDate, returnDate, daysToRent
+
+    def isValidPayMethod(self, PayMethod):
+        if PayMethod in ("CREDIT", "DEBIT", "CASH"):
+            return True
+        else:
+            return False
 
     

@@ -1,6 +1,5 @@
-ID,Name,SocialNumber,DriversLicense,Address,Phone,Email,Password,NameOnCard,Number,CVV,ExpMonth,ExpYear,Employee,Pin
-0,Santa Clause,99,,,,,,,,,,,0,00001
-1,Alfur Alfsson,1234567890,123456789,ALfholar 10,5812345,alfurinn@yahoo.com,asdfasdf,Alfur senior,1234567890123456,123,05,22,1,
-2,Joi Spoi ,1234567890,123456789,Joavegur 10,5151515,joi@spoi.is,joierspoi,Jonina sponina,1231231231231238,987,11,23,1,
-3,Mrs. Clause,0101010119,,,,,,,,,,,0,00002
-4,b,b,,,,,,,,,,,0,q
+ID,Name,SocialNumber,DriversLicense,Address,Phone,Email,Password,NameOnCard,Number,CVV,ExpMonth,ExpYear,Employee,Pin,Deleted
+0,Santa Clause,99,,,,,,,,,,,0,00001,0
+1,Alfur Alfsson,1234567890,123456789,ALfholar 10,5812345,alfurinn@yahoo.com,asdfasdf,Alfur senior,1234567890123456,123,05,22,1,,0
+2,Joi Spoi ,1234567890,123456789,Joavegur 10,5151515,joi@spoi.is,joierspoi,Jonina sponina,1231231231231238,987,11,23,1,,0
+3,Mrs. Clause,0101010119,,,,,,,,,,,0,00002,0
