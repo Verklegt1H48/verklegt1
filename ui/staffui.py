@@ -96,15 +96,17 @@ class StaffUI:
                 action = ""
                 clearScreen()
                 self.addUser()
-            #elif action == "2":
-                #self.__userService.deleteUser()
-                #action = ""
+            elif action == "2":
+                action = ""
+                clearScreen()
+                self.removeUser()
+                
             elif action == "3":
                 users = self.__userService.getUserList()
                 action = ""
                 clearScreen()
                 for user in users:
-                    if user.employee == "1":
+                    if user.employee == "1" and user.deleted == "0":
                         print(user)
                 input("Input any key to go back: ")
             elif action == "4":
@@ -306,6 +308,31 @@ class StaffUI:
                 input("Press enter to continue")
         if choice == "n":
             print("You aborted the deletion of the car with ID: \"{}\"".format(id))
+            input("Press enter to continue")
+        if choice == "q":
+            sys.exit()
+
+    def removeUser(self):
+        clearScreen()
+        choice = ""
+        id = input("Enter the ID of the user you want to delete: ")
+        if id == "q":
+            sys.exit()
+        if id == "b":
+            return
+        choice = input("Are you sure you want to delete user with ID: \"{}\"? y/n: ".format(id)).lower()
+        while choice not in ("b","y","n","q"):
+            choice = input("Please input \"y\" or \"n\"!: ").lower()
+        clearScreen()
+        if choice == "y":
+            if self.__userService.deleteUser(id):
+                print("You have deleted the user with ID: \"{}\"".format(id))
+                input("Press enter to continue")
+            else:
+                print("No user with ID: \"{}\" exists. Please try again".format(id))
+                input("Press enter to continue")
+        if choice == "n":
+            print("You aborted the deletion of the user with ID: \"{}\"".format(id))
             input("Press enter to continue")
         if choice == "q":
             sys.exit()

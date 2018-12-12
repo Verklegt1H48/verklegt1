@@ -25,8 +25,16 @@ class UserService:
                 return user
         return "Not found"
 
-    def deleteUser(self, user):
-        user.deleteUser()
+    def deleteUser(self, userID):
+        success = False
+        for user in self.__users:
+            if user.id == userID:
+                user.deleted = 1
+                success = True
+        if success:
+            self.__userRepo.overwriteUsers(self.__users)
+        return success
+
 
     def isDeleted(self, user):
         #Todo: Implement

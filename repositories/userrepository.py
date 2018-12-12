@@ -7,8 +7,8 @@ class UserRepository:
 
     def __init__(self):
         self._userList = []
-        self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense",
-                             "Address","Phone","Email","Password","NameOnCard","Number","CVV","ExpMonth","ExpYear","Employee","Pin"]
+        self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense","Address","Phone","Email",
+                            "Password","NameOnCard","Number","CVV","ExpMonth","ExpYear","Employee","Pin","Deleted"]
 
     # Function to write user objects into a file
     def userDictWriter(self, user, file):
@@ -27,7 +27,8 @@ class UserRepository:
                          'ExpMonth'       : user.expMonth,
                          'ExpYear'        : user.expYear,
                          'Employee'       : user.employee,
-                         'Pin'            : user.pin})
+                         'Pin'            : user.pin,
+                         'Deleted'        : user.deleted})
                        
                         
 
@@ -40,7 +41,7 @@ class UserRepository:
             self.userDictWriter(user, userData)
 
     # Function to open users.csv and overwrite the whole list with an updated list of users.
-    def overwriteusers(self, users):
+    def overwriteUsers(self, users):
         with open("./data/users.csv", "w+", newline = '') as userData:
             csv.writer(userData).writerow(self.__fieldnames)
             for user in users:
@@ -68,6 +69,7 @@ class UserRepository:
                         newUser.expYear         = user['ExpYear']
                         newUser.employee        = user['Employee']
                         newUser.pin             = user['Pin']
+                        newUser.deleted         = user['Deleted']
                         self._userList.append(newUser)
             except FileNotFoundError:
                 pass
