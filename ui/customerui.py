@@ -80,6 +80,8 @@ class CustomerUI:
                 loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ")
                 if loginAction == "login":
                     self.customerMenu()
+                elif loginAction == "q" or loginAction == "b":
+                    action = loginAction
                 else:
                     action = "_"
             if action == "q" :
@@ -154,9 +156,14 @@ class CustomerUI:
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
+<<<<<<< HEAD
+=======
+            #clearScreen()
+>>>>>>> f1d84235edc1d2399419899fc31a32fea9b3e9d9
             print("Press q to quit and b to go back")  
-            carInsurance = str(int(int(carToOrder.price) / 10))
+            carInsurance = str(int(carToOrder.price) / 10)
             if action != "":
+                clearScreen()
                 print("Invalid input, try again")
             action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
             
@@ -194,7 +201,7 @@ class CustomerUI:
                 self.logInAsUser()
             elif action == "2":
                 action = ""
-                self.createAccount(self.__userService)
+                createAccount(self.__userService)
             if self.__isLoggedIn:
                 self.seeAvailableCars()
       
@@ -202,6 +209,19 @@ class CustomerUI:
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
+    
+    def getValidPayment(self, order, service):
+        isValid = False
+        while not isValid:
+            clearScreen()
+            PayMethod = input("Payment Method: ").upper()
+            if service.isValidPayMethod(PayMethod):
+                order.payMethod = PayMethod
+                isValid = True
+            else:
+                print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
+                input("Please press enter to try again")
+
         
     def getUserEmail(self):
         action = ""
@@ -236,145 +256,133 @@ class CustomerUI:
                 self.__isLoggedIn = True
                 return
 
-    def createAccount(self, UserService):
-        clearScreen()
-        newUser = User()
-        newUser.name            = self.getValidName()
-        newUser.email           = self.getValidEmail()
-        newUser.password        = self.getValidPassword()
-        newUser.socialNumber    = self.getValidSocialNumber()
-        newUser.driverLicense   = self.getValidDriverLicense()
-        newUser.address         = self.getValidAddress()
-        newUser.phone           = self.getValidPhone()
-        newUser.Employee        = 1
-        checkDate = True
-        while checkDate:
-            newUser.nameOnCard  = self.getValidNameOnCard()
-            newUser.number      = self.getValidNumber()
-            newUser.cvv         = self.getValidCvv()
-            newUser.expMonth    = self.getValidExpMonth()
-            newUser.expYear     = self.getValidExpYear(newUser.expMonth)
-            if newUser.expYear == "-1":
-                print("Please try another card")
-            else:
-                checkDate = False
-        UserService.addUser(newUser)
-
 #validation
 
-    def getValidName(self):
-        isValidName = True
-        while isValidName:
-            name = input("Full name: ")
-            clearScreen()
-            isValidName = self.__userService.isValidName(name)
-        return name
-
-    def getValidEmail(self):
-        isValidEmail = True
-        while isValidEmail:
-            email = input("Email address: ")
-            clearScreen()
-            isValidEmail = self.__userService.isValidEmail(email)
-        return email
-
-    def getValidPassword(self):
-        isValidPassword = True
-        while isValidPassword:
-            password = getpass.getpass("Password: ")
-            clearScreen()
-            isValidPassword = self.__userService.isValidPassword(password)
-            confirmPassword = getpass.getpass("Confirm password: ")
-            if confirmPassword == password:
-                pass
-                clearScreen()
-            else:
-                clearScreen()
-                print("Passwords don't match, please try again")
-                isValidPassword = True
-        return password
-
-    def getValidSocialNumber(self):
-        isValidSocialNumber = True
-        while isValidSocialNumber:
-            socialNumber = input("Social security number: ")
-            clearScreen()
-            isValidSocialNumber = self.__userService.isValidSocialNumber(socialNumber)
-        return socialNumber
-
-    def getValidDriverLicense(self):
-        isValidDriverLicense = True
-        while isValidDriverLicense:
-            driverLicense = input("Driver license ID: ")
-            clearScreen()
-            isValidDriverLicense = self.__userService.isValidDriverLicense(driverLicense)
-        return driverLicense
-
-    def getValidAddress(self):
-        isValidAddress = True
-        while isValidAddress:
-            address = input("Address: ")
-            clearScreen()
-            isValidAddress = self.__userService.isValidAddress(address)
-        return address
-
-    def getValidPhone(self):
-        isValidPhone = True
-        while isValidPhone:
-            phone = input("Phone number: ")
-            clearScreen()
-            isValidPhone = self.__userService.isValidPhone(phone)
-        return phone
-
-    def getValidNameOnCard(self):
-        isValidNameOnCard = True
-        while isValidNameOnCard:
-            nameOnCard = input("Name on credit card: ")
-            clearScreen()
-            isValidNameOnCard = self.__userService.isValidNameOnCard(nameOnCard)
-        return nameOnCard
-
-    def getValidNumber(self):
-        isValidNumber = True
-        while isValidNumber:
-            number = input("Credit card number: ")
-            clearScreen()
-            isValidNumber = self.__userService.isValidNumber(number)
-        return number
-    
-    def getValidCvv(self):
-        isValidCvv = True
-        while isValidCvv:
-            cvv = input("CVV: ")
-            clearScreen()
-            isValidCvv = self.__userService.isValidCvv(cvv)
-        return cvv
-
-    def getValidExpMonth(self):
-        isValidExpMonth = True
-        while isValidExpMonth:
-            expMonth = input("Exp month(mm): ")
-            clearScreen()
-            isValidExpMonth = self.__userService.isValidExpMonth(expMonth)
-        return expMonth
-
-    def getValidExpYear(self, expMonth):
-        expYear = input("Exp year(yy): ")
+def getValidName(userService):
+    isValidName = True
+    while isValidName:
+        name = input("Full name: ")
         clearScreen()
-        isValidExpYear = self.__userService.isValidExpYear(expYear, expMonth)
-        if isValidExpYear == False:
-            return "-1"
-        else:
-            return expYear
-    
-    def getValidPayment(self, order, service):
-        isValid = False
-        while not isValid:
+        isValidName = userService.isValidName(name)
+    return name
+
+def getValidEmail(userService):
+    isValidEmail = True
+    while isValidEmail:
+        email = input("Email address: ")
+        clearScreen()
+        isValidEmail = userService.isValidEmail(email)
+    return email
+
+def getValidPassword(userService):
+    isValidPassword = True
+    while isValidPassword:
+        password = getpass.getpass("Password: ")
+        clearScreen()
+        isValidPassword = userService.isValidPassword(password)
+        confirmPassword = getpass.getpass("Confirm password: ")
+        if confirmPassword == password:
+            pass
             clearScreen()
-            PayMethod = input("Payment Method: ").upper()
-            if service.isValidPayMethod(PayMethod):
-                order.payMethod = PayMethod
-                isValid = True
-            else:
-                print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
-                input("Please press enter to try again")
+        else:
+            clearScreen()
+            print("Passwords don't match, please try again")
+            isValidPassword = True
+    return password
+
+def getValidSocialNumber(userService):
+    isValidSocialNumber = True
+    while isValidSocialNumber:
+        socialNumber = input("Social security number: ")
+        clearScreen()
+        isValidSocialNumber = userService.isValidSocialNumber(socialNumber)
+    return socialNumber
+
+def getValidDriverLicense(userService):
+    isValidDriverLicense = True
+    while isValidDriverLicense:
+        driverLicense = input("Driver license ID: ")
+        clearScreen()
+        isValidDriverLicense = userService.isValidDriverLicense(driverLicense)
+    return driverLicense
+
+def getValidAddress(userService):
+    isValidAddress = True
+    while isValidAddress:
+        address = input("Address: ")
+        clearScreen()
+        isValidAddress = userService.isValidAddress(address)
+    return address
+
+def getValidPhone(userService):
+    isValidPhone = True
+    while isValidPhone:
+        phone = input("Phone number: ")
+        clearScreen()
+        isValidPhone = userService.isValidPhone(phone)
+    return phone
+
+def getValidNameOnCard(userService):
+    isValidNameOnCard = True
+    while isValidNameOnCard:
+        nameOnCard = input("Name on credit card: ")
+        clearScreen()
+        isValidNameOnCard = userService.isValidNameOnCard(nameOnCard)
+    return nameOnCard
+
+def getValidNumber(userService):
+    isValidNumber = True
+    while isValidNumber:
+        number = input("Credit card number: ")
+        clearScreen()
+        isValidNumber = userService.isValidNumber(number)
+    return number
+
+def getValidCvv(userService):
+    isValidCvv = True
+    while isValidCvv:
+        cvv = input("CVV: ")
+        clearScreen()
+        isValidCvv = userService.isValidCvv(cvv)
+    return cvv
+
+def getValidExpMonth(userService):
+    isValidExpMonth = True
+    while isValidExpMonth:
+        expMonth = input("Exp month(mm): ")
+        clearScreen()
+        isValidExpMonth = userService.isValidExpMonth(expMonth)
+    return expMonth
+
+def getValidExpYear(userService, expMonth):
+    expYear = input("Exp year(yy): ")
+    clearScreen()
+    isValidExpYear = userService.isValidExpYear(expYear, expMonth)
+    if isValidExpYear == False:
+        return "-1"
+    else:
+        return expYear
+
+def createAccount(UserService):
+    clearScreen()
+    newUser = User()
+    newUser.name            = getValidName(UserService)
+    newUser.email           = getValidEmail(UserService)
+    newUser.password        = getValidPassword(UserService)
+    newUser.socialNumber    = getValidSocialNumber(UserService)
+    newUser.driverLicense   = getValidDriverLicense(UserService)
+    newUser.address         = getValidAddress(UserService)
+    newUser.phone           = getValidPhone(UserService)
+    newUser.Employee        = 1
+    checkDate = True
+    while checkDate:
+        newUser.nameOnCard  = getValidNameOnCard(UserService)
+        newUser.number      = getValidNumber(UserService)
+        newUser.cvv         = getValidCvv(UserService)
+        newUser.expMonth    = getValidExpMonth(UserService)
+        newUser.expYear     = getValidExpYear(UserService, newUser.expMonth)
+        if newUser.expYear == "-1":
+            print("Please try another card")
+        else:
+            checkDate = False
+    UserService.addUser(newUser)
