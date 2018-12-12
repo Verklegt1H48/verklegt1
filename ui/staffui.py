@@ -82,6 +82,7 @@ class StaffUI:
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
+                ### getAvailability  NOTA ÞETTA FALL
                 for car in cars:
                     if car.available != 1:
                         print("{}{}".format(car.id,car))
@@ -132,7 +133,7 @@ class StaffUI:
             elif action == "1":
                 action = ""
                 clearScreen()
-                self.addUser()
+                createAccount(self.__userService)
             elif action == "2":
                 action = ""
                 clearScreen()
@@ -540,7 +541,7 @@ class StaffUI:
                 car.mileage = mileage
                 isValid = True
             else:
-                print("Invalid input. Mileage must be an integer between 0 and 100000")
+                print("Invalid input. Mileage must be an integer between 0 and 1000000")
                 input("Please press enter to try again")
 
     def getValidSeats(self, car, service):

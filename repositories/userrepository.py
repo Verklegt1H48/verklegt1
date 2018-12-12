@@ -6,7 +6,7 @@ import os
 class UserRepository:
 
     def __init__(self):
-        self._userList = []
+        self.__userList = []
         self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense","Address","Phone","Email",
                             "Password","NameOnCard","Number","CVV","ExpMonth","ExpYear","Employee","Pin","Deleted"]
 
@@ -48,7 +48,7 @@ class UserRepository:
                 self.userDictWriter(user, userData)
 
     def getUserList(self):
-        if self._userList == []:
+        if self.__userList == []:
             try:
                 with open("./data/users.csv", "r") as userData:
                     userDict = csv.DictReader(userData)
@@ -70,8 +70,8 @@ class UserRepository:
                         newUser.employee        = user['Employee']
                         newUser.pin             = user['Pin']
                         newUser.deleted         = user['Deleted']
-                        self._userList.append(newUser)
+                        self.__userList.append(newUser)
             except FileNotFoundError:
                 pass
-        return self._userList
+        return self.__userList
 
