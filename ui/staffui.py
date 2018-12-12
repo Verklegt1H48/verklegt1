@@ -62,16 +62,16 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1":
+                action = ""
                 self.addCar()
-                action = ""
             elif action == "2":
-                self.removeCar()
                 action = ""
+                self.removeCar()
             elif action == "3":
+                action = ""
                 clearScreen()
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
-                action = ""
                 for car in cars:
                     if car.deleted != 1:
                         print("{}{}".format(car.id,car))
@@ -353,7 +353,9 @@ class StaffUI:
 
     def logInAsStaff(self):
         staffSocial = self.getStaffSocial()
-        if staffSocial != "":
+        if staffSocial == "b":
+            pass
+        elif staffSocial != "":
             self.getStaffPin(staffSocial)
             if self.__isLoggedIn:
                 self.staffMenu()
@@ -362,7 +364,7 @@ class StaffUI:
         action = ""
         clearScreen()
         while action != "b":
-            action = input("Enter your social security number: ")
+            action = input("Enter your social security number: ").lower()
             selectedUser = self.__userService.getUserBySocial(action)
             if(action == "q"):
                 exit(1)
