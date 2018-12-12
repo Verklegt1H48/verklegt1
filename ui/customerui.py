@@ -362,26 +362,27 @@ def getValidExpYear(userService, expMonth):
     else:
         return expYear
 
-def createAccount(UserService):
+def createAccount(service):
     clearScreen()
     newUser = User()
-    newUser.name            = getValidName(UserService)
-    newUser.email           = getValidEmail(UserService)
-    newUser.password        = getValidPassword(UserService)
-    newUser.socialNumber    = getValidSocialNumber(UserService)
-    newUser.driverLicense   = getValidDriverLicense(UserService)
-    newUser.address         = getValidAddress(UserService)
-    newUser.phone           = getValidPhone(UserService)
+    newUser.name            = getValidName(service)
+    newUser.email           = getValidEmail(service)
+    newUser.password        = getValidPassword(service)
+    newUser.socialNumber    = getValidSocialNumber(service)
+    newUser.driverLicense   = getValidDriverLicense(service)
+    newUser.address         = getValidAddress(service)
+    newUser.phone           = getValidPhone(service)
     newUser.Employee        = 1
     checkDate = True
     while checkDate:
-        newUser.nameOnCard  = getValidNameOnCard(UserService)
-        newUser.number      = getValidNumber(UserService)
-        newUser.cvv         = getValidCvv(UserService)
-        newUser.expMonth    = getValidExpMonth(UserService)
-        newUser.expYear     = getValidExpYear(UserService, newUser.expMonth)
+        newUser.nameOnCard  = getValidNameOnCard(service)
+        newUser.number      = getValidNumber(service)
+        newUser.cvv         = getValidCvv(service)
+        newUser.expMonth    = getValidExpMonth(service)
+        newUser.expYear     = getValidExpYear(service, newUser.expMonth)
         if newUser.expYear == "-1":
             print("Please try another card")
         else:
             checkDate = False
-    UserService.addUser(newUser)
+    service.__users.append(newUser)
+    service.addUser(newUser)

@@ -31,7 +31,7 @@ class CarService:
     def makeCarAvailable(self, carID):
         success = False
         for car in self.__cars:
-            if car.id == int(carID):
+            if car.id == int(carID) and car.available == 0:
                 car.available = 1
                 success = True
         if success:
