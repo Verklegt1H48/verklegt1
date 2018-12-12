@@ -24,7 +24,7 @@ class CustomerUI:
             clearScreen()
             print("-> See Available Cars")
             if self.__isLoggedIn:
-                print("Welcome " + self.__userName + "!")
+                print("Welcome " + self.__currUser.name + "!")
             else:
                 print("You are not logged in!")
             print("These are your options:")
@@ -64,7 +64,7 @@ class CustomerUI:
             if attribute == "available":
                 print("-> Sort cars by availability")
             if self.__isLoggedIn:
-                print("You are logged in as: {}".format(self.__userName))
+                print("You are logged in as: {}".format(self.__currUser.name))
             else:
                 print("You are not logged in. You need to login to book a car.")
             print("These are the cars you have chosen to see:")
@@ -95,7 +95,7 @@ class CustomerUI:
 
     def inputOrderInfo(self, carToOrder):
         clearScreen()
-        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
         currPrice = ""
         currPrice = self.addInsurance(carToOrder)
