@@ -14,8 +14,8 @@ class MainUI:
         while action != "q":
             clearScreen()
             print("Main Menu")
-            if action == "rass":
-                print("Finally you return to the main menu!!!")
+            if action == "return":
+                print("If you were logged in, you have been logged out.")
                 action = ""
             else:
                 print("")
@@ -32,12 +32,12 @@ class MainUI:
             if action == "1":
                 self.__customerui = CustomerUI()
                 self.__customerui.seeAvailableCars()
-                action = "rass"
+                action = "return"
             elif action == "2":
                 self.__customerui = CustomerUI()
                 self.__customerui.customerMenu()
-                action = "rass"
+                action = "return"
             elif action == "3":
                 self.__staffui = StaffUI()
                 self.__staffui.logInAsStaff()
-                action = "rass"
+                action = "return"
