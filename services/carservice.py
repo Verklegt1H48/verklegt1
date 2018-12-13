@@ -74,6 +74,13 @@ class CarService:
                 return car
         return ""
 
+    def isValidCarId(self, id):
+        cars = self.__cars
+        for car in cars:
+            if str(car.id) == str(id):
+                return True
+        return False
+    
     def isValidCategory(self, category):
         if category in ("A", "B", "C", "D"):
             return True

@@ -101,8 +101,11 @@ class StaffUI:
                     if action != "":
                         print("Invalid input! Please try again.")
                     carId = input("Please enter a car ID or \"b\" to go back: ")
-                    if self.getValidCarId(carId, self.__carService):
+                    if carId == "q":
+                        sys.exit()
+                    elif self.getValidCarId(carId, self.__carService):
                         getHistory(self.__orderService.getOrdersByStatus(1), carId, "car")
+                        carId = "b"
             elif action == "5":
                 clearScreen()
                 printHeader("carSelect")
