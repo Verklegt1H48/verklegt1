@@ -54,7 +54,10 @@ class OrderService:
         return orders
 
     def isValidPickUpDate(self, pickUpDate):
-        pickupCar = datetime.strptime(pickUpDate, "%d/%m/%y")
+        try:
+            pickupCar = datetime.strptime(pickUpDate, "%d/%m/%y")
+        except:
+            return "Invalid"
         if (pickupCar - datetime.today()).days > 365 :
             return "Year"
         elif datetime.today() > pickupCar:
@@ -63,7 +66,10 @@ class OrderService:
             return pickupCar
 
     def isValidReturnDate(self, returnDate, pickUpCar):
-        returnCar = datetime.strptime(returnDate, "%d/%m/%y")
+        try:
+            returnCar = datetime.strptime(returnDate, "%d/%m/%y")
+        except:
+            return "Invalid"
         if (returnCar - pickUpCar).days > 365:
             return "Year"
         elif returnCar <= pickUpCar:
