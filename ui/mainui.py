@@ -26,14 +26,16 @@ class MainUI:
             print("2. Log in as customer")
             print("3. Log in as staff")
             print("q. Exit program")
-            if action != "":
-                print("Invalid input! Please try again.")
-            action = input("Choose an option: ").lower()
+            print("")
+            if action == "":
+                action = input("Choose an option: ").lower()
+            else:
+                action = input("Invalid input! Please try again: ").lower()
             clearScreen()
             if action == "1":
                 self.__customerui = CustomerUI()
                 login  = self.__customerui.seeAvailableCars()
-                action = "return"
+                action = ""
             if action == "2" or login is True:
                 self.__customerui = CustomerUI()
                 self.__customerui.customerMenu()
