@@ -30,18 +30,22 @@ class CustomerUI:
                 print("You are not logged in!")
             print("These are your options:")
             print("")
-            print("1. Sort cars by Price")
+            print("1. Sort cars by price/category")
             print("2. Sort cars by manufacturer")
             print("3. Sort cars by availability")
-            print("4. Sort cars by Category")
-            print("b. Go back")
+            if self.__isLoggedIn:
+                print("b. Go back and log out.")
+            else:
+                print("b. Go back")
             print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q":
                 exit(1)
-            elif action in ("1", "4"):
+            elif action == "1":
                 login = self.printCarList("category")
                 action = ""
             elif action == "2":
@@ -63,7 +67,7 @@ class CustomerUI:
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
             if attribute == "category":
-                print("-> Sort cars by price category")
+                print("-> Sort cars by price/category")
             if attribute == "manufacturer":
                 print("-> Sort cars by manufacturer")
             if attribute == "available":
@@ -79,6 +83,8 @@ class CustomerUI:
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
+            else:
+                print("")
             if self.__isLoggedIn:
                 action = input("Please enter which car you wish to book, b to go back or q to quit: ").lower()
             else:
@@ -190,20 +196,22 @@ class CustomerUI:
             print("1. Log in")
             print("2. Sign up")
             print("b. Go back")
-            print("q. Exit program") 
+            print("q. Exit program")
             if action != "":
-                print("Invalid input, try again")
+                print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q" :
                 exit(1)
             if action == "1":
-                action = ""
                 self.logInAsUser()
-            elif action == "2":
+                if self.__isLoggedIn:
+                    self.seeAvailableCars()
                 action = ""
+            elif action == "2":
                 createAccount(self.__userService)
-            if self.__isLoggedIn:
-                self.seeAvailableCars()
+                action = ""
       
     def logInAsUser(self):
         userEmail = self.getUserEmail()
