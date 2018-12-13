@@ -417,8 +417,10 @@ def getValidExpMonth(userService):
         isValidExpMonth = userService.isValidExpMonth(expMonth)
         if isValidExpMonth == "length":
             print("Invalid input!")
+            isValidExpMonth = False
         elif isValidExpMonth == "month":
             print("Month does not exist")
+            isValidExpMonth = False
     return expMonth
 
 def getValidExpYear(userService, expMonth):
