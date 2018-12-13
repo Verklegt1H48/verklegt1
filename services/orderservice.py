@@ -9,6 +9,7 @@ import sys
 
 class OrderService:
 
+    #order service is initialized with 
     def __init__(self):
         self.__orderRepo = OrderRepository()
         self.__carRepo = CarRepository()
@@ -18,7 +19,6 @@ class OrderService:
 
     def addOrder(self, newOrder):
         newOrder.id = len(self.__orders)
-        self.__orders.append(newOrder)
         self.__orderRepo.addOrder(newOrder)
     
     def updateOrder(self, orderToUpdate):
@@ -65,9 +65,11 @@ class OrderService:
             pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
         except:
             return "Invalid"
+        print(datetime.today().date())
+        print(pickUpCar.date())
         if (pickUpCar - datetime.today()).days > 365 :
             return "Year"
-        elif datetime.today() > pickUpCar:
+        elif pickUpCar.date() < datetime.today().date():
             return "Past"
         else :
             return pickUpCar
@@ -97,5 +99,3 @@ class OrderService:
             return True
         else:
             return False
-
-    

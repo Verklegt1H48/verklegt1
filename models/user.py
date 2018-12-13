@@ -22,7 +22,7 @@ class User:
 
 
     def __repr__(self):
-        return "{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format(str(self.__name), str(self.__id), str(self.__socialNumber), 
+        return "{:25}{:5}{:12}{:15}{:15}{:15}{:15}".format(str(self.__name), str(self.__id), str(self.__socialNumber), 
                                                         str(self.__driverLicense), str(self.__address), str(self.__phone), 
                                                         str(self.__email))
 
