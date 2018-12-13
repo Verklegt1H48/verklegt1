@@ -448,6 +448,10 @@ def createAccount(service):
     newUser.address         = getValidAddress(service)
     newUser.phone           = getValidPhone(service)
     newUser.employee        = "1"
+    newUser = addCreditCard(newUser, service)
+    service.addUser(newUser)
+
+def addCreditCard(newUser, service):
     checkDate = True
     while checkDate:
         newUser.nameOnCard  = getValidNameOnCard(service)
@@ -459,4 +463,4 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.addUser(newUser)
+    return newUser
