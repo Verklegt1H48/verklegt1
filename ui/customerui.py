@@ -87,16 +87,15 @@ class CustomerUI:
             if action == "q" :
                 exit(1)
             if action.isdecimal() and (0 < int(action) < counter):
-                action = ""
                 carToOrder = carList[int(action) - 1]
                 pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
                 paymentMethod = self.selectPaymentMethod()
                 if paymentMethod != "":
                     newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
                     self.__orderService.addOrder(newOrder)
-                    action = ""
                     self.orderConfirmation()
-    
+                action = ""
+
     def orderConfirmation(self):
         clearScreen()
         action = ""
@@ -384,5 +383,4 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.__users.append(newUser)
     service.addUser(newUser)
