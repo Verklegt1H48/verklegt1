@@ -49,8 +49,6 @@ class UserService:
             self.__userRepo.overwriteUsers(self.__users)
         return success
 
-
-
     def isValidUserId(self, UserId):
         for user in self.__users:
             if user.id == UserId and user.employee != 1 and user.deleted != 1:
