@@ -53,59 +53,31 @@ class OrderService:
                 orders.append(order)
         return orders
 
-    def obtainPickupAndReturnDate(self):
-        action = ""
-        while action != "b":
-            action = input("When will you pick up your car? (dd/mm/yy): ")
-            if action == "b" :
-                return "", "", ""
-            elif action == "q" :
-                exit(1)
-            try:
-                pickupCar = datetime.strptime(action, "%d/%m/%y")
-                if (pickupCar - datetime.today()).days > 365:
-                    clearScreen()
-                    print("You can't order more than a year in advance")
-                    raise Exception
-                elif pickupCar > datetime.today():
-                    break
-                else:
-                    clearScreen()
-                    raise Exception
-            except:
-                clearScreen()
-                print("Invalid date input")
-        pickUpDate = action  
-        action = ""
-        while action != "b":
-            clearScreen()
-            action = input("When will you return the car? (dd/mm/yy): ")
-            if action == "b" :
-                return "", "", ""
-            elif action == "q" :
-                exit(1)
-            try:
-                returnCar = datetime.strptime(action, "%d/%m/%y")
-                if (returnCar - pickupCar).days > 365:
-                    clearScreen()
-                    if pickupCar.day < 10:
-                        dayString = "0" + str(pickupCar.day)
-                    if pickupCar.month < 10:
-                        monthString = "0" + str(pickupCar.month)
-                    yearString = str(pickupCar.year - 2000)
-                    print("When will you pick up your car? (dd/mm/yy): " + dayString + "/" + monthString + "/" + yearString)
-                    print("You can't have the car for more than a year")
-                    raise Exception
-                elif returnCar > pickupCar:
-                    break
-                else:
-                    raise Exception
-            except:
-                clearScreen()
-                print("Invalid date input")
-        returnDate = action
-        daysToRent = returnCar - pickupCar
-        return pickUpDate, returnDate, daysToRent
+    def isValidPickUpDate(self, pickUpDate):
+        pickupCar = datetime.strptime(pickUpDate, "%d/%m/%y")
+        if (pickupCar - datetime.today()).days > 365 :
+            return "Year"
+        elif datetime.today() > pickupCar:
+            return "Past"
+        else :
+            return pickupCar
+
+    def isValidReturnDate(self, returnDate, pickUpCar):
+        returnCar = datetime.strptime(returnDate, "%d/%m/%y")
+        if (returnCar - pickUpCar).days > 365:
+            return "Year"
+        elif returnCar <= pickUpCar:
+            return "Past"
+        else : 
+            return returnCar
+
+    def calcPrice(self, pickUpDate, returnDate, currPrice):
+        pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
+        returnCar = datetime.strptime(returnDate, "%d/%m/%y")
+        daysToRent = returnCar - pickUpCar
+        finalPrice = int(daysToRent.days) * int(currPrice)
+        return finalPrice
+
 
     def isValidPayMethod(self, PayMethod):
         if PayMethod in ("CREDIT", "DEBIT", "CASH"):

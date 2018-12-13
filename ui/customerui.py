@@ -5,10 +5,9 @@ from models.order import Order
 from services.userservice import UserService
 from services.carservice import CarService
 from services.orderservice import OrderService
-#from ui.staffui import getValidPayment
 from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
-import getpass
+import getpass, sys
 
 class CustomerUI:
     
@@ -95,7 +94,7 @@ class CustomerUI:
                     self.__orderService.addOrder(newOrder)
                     self.orderConfirmation()
                 action = ""
-
+    
     def orderConfirmation(self):
         clearScreen()
         action = ""
@@ -110,8 +109,6 @@ class CustomerUI:
             if action == "q":
                 exit(1)
         return
-    
-
 
     def selectPaymentMethod(self):
         action = ""
@@ -148,11 +145,11 @@ class CustomerUI:
         currPrice = ""
         currPrice = self.addInsurance(carToOrder)
         if(currPrice != ""):
-            pickUpDate, returnDate, daysToRent = self.__orderService.obtainPickupAndReturnDate()
-            if(daysToRent != ""):
-                finalPrice = int(daysToRent.days) * int(currPrice)
-                print("Your final price is " + str(finalPrice) + " isk")
-                return pickUpDate, returnDate
+            pickUpDate, returnDate = getValidPickUpAndReturnDate(self.__orderService)
+            finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
+            print("Your final price is " + str(finalPrice) + " isk")
+            return pickUpDate, returnDate
+
 
     def addInsurance(self, carToOrder):
         action = ""
@@ -361,6 +358,60 @@ def getValidExpYear(userService, expMonth):
     else:
         return expYear
 
+def getValidPin(userService):
+    isValidPin = True
+    while isValidPin:
+        pin = input("Pin: ")
+        clearScreen()
+        isValidPin = userService.isValidPin(pin)
+    return pin
+
+def getValidPickUpAndReturnDate(service):
+    action = ""
+    clearScreen()
+    while action != "b":
+        action = input("When will you pick up your car? (dd/mm/yy): ")
+        if action == "b" :
+            return "", ""
+        elif action == "q" :
+            sys.exit()
+        pickUpCar = service.isValidPickUpDate(action)
+        pickUpDate = action
+        action = ""
+        if pickUpCar == "Year":
+            print("You can't order more than a year in advance")
+        elif pickUpCar == "Past":
+            print("Pick up date must be a future date")
+        else:
+            break     
+    while action != "b":
+        clearScreen()
+        action = input("When will you return the car? (dd/mm/yy): ")
+        if action == "b" :
+            return "0", "0"
+        elif action == "q" :
+            sys.exit()
+        returnCar = service.isValidReturnDate(action, pickUpCar)
+        if returnCar == "Year":
+            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+            print("You can't have the car for more than a year")
+        if returnCar == "Past":
+            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+            print("The car can not be returned before it is picked up")
+        else:
+            returnDate = action
+            break
+    return pickUpDate, returnDate
+
+def createStaffAccount(service):
+    clearScreen()
+    newUser = User()
+    newUser.name            = getValidName(service)
+    newUser.socialNumber    = getValidSocialNumber(service)
+    newUser.pin             = getValidPin(service)
+    newUser.employee        = "0" 
+    service.addUser(newUser)
+
 def createAccount(service):
     clearScreen()
     newUser = User()
@@ -371,7 +422,7 @@ def createAccount(service):
     newUser.driverLicense   = getValidDriverLicense(service)
     newUser.address         = getValidAddress(service)
     newUser.phone           = getValidPhone(service)
-    newUser.Employee        = 1
+    newUser.employee        = "1"
     checkDate = True
     while checkDate:
         newUser.nameOnCard  = getValidNameOnCard(service)

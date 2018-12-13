@@ -151,6 +151,18 @@ class UserService:
         else:
             return False
 
+    def isValidPin(self, pin):
+        if pin == "q":
+            exit(1)
+        elif pin.isdecimal() == False:
+            print("Pin can only contain numbers")
+            return True
+        elif len(pin) != 5:
+            print("Employee pin must be 5 digits long")
+            return True
+        else:
+            return False
+
     def isValidExpMonth(self, expMonth):
         if expMonth == "q":
             exit(1)
@@ -180,3 +192,12 @@ class UserService:
 
     def getUserList(self):
         return self.__users
+
+    @property
+    def users(self):
+        return self.__users
+
+#Setterar
+    @users.setter
+    def users(self, value):
+        self.__users = value
