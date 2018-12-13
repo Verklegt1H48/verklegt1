@@ -6,6 +6,6 @@ ID,Category,Manufacturer,Model,Year,Mileage,Seats,Transmission,Extras,Rent Histo
 4,A,Toyota,Auris,2016,108513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",1,1,5000
 5,A,Volkswagen,Passat,2018,17000,5,Automatic,Bluetooth audio,,0,1,5000
 7,B,Toyota,Yaris,2003,99999,5,Automatic,None,,0,1,10000
-8,A,Toyota,Corolla,2006,90000,5,Manual,GPS,,1,1,0
-9,A,Trabant,3,1994,240000,9,Manual,"GPS,Bluetooth,Vibrating seat",,1,1,0
+8,A,Toyota,Corolla,2006,90000,5,Manual,GPS,,0,1,0
+9,A,Trabant,3,1994,240000,9,Manual,"GPS,Bluetooth,Vibrating seat",,0,1,0
 10,A,Daihatsu,Midget,1996,215430,1,Manual,Special EFI,,0,1,0
