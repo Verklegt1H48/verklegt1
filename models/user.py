@@ -1,6 +1,6 @@
 class User:
 
-    def __init__(self, name = "", socialNumber = "", employee = 1, pin = "", password = "", id = 0, driverLicense = "",
+    def __init__(self, name = "", socialNumber = "", employee = "", pin = "", password = "", id = 0, driverLicense = "",
                 address = "", phone = "", email = "", nameOnCard = "", number = "", cvv = "", expMonth = "", expYear = "" ):
         self.__name = name
         self.__password = password
