@@ -21,9 +21,6 @@ class Car:
                                                                    str(self.__seats), self.__transmission,
                                                                    str(self.__extras).strip("[']").replace("', '", ", "))
 
-#föllgit
-    def deleteCar(self):
-        self.__deleted = True
 
 #Getterar
     @property

@@ -17,8 +17,7 @@ class Order:
                                                          str(self.__carId), self.__payMethod,
                                                          self.__pickUpDate, self.__returnDate)
 
-    def deleteUser(self):
-        self.__deleted = 1
+
 #Getters
     @property
     def id(self):
