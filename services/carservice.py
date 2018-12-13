@@ -43,11 +43,16 @@ class CarService:
         return self.__cars
  
     def getAndSortAvailableCars(self, attribute):
-        availableCars = []
-        for car in self.__cars:
-            if not car.deleted:
-                availableCars.append(car)
-        return sorted(availableCars, key=attrgetter(attribute))
+        sortedCars = []
+        if attribute == "available":
+            for car in self.__cars:
+                if not car.deleted and car.available:
+                    sortedCars.append(car)
+        else:
+            for car in self.__cars:
+                if not car.deleted:
+                    sortedCars.append(car)
+        return sorted(sortedCars, key=attrgetter(attribute))
 
     def getAvailableCarsByCategory(self, category):
         availableCars = []
