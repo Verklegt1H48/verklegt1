@@ -116,8 +116,6 @@ class CarService:
         if car == None:
             car = Car()
             car.mileage = "0"
-        print(car.mileage)
-        print(mileage)
         if mileage.isdecimal() and (0 <= int(mileage) < 1000000) and int(car.mileage) < int(mileage):
             return True
         else:

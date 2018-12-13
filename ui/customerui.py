@@ -427,6 +427,48 @@ def getValidReturnDate(service,pickUpDate):
             break
     return returnDate
 
+def modifyUser(service, user):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid input, try again")
+            printHeader("userSelect")
+            print(user)
+            print("\nSelect what you would like to modify")
+            print("1. Email")
+            print("2. Password")
+            print("3. Drivers License number")
+            print("4. Address")
+            print("5. Phone number")
+            print("6. Card info")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            action = input("Please select what you wish to change: ").lower()
+            clearScreen()
+            if action == "q":
+                sys.exit()
+            elif action == "1" :
+                user.email = getValidEmail(service)
+                action = ""
+            elif action == "2" :
+                user.password = getValidPassword(service)
+                action = ""
+            elif action == "3":
+                user.driverLicense= getValidDriverLicense(service)
+                action = ""
+            elif action == "4" :
+                user.address = getValidAddress(service)
+                action = ""
+            elif action == "5" :
+                user.phone = getValidPhone(service)
+                action = ""
+            elif action == "6" :
+                user = addCreditCard(user, service)
+                action = ""
+            service.updateUser(user)
+
+
 def createStaffAccount(service):
     clearScreen()
     newUser = User()
@@ -447,6 +489,10 @@ def createAccount(service):
     newUser.address         = getValidAddress(service)
     newUser.phone           = getValidPhone(service)
     newUser.employee        = "1"
+    newUser = addCreditCard(newUser, service)
+    service.addUser(newUser)
+
+def addCreditCard(newUser, service):
     checkDate = True
     while checkDate:
         newUser.nameOnCard  = getValidNameOnCard(service)
@@ -458,4 +504,4 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.addUser(newUser)
+    return newUser

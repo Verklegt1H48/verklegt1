@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-from ui.customerui import createAccount, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
+from ui.customerui import createAccount, modifyUser, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
 
@@ -222,7 +222,7 @@ class StaffUI:
             elif int(action) <= 0:
                 pass
             else:
-                self.inputOrderInfo(orderList[int(action) - 1])
+                self.inputOrderInfo(orderList[int(action) - 1], action)
                 action = ""
                 del orderList
 
@@ -242,7 +242,7 @@ class StaffUI:
                 print(user)
         input("Press enter to return: ")
 
-    def inputOrderInfo(self, orderToChange):
+    def inputOrderInfo(self, orderToChange, number):
         pass
         action = ""
         while action != "b":
@@ -271,7 +271,7 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                self.modifyOrder(orderToChange)
+                self.modifyOrder(orderToChange, number)
                 action = "b"
             elif action == "2" :
                 self.__orderService.deleteOrder(orderToChange.id)
@@ -283,14 +283,14 @@ class StaffUI:
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
     
-    def modifyOrder(self, order):
+    def modifyOrder(self, order, number):
         action = ""
         while action != "b":
             clearScreen()
             if action != "":
                 print("Invalid input, try again")
             printHeader("orderSelect")
-            print(" " + str(order))
+            print(str(number) + str(order))
             print("Select what you would like to modify")
             print("1. Car category")
             print("2. Payment method")
@@ -453,7 +453,7 @@ class StaffUI:
             social = input("Enter your social security number: ").lower()
             selectedUser = self.__userService.getUserBySocial(social)
             if(social == "q"):
-                exit(1)
+                sys.exit()
             elif selectedUser == "Not found":
                 clearScreen()
                 print("Social security number not valid")
@@ -501,14 +501,24 @@ class StaffUI:
                 action = "_"
                 pass
             else:
-                clearScreen()
-                print("->Find user by social security number")
-                print("")
-                print("This is the user you asked for:")
-                printHeader("userSelect")
-                print(user)
-                input("Press enter to return")
-                action = "b"
+                while action != "b":
+                    clearScreen()            
+                    print("->Find user by social security number")
+                    print("")
+                    print("This is the user you asked for:")
+                    printHeader("userSelect")
+                    print(user)
+                    print("1. To modify user")
+                    print("Press b to go back")
+                    print("Press q to quit")
+                    if action != "":
+                        print("Invalid input! Please try again.")
+                    action = ""
+                    action =input("Choose an option: ")
+                    if action == "q":
+                        sys.exit()
+                    if action == "1":
+                        modifyUser(self.__userService, user)
 
     def getValidCategory(self, car, service):
         isValid = False
