@@ -1,6 +1,10 @@
 ID,Name,SocialNumber,DriversLicense,Address,Phone,Email,Password,NameOnCard,Number,CVV,ExpMonth,ExpYear,Employee,Pin,Deleted
 0,Santa Clause,1,,,,,,,,,,,0,1,0
-1,Alfur Alfsson,1234567890,123456789,ALfholar 10,8463895,sveinki@,1,gudjon,1234123412341234,123,6,26,1,,0
-2,Joi Spoi ,1234567890,123456789,Joavegur 10,5151515,joi@spoi.is,joierspoi,Jonina sponina,1231231231231238,987,11,23,1,,0
-3,Mrs. Clause,0101010119,,,,,,,,,,,0,00002,1
-4,Jens,2412180949,857472927,Tanngata 69,5556677,jens@karius.is,baktusSokkar,Jensina,4846038859584905,596,1,23,1,,0
+1,Jon Jonsson,0611853249,485694381,Arnarsmari 3,6614352,jonj@gmail.com,jonzterinn,Jon Jonsson,5351432542139985,547,10,22,1,,0
+2,Oddur Bjarnason,0101911319,395867584,Eskivellir 19,6967654,oddibj@yahoo.com,g84rh93f,Halldor Jonsson,5351434446893228,954,3,19,1,,0
+3,Jon Fridrik Arnason,2911473949,194858493,Tungata 20,7773465,jonnifrikk@msn.com,jonnonnonn,Gudrun Sturludottir,5451342509455999,693,10,23,1,,0
+4,Rebekka Sigurjonsdottir,0405922949,948694829,Kringlan 8,7768945,rebb77@gmail.com,rebelk9393,Saemundur Ingason,5463459633545612,694,6,21,1,,0
+5,Bjartur Lukas Gretarsson,0301963419,,,,,,,,,,,0,14708,0
+6,Gudjon Bjornsson,2511923089,,,,,,,,,,,0,25119,0
+7,Erlendur H Johannesson,0704912579,,,,,,,,,,,0,70491,0
+8,Erla Gudrun Sturludottir,1109923349,,,,,,,,,,,0,55419,0
