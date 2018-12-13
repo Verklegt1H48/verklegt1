@@ -435,7 +435,7 @@ def modifyUser(service, user):
                 print("Invalid input, try again")
             printHeader("userSelect")
             print(user)
-            print("Select what you would like to modify")
+            print("\nSelect what you would like to modify")
             print("1. Email")
             print("2. Password")
             print("3. Drivers License number")
@@ -445,27 +445,28 @@ def modifyUser(service, user):
             print("Press b to return to the previous page")
             print("Press q to quit")
             action = input("Please select what you wish to change: ").lower()
+            clearScreen()
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                user.email = getValidEmail(service.__userService)
+                user.email = getValidEmail(service)
                 action = ""
             elif action == "2" :
-                user.password = getValidPassword(service.__userService)
+                user.password = getValidPassword(service)
                 action = ""
             elif action == "3":
-                user.driverLicense= getValidDriverLicense(service.__userService)
+                user.driverLicense= getValidDriverLicense(service)
                 action = ""
             elif action == "4" :
-                user.address = getValidAddress(service.__userService)
+                user.address = getValidAddress(service)
                 action = ""
             elif action == "5" :
-                user.phone = getValidPhone(service.__userService)
+                user.phone = getValidPhone(service)
                 action = ""
             elif action == "6" :
-                user = addCreditCard(user, service.__userService)
+                user = addCreditCard(user, service)
                 action = ""
-            service.__userService.updateUser(user)
+            service.updateUser(user)
 
 
 def createStaffAccount(service):
