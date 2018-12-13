@@ -346,7 +346,7 @@ def getValidDriverLicense(userService):
 
 def getValidAddress(userService):
     isValidAddress = False
-    while isValidAddress:
+    while not isValidAddress:
         address = input("Address: ")
         clearScreen()
         error = userService.isValidAddress(address)
