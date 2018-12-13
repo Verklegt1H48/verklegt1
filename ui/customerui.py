@@ -18,6 +18,7 @@ class CustomerUI:
         self.__isLoggedIn = False
         self.__currUser = User()
 
+    # Menu that show the user how they can sort the cars
     def seeAvailableCars(self):
         action = ""
         login = False
@@ -58,7 +59,7 @@ class CustomerUI:
                 break
         return login
         
-                 
+    # Prints the lists of sorted cars
     def printCarList(self, attribute):
         action = ""
         login  = False
@@ -104,6 +105,7 @@ class CustomerUI:
                 action = ""
         return login
     
+    # Show information about the order
     def inputOrderInfo(self, carToOrder):        
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
@@ -124,6 +126,7 @@ class CustomerUI:
             self.__orderService.addOrder(newOrder)
             self.orderConfirmation()
 
+    # This function runs if the user wants an insurance
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
@@ -144,6 +147,7 @@ class CustomerUI:
                 pass
         return ""
 
+    # Feedback for when the user has successfully made an order
     def orderConfirmation(self):
         clearScreen()
         action = ""
@@ -159,6 +163,7 @@ class CustomerUI:
                 exit(1)
         return
 
+    # Allows the user to select a payment method
     def selectPaymentMethod(self):
         action = ""
         while action != "b":
@@ -185,7 +190,8 @@ class CustomerUI:
                 clearScreen()
                 return "CASH"
         return ""
-                    
+
+    # Show avaliable options within the customer menu              
     def customerMenu(self):
         action = ""
         while action != "b":
@@ -230,7 +236,6 @@ class CustomerUI:
                 print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
                 input("Please press enter to try again")
 
-        
     def getUserEmail(self):
         action = ""
         clearScreen()
@@ -427,6 +432,7 @@ def getValidReturnDate(service,pickUpDate):
             break
     return returnDate
 
+# The interface for staff members to modify and update specific information about customers 
 def modifyUser(service, user):
         action = ""
         while action != "b":
@@ -467,7 +473,6 @@ def modifyUser(service, user):
                 user = addCreditCard(user, service)
                 action = ""
             service.updateUser(user)
-
 
 def createStaffAccount(service):
     clearScreen()
