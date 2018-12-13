@@ -1,6 +1,6 @@
 ID,Name,SocialNumber,DriversLicense,Address,Phone,Email,Password,NameOnCard,Number,CVV,ExpMonth,ExpYear,Employee,Pin,Deleted
-0,Santa Clause,99,,,,,,,,,,,0,00001,0
-1,Alfur Alfsson,1234567890,123456789,ALfholar 10,5812345,alfurinn@yahoo.com,asdfasdf,Alfur senior,1234567890123456,123,05,22,1,,0
+0,Santa Clause,1,,,,,,,,,,,0,1,0
+1,Alfur Alfsson,1234567890,123456789,ALfholar 10,5812345,1,1,Alfur senior,1234567890123456,123,05,22,1,,0
 2,Joi Spoi ,1234567890,123456789,Joavegur 10,5151515,joi@spoi.is,joierspoi,Jonina sponina,1231231231231238,987,11,23,1,,0
 3,Mrs. Clause,0101010119,,,,,,,,,,,0,00002,1
 4,Jens,2412180949,857472927,Tanngata 69,5556677,jens@karius.is,baktusSokkar,Jensina,4846038859584905,596,1,23,1,,0
