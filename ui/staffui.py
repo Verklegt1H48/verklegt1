@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-from ui.customerui import createAccount, getValidPickUpAndReturnDate
+from ui.customerui import createAccount, getValidPickUpAndReturnDate, getValidSocialNumber
 import sys
 import getpass
 #from ui.mainui import MainUI
@@ -112,7 +112,6 @@ class StaffUI:
         if choice == "q":
             sys.exit()
 
-
     def staffCustomerMenu(self):
         action = ""
         while action != "b":
@@ -122,7 +121,8 @@ class StaffUI:
             print("3. List all customers")
             print("4. Add a new staff member")
             print("5. Remove a staff member")
-            print("6. List all staff members") ### Todo Implement
+            print("6. List all staff members")
+            print("7. Find user by social security number")
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -131,37 +131,23 @@ class StaffUI:
             if action == "q" :
                 sys.exit()
             elif action == "1":
-                action = ""
                 clearScreen()
                 createAccount(self.__userService)
-            elif action == "2":
                 action = ""
+            elif action in ("2","5"):
                 clearScreen()
                 self.removeUser()
-            elif action == "3":
-                clearScreen()
-                users = self.__userService.getUserList()
                 action = ""
+            elif action in ("3","6"):
                 clearScreen()
-                printHeader("userSelect")
-                for user in users:
-                    if str(user.employee) == "1" and str(user.deleted) == "0":
-                        print(user)
-                social = input("Input social security number of customer: ")
-                clearScreen()
-                if social == "q":
-                    exit(1)
-                elif social != "b":
-                    userBySocial = self.__userService.getUserBySocial(social) 
-                    if userBySocial == "Not found":
-                        print("User not found, check if social security number is correct or user exists")
-                    else:
-                        print(userBySocial)
-                    input("Press enter to go back")
+                self.printUsers(action)
+                action = ""
             elif action == "4":
                 self.addStaffMember()
                 action = ""
                 clearScreen()
+            elif action == "7":
+                self.printUserBySocial()
 
     def orderMenu(self):
         action = ""
@@ -217,7 +203,22 @@ class StaffUI:
                 self.inputOrderInfo(orderList[int(action) - 1])
                 action = ""
                 del orderList
-              
+
+    def printUsers(self, action):
+        users = self.__userService.getUserList()
+        clearScreen()
+        if action == "3":
+            isStaff = "0"
+            print("->List all customers")
+        else: 
+            isStaff = "1"
+            print("->List all staff members")
+        printHeader("userSelect")
+        for user in users:
+            if str(user.employee) == isStaff and str(user.deleted) == "0":
+                print(user)
+        input("Press enter to return: ")
+
     def inputOrderInfo(self, orderToChange):
         pass
         action = ""
@@ -322,7 +323,6 @@ class StaffUI:
         self.__carService.addCar(newCar)
         input("You have successfully added a new car. Please press Enter to continue")
 
-
     def removeCar(self):
         clearScreen()
         choice = ""
@@ -405,19 +405,19 @@ class StaffUI:
         action = ""
         clearScreen()
         while action != "b":
-            action = input("Enter your social security number: ").lower()
-            selectedUser = self.__userService.getUserBySocial(action)
-            if(action == "q"):
+            social = input("Enter your social security number: ").lower()
+            selectedUser = self.__userService.getUserBySocial(social)
+            if(social == "q"):
                 exit(1)
             elif selectedUser == "Not found":
                 clearScreen()
-                print("Staff member not found!")
+                print("Social security number not valid")
             else:
                 if selectedUser.employee == "0":
-                    return action
+                    return social
                 else:
                     clearScreen()
-                    print("Staff member not found!")
+                    print("Social security number not valid")
         return ""
 
     def getStaffPin(self, staffSocial):
@@ -425,7 +425,7 @@ class StaffUI:
         while action != "b":
             clearScreen()
             if action != "":
-                print("Invalid pin!")
+                print("Unique employee number not found")
 
             print("Enter your social security number: " + staffSocial)
             action = getpass.getpass("Enter your unique employee number: ")
@@ -438,6 +438,32 @@ class StaffUI:
                 self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
+
+    def printUserBySocial(self):
+        action = ""
+        social = ""
+        user = ""
+        while action != "b":
+            clearScreen()
+            print("->Find user by social security number")
+            if action != "":
+                print("No user found with the social security number: {}".format(social))
+            else:
+                print("")
+            social = input("Please enter a social security number or \"b\" to go back: ").lower()
+            user = self.__userService.getUserBySocial(social)
+            if user == "Not found":
+                action = "_"
+                pass
+            else:
+                clearScreen()
+                print("->Find user by social security number")
+                print("")
+                print("This is the user you asked for:")
+                printHeader("userSelect")
+                print(user)
+                input("Press enter to return")
+                action = "b"
 
     def getValidCategory(self, car, service):
         isValid = False
