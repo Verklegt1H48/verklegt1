@@ -437,7 +437,7 @@ class StaffUI:
             social = input("Enter your social security number: ").lower()
             selectedUser = self.__userService.getUserBySocial(social)
             if(social == "q"):
-                exit(1)
+                sys.exit()
             elif selectedUser == "Not found":
                 clearScreen()
                 print("Social security number not valid")
@@ -485,17 +485,24 @@ class StaffUI:
                 action = "_"
                 pass
             else:
-                clearScreen()
-                print("->Find user by social security number")
-                print("")
-                print("This is the user you asked for:")
-                printHeader("userSelect")
-                print(user)
-                print("1. To modify user")
-                input("Press enter to return")
-                action = "b"
-                if action == "1":
-                    self.modifyUser(user)
+                while action != "b":
+                    clearScreen()            
+                    print("->Find user by social security number")
+                    print("")
+                    print("This is the user you asked for:")
+                    printHeader("userSelect")
+                    print(user)
+                    print("1. To modify user")
+                    print("Press b to go back")
+                    print("Press q to quit")
+                    if action != "":
+                        print("Invalid input! Please try again.")
+                    action = ""
+                    action =input("Choose an option: ")
+                    if action == "q":
+                        sys.exit()
+                    if action == "1":
+                        modifyUser(self.__userService, user)
 
     def getValidCategory(self, car, service):
         isValid = False
