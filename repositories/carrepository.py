@@ -24,7 +24,6 @@ class CarRepository:
                          'Transmission' : car.transmission,
                          'Extras'       : str(car.extras).strip("[']").replace("', '", ","),
                          'Deleted'      : car.deleted,
-                         'Rent History' : str(car.rentHistory).strip("[']").replace("', '", ","),
                          'Available'    : car.available,
                          'Price'        : car.price})
 
@@ -60,7 +59,6 @@ class CarRepository:
                         newCar.seats        = car['Seats']
                         newCar.transmission = car['Transmission']
                         newCar.deleted      = car['Deleted']
-                        newCar.rentHistory  = car['Rent History'].strip("").split(",")
                         newCar.available    = car['Available']
                         newCar.price        = car['Price']
                         for extra in car['Extras'].split(","):

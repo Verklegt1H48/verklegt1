@@ -279,7 +279,7 @@ class StaffUI:
             elif action == "3" and orderToChange.status == 0:
                 self.carAssignment(orderToChange)
                 action = "b"
-            elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today():
+            elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today().date():
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
     
@@ -559,6 +559,7 @@ class StaffUI:
             clearScreen()
             PayMethod = input("Payment Method: ").upper()
             if service.isValidPayMethod(PayMethod):
+                clearScreen()
                 order.payMethod = PayMethod
                 isValid = True
             else:

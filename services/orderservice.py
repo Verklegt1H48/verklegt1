@@ -18,7 +18,6 @@ class OrderService:
 
     def addOrder(self, newOrder):
         newOrder.id = len(self.__orders)
-        self.__orders.append(newOrder)
         self.__orderRepo.addOrder(newOrder)
     
     def updateOrder(self, orderToUpdate):
@@ -67,7 +66,7 @@ class OrderService:
             return "Invalid"
         if (pickUpCar - datetime.today()).days > 365 :
             return "Year"
-        elif datetime.today() > pickUpCar:
+        elif pickUpCar.date() < datetime.today().date():
             return "Past"
         else :
             return pickUpCar
