@@ -72,6 +72,7 @@ class CarService:
         for car in self.__cars:
             if car.id == int(carID) and car.available == 0:
                 return car
+        return ""
 
     
     #Hér er breytt strengjum í datetime til að reikna allar dagsetningar á milli tveggja datetime-a
@@ -91,6 +92,13 @@ class CarService:
         print(history)
         return history
 
+    def isValidCarId(self, id):
+        cars = self.__cars
+        for car in cars:
+            if str(car.id) == str(id):
+                return True
+        return False
+    
     def isValidCategory(self, category):
         if category in ("A", "B", "C", "D"):
             return True
