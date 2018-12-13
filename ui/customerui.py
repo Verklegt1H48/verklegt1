@@ -497,12 +497,14 @@ def getValidReturnDate(service,pickUpDate):
 def modifyUser(service, user):
         action = ""
         while action != "b":
+            print("->Modify user")
             clearScreen()
-            if action != "":
-                print("Invalid input, try again")
+            print("->Modify user")
+            print("")
             printHeader("userSelect")
             print(user)
-            print("\nSelect what you would like to modify")
+            print("")
+            print("Select what you would like to modify")
             print("1. Email")
             print("2. Password")
             print("3. Drivers License number")
@@ -511,6 +513,10 @@ def modifyUser(service, user):
             print("6. Card info")
             print("Press b to return to the previous page")
             print("Press q to quit")
+            if action != "":
+                print("Invalid input, try again")
+            else:
+                print("")
             action = input("Please select what you wish to change: ").lower()
             clearScreen()
             if action == "q":
