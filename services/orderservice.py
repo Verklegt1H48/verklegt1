@@ -97,21 +97,3 @@ class OrderService:
             return True
         else:
             return False
-
-    def getHistory(self, orders, id, carOrUser):
-        if carOrUser == "car":
-            form = "UserID"
-        else:
-            form = "CarID"
-        print("->Print order history for {} with ID: \"{}\"".format(carOrUser, id))
-        print("These are the history items for this {}".format(carOrUser))
-        print("{:10}{:10}{:10}".format(form, "Pick Up date", "Return date"))
-        if carOrUser == "car":
-            for order in orders:
-                if str(order.carId) == str(id):
-                    print("{:10}{:10}{:10}".format(order.UserId, order.pickUpDate, order.returnDate))
-        else:
-            for order in orders:
-                if str(order.carId) == str(id):
-                    print("{:10}{:10}{:10}".format(order.carId, order.pickUpDate, order.returnDate))
-            
