@@ -21,11 +21,9 @@ class Car:
                                                                    str(self.__seats), self.__transmission,
                                                                    str(self.__extras).strip("[']").replace("', '", ", "))
 
-#föllgit
-    def deleteCar(self):
-        self.__deleted = True
 
-#Getterar
+# Getters
+
     @property
     def id(self):
         return self.__id
@@ -74,7 +72,8 @@ class Car:
     def deleted(self):
         return self.__deleted
 
-#Setterar
+# Setters
+
     @id.setter
     def id(self, id):
         self.__id = int(id)

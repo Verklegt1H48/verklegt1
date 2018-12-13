@@ -9,7 +9,7 @@ import sys
 
 class OrderService:
 
-    #order service is initialized with 
+    # order service is initialized with 
     def __init__(self):
         self.__orderRepo = OrderRepository()
         self.__carRepo = CarRepository()
@@ -36,7 +36,7 @@ class OrderService:
                 order.deleted = 1
             self.__orderRepo.overwriteOrders(self.__orders)
     
-    def assigneCarToOrder(self, theCar, theOrder):
+    def assignCarToOrder(self, theCar, theOrder):
         for order in self.__orders:
             if order.id == int(theOrder.id):
                 theOrder.carId = theCar.id
@@ -65,8 +65,6 @@ class OrderService:
             pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
         except:
             return "Invalid"
-        print(datetime.today().date())
-        print(pickUpCar.date())
         if (pickUpCar - datetime.today()).days > 365 :
             return "Year"
         elif pickUpCar.date() < datetime.today().date():
@@ -92,7 +90,6 @@ class OrderService:
         daysToRent = returnCar - pickUpCar
         finalPrice = int(daysToRent.days) * int(currPrice)
         return finalPrice
-
 
     def isValidPayMethod(self, PayMethod):
         if PayMethod in ("CREDIT", "DEBIT", "CASH"):

@@ -74,31 +74,6 @@ class CarService:
                 return car
         return ""
 
-    
-    #Hér er breytt strengjum í datetime til að reikna allar dagsetningar á milli tveggja datetime-a
-    #Síðan er þeim breytt aftur í streng
-    def getCarHistory(self, id):
-        orders = self.getCarOrders(id)
-        history = []
-        for order in orders:
-            pickUpDate = order.pickUpDate
-            returnDate = order.returnDate
-            pickUpDate = datetime.strptime(pickUpDate, "%d/%m/%y")
-            returnDate = datetime.strptime(returnDate, "%d/%m/%y")
-            carHistory = returnDate - pickUpDate
-            for i in range(carHistory.days + 1):
-                date = pickUpDate + timedelta(i)
-                history.append(datetime.strftime(date, "%d/%m/%y"))
-        print(history)
-        return history
-
-    def isValidCarId(self, id):
-        cars = self.__cars
-        for car in cars:
-            if str(car.id) == str(id):
-                return True
-        return False
-    
     def isValidCategory(self, category):
         if category in ("A", "B", "C", "D"):
             return True

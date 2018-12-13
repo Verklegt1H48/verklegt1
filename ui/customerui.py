@@ -275,116 +275,174 @@ class CustomerUI:
 #validation functions
 
 def getValidName(userService):
-    isValidName = True
-    while isValidName:
+    isValidName = False
+    while not isValidName:
         name = input("Full name: ")
         clearScreen()
-        isValidName = userService.isValidName(name)
+        error = userService.isValidName(name)
+        if error == "length":
+            print("Invalid name length")
+        else:
+            isValidName = True
     return name
 
 def getValidEmail(userService):
-    isValidEmail = True
-    while isValidEmail:
+    isValidEmail = False
+    while not isValidEmail:
         email = input("Email address: ")
         clearScreen()
-        isValidEmail = userService.isValidEmail(email)
+        error = userService.isValidEmail(email)
+        if error == "invalid":
+            print("Invalid email address! Please enter a valid email address")
+        else: 
+            isValidEmail = True
     return email
 
 def getValidPassword(userService):
-    isValidPassword = True
-    while isValidPassword:
+    isValidPassword = False
+    while not isValidPassword:
         password = getpass.getpass("Password: ")
         clearScreen()
-        isValidPassword = userService.isValidPassword(password)
-        confirmPassword = getpass.getpass("Confirm password: ")
-        if confirmPassword == password:
-            pass
-            clearScreen()
+        error = userService.isValidPassword(password)
+        if error == "short":
+            print("Passwords must be at least 8 characters long")
+        elif error == "long":
+            print("Password is too long")
         else:
+            confirmPassword = getpass.getpass("Confirm password: ")
             clearScreen()
-            print("Passwords don't match, please try again")
-            isValidPassword = True
+            if confirmPassword == password:
+                isValidPassword = True
+            else:       
+                print("Passwords don't match, please try again")
     return password
 
 def getValidSocialNumber(userService):
-    isValidSocialNumber = True
-    while isValidSocialNumber:
+    isValidSocialNumber = False
+    while not isValidSocialNumber:
         socialNumber = input("Social security number: ")
         clearScreen()
-        isValidSocialNumber = userService.isValidSocialNumber(socialNumber)
+        error = userService.isValidSocialNumber(socialNumber)
+        if error == "numbers":
+            print("Social security number can only contain numbers")
+        elif error == "length":
+            print("Social security number must be 10 digits long")
+        else:
+            isValidSocialNumber = True
     return socialNumber
 
 def getValidDriverLicense(userService):
-    isValidDriverLicense = True
-    while isValidDriverLicense:
+    isValidDriverLicense = False
+    while not isValidDriverLicense:
         driverLicense = input("Driver license ID: ")
         clearScreen()
-        isValidDriverLicense = userService.isValidDriverLicense(driverLicense)
+        error = userService.isValidDriverLicense(driverLicense)
+        if error == "numbers":
+            print("Driver license ID can only contain numbers")
+        elif error == "length":
+            print("Driver license ID must be 9 digits long")
+        else:
+            isValidDriverLicense = True
     return driverLicense
 
 def getValidAddress(userService):
-    isValidAddress = True
-    while isValidAddress:
+    isValidAddress = False
+    while not isValidAddress:
         address = input("Address: ")
         clearScreen()
-        isValidAddress = userService.isValidAddress(address)
+        error = userService.isValidAddress(address)
+        if error == "invalid":
+            print("Invalid address!")
+        else:
+            isValidAddress = True
     return address
 
 def getValidPhone(userService):
-    isValidPhone = True
-    while isValidPhone:
+    isValidPhone = False
+    while not isValidPhone:
         phone = input("Phone number: ")
         clearScreen()
-        isValidPhone = userService.isValidPhone(phone)
+        error = userService.isValidPhone(phone)
+        if error == "numbers":
+            print("Phone number can only contain numbers")
+        elif error == "length":
+            print("Phone number must be at least 7 digits long")
+        else:
+            isValidPhone = True
     return phone
 
 def getValidNameOnCard(userService):
-    isValidNameOnCard = True
-    while isValidNameOnCard:
+    isValidNameOnCard = False
+    while not isValidNameOnCard:
         nameOnCard = input("Name on credit card: ")
         clearScreen()
-        isValidNameOnCard = userService.isValidNameOnCard(nameOnCard)
+        error = userService.isValidNameOnCard(nameOnCard)
+        if error == "length":
+            print("Invalid name length")
+        else:
+            isValidNameOnCard = True
     return nameOnCard
 
 def getValidNumber(userService):
-    isValidNumber = True
-    while isValidNumber:
+    isValidNumber = False
+    while not isValidNumber:
         number = input("Credit card number: ")
         clearScreen()
-        isValidNumber = userService.isValidNumber(number)
+        error = userService.isValidNumber(number)
+        if error == "numbers":
+            print("Credit card number can only contain numbers")
+        elif error == "length":
+            print("Credit card number must be 16 digits long")
+        else:
+            isValidNumber = True
     return number
 
 def getValidCvv(userService):
-    isValidCvv = True
-    while isValidCvv:
+    isValidCvv = False
+    while not isValidCvv:
         cvv = input("CVV: ")
         clearScreen()
         isValidCvv = userService.isValidCvv(cvv)
+        if isValidCvv == "numbers":
+            print("CVV code can only contain numbers")
+        if isValidCvv == "length":
+            print("CVV code must be 3 digits long")
     return cvv
 
 def getValidExpMonth(userService):
-    isValidExpMonth = True
-    while isValidExpMonth:
+    isValidExpMonth = False
+    while not isValidExpMonth:
         expMonth = input("Exp month(mm): ")
         clearScreen()
         isValidExpMonth = userService.isValidExpMonth(expMonth)
+        if isValidExpMonth == "length":
+            print("Invalid input!")
+            isValidExpMonth = False
+        elif isValidExpMonth == "month":
+            print("Month does not exist")
+            isValidExpMonth = False
     return expMonth
 
 def getValidExpYear(userService, expMonth):
     expYear = input("Exp year(yy): ")
     clearScreen()
     isValidExpYear = userService.isValidExpYear(expYear, expMonth)
-    if isValidExpYear == False:
+    if isValidExpYear == "year":
+        print("Card is expired")
         return "-1"
     else:
         return expYear
 
 def getValidPin(userService):
-    isValidPin = True
-    while isValidPin:
+    isValidPin = False
+    while not isValidPin:
         pin = input("Pin: ")
         clearScreen()
         isValidPin = userService.isValidPin(pin)
+        if isValidPin == "numbers":
+            print("Pin can only contain numbers")
+        elif isValidPin == "length":
+            print("Employee pin must be 5 digits long")
     return pin
 
 def getValidPickUpDate(service):
@@ -466,6 +524,10 @@ def modifyUser(service, user):
                 user.email = getValidEmail(service)
                 action = ""
             elif action == "2" :
+                oldPass = ""
+                while oldPass != user.password:
+                    clearScreen()
+                    oldPass = getpass.getpass("Input old password :")
                 user.password = getValidPassword(service)
                 action = ""
             elif action == "3":
