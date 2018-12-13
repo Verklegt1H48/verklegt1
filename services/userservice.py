@@ -28,9 +28,10 @@ class UserService:
     def deleteUser(self, userID):
         success = False
         for user in self.__users:
-            if user.id == userID:
-                user.deleted = 1
+            if str(user.id) == str(userID):
+                user.deleted = "1"
                 success = True
+                break
         if success:
             self.__userRepo.overwriteUsers(self.__users)
         return success
