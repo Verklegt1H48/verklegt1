@@ -40,17 +40,18 @@ class OrderService:
         for order in self.__orders:
             if order.id == int(theOrder.id):
                 theOrder.carId = theCar.id
-        for car in self.__cars:
-            if car.id == int(theCar.id):
-                car.available = 0
-        self.__carRepo.overwriteCars(self.__cars)
         self.__orderRepo.overwriteOrders(self.__orders)
 
     def confirmOrder(self, orderID):
         for order in self.__orders:
             if order.id == int(orderID) and order.carId != -1:
                 order.status = 1
+                theOrder = order
+        for car in self.__cars:
+            if car.id == int(theOrder.carId):
+                car.available = 0
             self.__orderRepo.overwriteOrders(self.__orders)
+            self.__carRepo.overwriteCars(self.__cars)
     
     def getOrdersByStatus(self, status):
         orders = []

@@ -201,7 +201,7 @@ class StaffUI:
             elif int(action) <= 0:
                 pass
             else:
-                self.inputOrderInfo(orderList[int(action) - 1])
+                self.inputOrderInfo(orderList[int(action) - 1], action)
                 action = ""
                 del orderList
 
@@ -221,7 +221,7 @@ class StaffUI:
                 print(user)
         input("Press enter to return: ")
 
-    def inputOrderInfo(self, orderToChange):
+    def inputOrderInfo(self, orderToChange, number):
         pass
         action = ""
         while action != "b":
@@ -250,7 +250,7 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                self.modifyOrder(orderToChange)
+                self.modifyOrder(orderToChange, number)
                 action = "b"
             elif action == "2" :
                 self.__orderService.deleteOrder(orderToChange.id)
@@ -262,14 +262,14 @@ class StaffUI:
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
     
-    def modifyOrder(self, order):
+    def modifyOrder(self, order, number):
         action = ""
         while action != "b":
             clearScreen()
             if action != "":
                 print("Invalid input, try again")
             printHeader("orderSelect")
-            print(" " + str(order))
+            print(str(number) + str(order))
             print("Select what you would like to modify")
             print("1. Car category")
             print("2. Payment method")
