@@ -310,12 +310,11 @@ def getValidPassword(userService):
         else:
             confirmPassword = getpass.getpass("Confirm password: ")
             if confirmPassword == password:
-                pass
                 clearScreen()
+                isValidPassword = True
             else:
                 clearScreen()
                 print("Passwords don't match, please try again")
-                isValidPassword = True
     return password
 
 def getValidSocialNumber(userService):
@@ -348,7 +347,7 @@ def getValidDriverLicense(userService):
 
 def getValidAddress(userService):
     isValidAddress = False
-    while isValidAddress:
+    while not isValidAddress:
         address = input("Address: ")
         clearScreen()
         error = userService.isValidAddress(address)
