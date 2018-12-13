@@ -20,6 +20,7 @@ class StaffUI:
         self.__isLoggedIn = False
         self.__userName = ""
 
+    #first menu that a staff member sees after login 
     def staffMenu(self):
         action = ""
         while action != "b":
@@ -50,6 +51,7 @@ class StaffUI:
                 self.orderMenu()
                 action = ""
 
+    # The car menu a staff member sees
     def staffCarMenu(self):
         action = ""
         while action != "b":
@@ -92,39 +94,12 @@ class StaffUI:
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 action = ""
-                ### getAvailability  NOTA ÞETTA FALL
                 for car in cars:
                     if car.available != 1:
                         print("{}{}".format(car.id,car))
                 self.markCarAvailable(cars)
 
-    def markCarAvailable(self, cars):
-        choice = ""
-        id = input("Enter the ID of the car you want to mark as available: ")
-        if id == "q":
-            sys.exit()
-        if id == "b":
-            return
-        newMileage = self.validateMileageToUpdate(self.__carService, id)
-        choice = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
-        while choice not in ("b","y","n","q"):
-            choice = input("Please input \"y\" or \"n\"!: ").lower()
-        clearScreen()
-        if choice == "y":
-            if self.__carService.makeCarAvailable(id, newMileage):
-                print("Car with ID \"{}\" is now available".format(id))
-                input("Press enter to continue")
-            else:
-                print("No car with ID: \"{}\" exists. Please try again".format(id))
-                input("Press enter to continue")
-        if choice == "n":
-            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
-            input("Press enter to continue")
-        if choice == "q":
-            sys.exit()
-
-        
-
+    # Menu for altering customers
     def staffCustomerMenu(self):
         action = ""
         while action != "b":
@@ -167,6 +142,7 @@ class StaffUI:
             elif action == "6":
                 self.printUserBySocial()
 
+    # Staff ordermenu
     def orderMenu(self):
         action = ""
         while action != "b":
@@ -197,6 +173,31 @@ class StaffUI:
                 clearScreen()
                 self.printOrderList(0)
                 action = ""
+
+    def markCarAvailable(self, cars):
+        choice = ""
+        id = input("Enter the ID of the car you want to mark as available: ")
+        if id == "q":
+            sys.exit()
+        if id == "b":
+            return
+        newMileage = self.validateMileageToUpdate(self.__carService, id)
+        choice = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
+        while choice not in ("b","y","n","q"):
+            choice = input("Please input \"y\" or \"n\"!: ").lower()
+        clearScreen()
+        if choice == "y":
+            if self.__carService.makeCarAvailable(id, newMileage):
+                print("Car with ID \"{}\" is now available".format(id))
+                input("Press enter to continue")
+            else:
+                print("No car with ID: \"{}\" exists. Please try again".format(id))
+                input("Press enter to continue")
+        if choice == "n":
+            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
+            input("Press enter to continue")
+        if choice == "q":
+            sys.exit()
 
     def printOrderList(self, status):
         action = ""
@@ -247,8 +248,6 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
-            if action != "":
-                print("Invalid input, try again")
             print("You selected an order with ID: " + str(orderToChange.id))
             if orderToChange.status == 1:
                 orderStatus = "confirmed"
@@ -267,6 +266,8 @@ class StaffUI:
 
             print("b. Go back")
             print("q. Exit the program")
+            if action != "":
+                print("Invalid input, try again")
             action = input("Choose an option: ").lower()
             if action == "q":
                 sys.exit()
@@ -279,6 +280,7 @@ class StaffUI:
             elif action == "3" and orderToChange.status == 0:
                 self.carAssignment(orderToChange)
                 action = "b"
+
             elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today().date():
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
