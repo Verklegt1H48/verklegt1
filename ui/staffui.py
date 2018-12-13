@@ -57,7 +57,7 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("->Car menu")
-            print("You are logged in as " + self.__userName + "!") 
+            print("") 
             print("These are your options")
             print("")
             print("1. Add a car")
@@ -82,13 +82,16 @@ class StaffUI:
             elif action == "3":
                 action = ""
                 clearScreen()
+                print("-> List all cars")
+                print("") 
+                print("These are the cars you have chosen to see:")
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 for car in cars:
                     if car.deleted != 1:
-                        print("{:3}{}".format(car.id,car))
-                print("Input any key to go back: ")
-                input("")
+                        print("{:5}{}".format(str(car.id),car))
+                print("")
+                input("Press enter to return ")
             elif action == "4":
                 clearScreen()
                 printHeader("carSelect")
@@ -105,7 +108,7 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("->User menu")
-            print("You are logged in as " + self.__userName + "!") 
+            print("") 
             print("These are your options")
             print("")
             print("1. Add a customer")
@@ -148,7 +151,7 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("->User menu")
-            print("You are logged in as " + self.__userName + "!") 
+            print("") 
             print("These are your options")
             print("")
             print("1. New order")
@@ -233,10 +236,14 @@ class StaffUI:
         if action == "3":
             isStaff = "1"
             print("->List all customers")
+            print("")
+            print("These are all the customers:")
             printHeader("userSelect")
         else: 
             isStaff = "0"
             print("->List all staff members")
+            print("")
+            print("These are all the staff members:")
             printHeader("staffSelect")
         for user in users:
             if str(user.employee) == isStaff and str(user.deleted) == "0":
@@ -375,7 +382,7 @@ class StaffUI:
         self.getValidTransmission(newCar, self.__carService)
         self.getValidExtras(newCar, self.__carService)
         self.__carService.addCar(newCar)
-        input("You have successfully added a new car. Please press Enter to continue")
+        input("You have successfully added a new car. Please press enter to continue")
 
     def removeCar(self):
         clearScreen()
@@ -637,7 +644,7 @@ class StaffUI:
             if service.isValidMileage(mileage, car):
                 return mileage
             else:
-                print("Invalid input. Input must be between " + car.mileage + " and 1000000")
+                print("Invalid input. The mileage must be between " + car.mileage + " and 1000000")
                 input("Please press enter to try again")
 
     def getValidSeats(self, car, service):

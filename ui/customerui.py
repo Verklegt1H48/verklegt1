@@ -9,6 +9,7 @@ from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
 import getpass, sys
 
+
 class CustomerUI:
     
     def __init__(self):
@@ -58,7 +59,7 @@ class CustomerUI:
             if login is True:
                 break
         return login
-        
+
     # Prints the lists of sorted cars
     def printCarList(self, attribute):
         action = ""
@@ -74,7 +75,7 @@ class CustomerUI:
             if attribute == "available":
                 print("-> Sort cars by availability")
             if self.__isLoggedIn:
-                print("You are logged in as: {}".format(self.__currUser.name))
+                print("")
             else:
                 print("You are not logged in. You need to login to book a car.")
             print("These are the cars you have chosen to see:")
@@ -270,7 +271,7 @@ class CustomerUI:
                 self.__isLoggedIn = True
                 return
 
-#validation
+#validation functions
 
 def getValidName(userService):
     isValidName = True
