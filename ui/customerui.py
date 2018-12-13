@@ -29,7 +29,7 @@ class CustomerUI:
             if self.__isLoggedIn:
                 print("Welcome " + self.__currUser.name + "!")
             else:
-                print("You are not logged in!")
+                print("")
             print("These are your options:")
             print("")
             print("1. Sort cars by price/category")
@@ -200,6 +200,7 @@ class CustomerUI:
             print("->Customer login screen")
             print("")
             print("These are your options")
+            print("")
             print("1. Log in")
             print("2. Sign up")
             print("b. Go back")
@@ -509,8 +510,8 @@ def modifyUser(service, user):
             print("4. Address")
             print("5. Phone number")
             print("6. Card info")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input, try again")
             else:

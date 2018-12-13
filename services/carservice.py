@@ -72,6 +72,7 @@ class CarService:
         for car in self.__cars:
             if car.id == int(carID) and car.available == 0:
                 return car
+        return ""
 
     def isValidCategory(self, category):
         if category in ("A", "B", "C", "D"):
