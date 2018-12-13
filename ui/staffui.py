@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-from ui.customerui import createAccount, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
+from ui.customerui import createAccount, modifyUser, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
 
@@ -491,8 +491,11 @@ class StaffUI:
                 print("This is the user you asked for:")
                 printHeader("userSelect")
                 print(user)
+                print("1. To modify user")
                 input("Press enter to return")
                 action = "b"
+                if action == "1":
+                    self.modifyUser(user)
 
     def getValidCategory(self, car, service):
         isValid = False
