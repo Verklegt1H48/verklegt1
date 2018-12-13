@@ -348,36 +348,49 @@ def getValidNumber(userService):
     return number
 
 def getValidCvv(userService):
-    isValidCvv = True
-    while isValidCvv:
+    isValidCvv = False
+    while not isValidCvv:
         cvv = input("CVV: ")
         clearScreen()
         isValidCvv = userService.isValidCvv(cvv)
+        if isValidCvv == "numbers":
+            print("CVV code can only contain numbers")
+        if isValidCvv == "length":
+            print("CVV code must be 3 digits long")
     return cvv
 
 def getValidExpMonth(userService):
-    isValidExpMonth = True
-    while isValidExpMonth:
+    isValidExpMonth = False
+    while not isValidExpMonth:
         expMonth = input("Exp month(mm): ")
         clearScreen()
         isValidExpMonth = userService.isValidExpMonth(expMonth)
+        if isValidExpMonth == "length":
+            print("Invalid input!")
+        elif isValidExpMonth == "month":
+            print("Month does not exist")
     return expMonth
 
 def getValidExpYear(userService, expMonth):
     expYear = input("Exp year(yy): ")
     clearScreen()
     isValidExpYear = userService.isValidExpYear(expYear, expMonth)
-    if isValidExpYear == False:
+    if isValidExpYear == "year":
+        print("Card is expired")
         return "-1"
     else:
         return expYear
 
 def getValidPin(userService):
-    isValidPin = True
-    while isValidPin:
+    isValidPin = False
+    while not isValidPin:
         pin = input("Pin: ")
         clearScreen()
         isValidPin = userService.isValidPin(pin)
+        if isValidPin == "numbers":
+            print("Pin can only contain numbers")
+        elif isValidPin == "length":
+            print("Employee pin must be 5 digits long")
     return pin
 
 def getValidPickUpDate(service):
