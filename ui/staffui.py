@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-from ui.customerui import createAccount, getValidPickUpAndReturnDate, getValidSocialNumber
+from ui.customerui import createAccount, getValidPickUpAndReturnDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
 #from ui.mainui import MainUI
@@ -117,12 +117,11 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("1. Add a customer")
-            print("2. Remove a customer")
+            print("2. Remove a user")
             print("3. List all customers")
             print("4. Add a new staff member")
-            print("5. Remove a staff member")
-            print("6. List all staff members")
-            print("7. Find user by social security number")
+            print("5. List all staff members")
+            print("6. Find user by social security number")
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -134,19 +133,19 @@ class StaffUI:
                 clearScreen()
                 createAccount(self.__userService)
                 action = ""
-            elif action in ("2","5"):
+            elif action in ("2"):
                 clearScreen()
                 self.removeUser()
                 action = ""
-            elif action in ("3","6"):
+            elif action in ("3","5"):
                 clearScreen()
                 self.printUsers(action)
                 action = ""
             elif action == "4":
-                self.addStaffMember()
                 action = ""
+                createStaffAccount(self.__userService)
                 clearScreen()
-            elif action == "7":
+            elif action == "6":
                 self.printUserBySocial()
 
     def orderMenu(self):
@@ -208,12 +207,13 @@ class StaffUI:
         users = self.__userService.getUserList()
         clearScreen()
         if action == "3":
-            isStaff = "0"
-            print("->List all customers")
-        else: 
             isStaff = "1"
+            print("->List all customers")
+            printHeader("userSelect")
+        else: 
+            isStaff = "0"
             print("->List all staff members")
-        printHeader("userSelect")
+            printHeader("staffSelect")
         for user in users:
             if str(user.employee) == isStaff and str(user.deleted) == "0":
                 print(user)
@@ -375,11 +375,8 @@ class StaffUI:
 
     def addStaffMember(self):
         clearScreen()
-        employeeName = input("Enter employee name: ")
-        employeeSocialNumber = input("Enter employee social security number: ")
-        employeePin = input("Enter unique employee number: ")
-        newUser = User(employeeName, employeeSocialNumber, 0, employeePin)
-        self.__userService.addUser(newUser)
+        
+    
 
     def addOrder(self):
         newOrder = Order()
@@ -394,17 +391,15 @@ class StaffUI:
 
     def logInAsStaff(self):
         staffSocial = self.getStaffSocial()
-        if staffSocial == "b":
-            pass
-        elif staffSocial != "":
+        if staffSocial != "":
             self.getStaffPin(staffSocial)
             if self.__isLoggedIn:
                 self.staffMenu()
         
     def getStaffSocial(self):
-        action = ""
         clearScreen()
-        while action != "b":
+        social = ""
+        while social != "b":
             social = input("Enter your social security number: ").lower()
             selectedUser = self.__userService.getUserBySocial(social)
             if(social == "q"):

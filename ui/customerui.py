@@ -87,14 +87,48 @@ class CustomerUI:
                 exit(1)
             if action.isdecimal() and (0 < int(action) < counter):
                 carToOrder = carList[int(action) - 1]
-                pickUpDate, returnDate = self.inputOrderInfo(carToOrder)
-                paymentMethod = self.selectPaymentMethod()
-                if paymentMethod != "":
-                    newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
-                    self.__orderService.addOrder(newOrder)
-                    self.orderConfirmation()
+                self.inputOrderInfo(carToOrder)
                 action = ""
     
+    def inputOrderInfo(self, carToOrder):
+        clearScreen()
+        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+        print("Current price is " + str(carToOrder.price) + " isk per day")
+        currPrice = str(carToOrder.price)
+        currPrice = self.addInsurance(carToOrder)
+        clearScreen()
+        if(currPrice != ""):
+            print("Your total price per day is " + currPrice + " isk")
+            pickUpDate, returnDate = getValidPickUpAndReturnDate(self.__orderService)
+            clearScreen()
+            finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
+            print("Your final price is " + str(finalPrice) + " isk")
+        paymentMethod = self.selectPaymentMethod()
+        if paymentMethod != "":
+            newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
+            self.__orderService.addOrder(newOrder)
+            self.orderConfirmation()
+
+    def addInsurance(self, carToOrder):
+        action = ""
+        while action != "b":
+            print("Press q to quit and b to go back")  
+            carInsurance = str(int(int(carToOrder.price) / 10))
+            if action != "":
+                clearScreen()
+                print("Invalid input, try again")
+            action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")   
+            if action == "q" :
+                exit(1)
+            elif action == "y":    
+                totalPrice = str(int(carInsurance) + int(carToOrder.price))
+                return totalPrice
+            elif action == "n":
+                return str(carToOrder.price)
+            else:
+                pass
+        return ""
+
     def orderConfirmation(self):
         clearScreen()
         action = ""
@@ -113,7 +147,6 @@ class CustomerUI:
     def selectPaymentMethod(self):
         action = ""
         while action != "b":
-            clearScreen()
             print("-> Select payment method")
             print("These are your options:")
             print("")
@@ -136,43 +169,6 @@ class CustomerUI:
             elif action == "3":
                 clearScreen()
                 return "CASH"
-        return ""
-
-    def inputOrderInfo(self, carToOrder):
-        clearScreen()
-        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
-        print("Current price is " + str(carToOrder.price) + " isk per day")
-        currPrice = ""
-        currPrice = self.addInsurance(carToOrder)
-        if(currPrice != ""):
-            pickUpDate, returnDate = getValidPickUpAndReturnDate(self.__orderService)
-            finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
-            print("Your final price is " + str(finalPrice) + " isk")
-            return pickUpDate, returnDate
-
-
-    def addInsurance(self, carToOrder):
-        action = ""
-        while action != "b":
-            #clearScreen()
-            print("Press q to quit and b to go back")  
-            carInsurance = str(int(int(carToOrder.price) / 10))
-            if action != "":
-                clearScreen()
-                print("Invalid input, try again")
-            action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")
-            
-            if action == "q" :
-                exit(1)
-            elif action == "y":    
-                totalPrice = str(int(carInsurance) + int(carToOrder.price))
-                print("Your total price per day is " + totalPrice + " isk")
-                return totalPrice
-            elif action == "n":
-                print("Your total price per day is " + str(carToOrder.price) + " isk")
-                return carToOrder.price
-            else:
-                pass
         return ""
                     
     def customerMenu(self):
@@ -358,11 +354,19 @@ def getValidExpYear(userService, expMonth):
     else:
         return expYear
 
+def getValidPin(userService):
+    isValidPin = True
+    while isValidPin:
+        pin = input("Pin: ")
+        clearScreen()
+        isValidPin = userService.isValidPin(pin)
+    return pin
+
 def getValidPickUpAndReturnDate(service):
     action = ""
-    clearScreen()
     while action != "b":
         action = input("When will you pick up your car? (dd/mm/yy): ")
+        clearScreen()
         if action == "b" :
             return "", ""
         elif action == "q" :
@@ -395,6 +399,14 @@ def getValidPickUpAndReturnDate(service):
             break
     return pickUpDate, returnDate
 
+def createStaffAccount(service):
+    clearScreen()
+    newUser = User()
+    newUser.name            = getValidName(service)
+    newUser.socialNumber    = getValidSocialNumber(service)
+    newUser.pin             = getValidPin(service)
+    newUser.employee        = "0" 
+    service.addUser(newUser)
 
 def createAccount(service):
     clearScreen()
@@ -406,7 +418,7 @@ def createAccount(service):
     newUser.driverLicense   = getValidDriverLicense(service)
     newUser.address         = getValidAddress(service)
     newUser.phone           = getValidPhone(service)
-    newUser.Employee        = 1
+    newUser.employee        = "1"
     checkDate = True
     while checkDate:
         newUser.nameOnCard  = getValidNameOnCard(service)
@@ -418,5 +430,4 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.users.append(newUser)
     service.addUser(newUser)

@@ -11,6 +11,8 @@ def printHeader(header):
         print(orderSelectHeader)
     elif header == "userSelect":
         print(userSelectHeader)
+    elif header == "staffSelect":
+        print(staffSelectHeader)
 
 welcomeScreen = (r"""
 
@@ -38,4 +40,6 @@ orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number","UserID"
                                                                "Pick Up Date","Return Date"))
 
 userSelectHeader = ("{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format("Name","ID","Social","License nr.",
-                                                                "Address","Phone","email"))
+                                                                "Address","Phone","Email"))
+
+staffSelectHeader = ("{:20}{:5}{:16}".format("Name","ID","Social"))
