@@ -40,6 +40,7 @@ class OrderRepository:
             for order in orders:
                 self.orderDictWriter(order, orderData)
 
+    # Function to open orders.csv with DictReader and make a list of orders from the dictionary
     def getOrderList(self):
         if self.__orders == []:
             try:
