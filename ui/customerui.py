@@ -310,12 +310,11 @@ def getValidPassword(userService):
         else:
             confirmPassword = getpass.getpass("Confirm password: ")
             if confirmPassword == password:
-                pass
                 clearScreen()
+                isValidPassword = True
             else:
                 clearScreen()
                 print("Passwords don't match, please try again")
-                isValidPassword = True
     return password
 
 def getValidSocialNumber(userService):
@@ -348,7 +347,7 @@ def getValidDriverLicense(userService):
 
 def getValidAddress(userService):
     isValidAddress = False
-    while isValidAddress:
+    while not isValidAddress:
         address = input("Address: ")
         clearScreen()
         error = userService.isValidAddress(address)
@@ -418,8 +417,10 @@ def getValidExpMonth(userService):
         isValidExpMonth = userService.isValidExpMonth(expMonth)
         if isValidExpMonth == "length":
             print("Invalid input!")
+            isValidExpMonth = False
         elif isValidExpMonth == "month":
             print("Month does not exist")
+            isValidExpMonth = False
     return expMonth
 
 def getValidExpYear(userService, expMonth):
