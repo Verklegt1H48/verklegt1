@@ -107,7 +107,7 @@ class StaffUI:
                 print("No car with ID: \"{}\" exists. Please try again".format(id))
                 input("Press enter to continue")
         if choice == "n":
-            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
+            print("You aborted making car with ID: \"{}\" available".format(id))
             input("Press enter to continue")
         if choice == "q":
             sys.exit()
