@@ -400,7 +400,7 @@ def getValidReturnDate(service,pickUpDate):
         action = input("When will you return the car? (dd/mm/yy): ")
         clearScreen()
         if action == "b" :
-            return "0", "0"
+            return "", ""
         elif action == "q" :
             sys.exit()
         returnCar = service.isValidReturnDate(action, pickUpCar)

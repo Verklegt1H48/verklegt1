@@ -20,6 +20,13 @@ class OrderService:
         newOrder.id = len(self.__orders)
         self.__orders.append(newOrder)
         self.__orderRepo.addOrder(newOrder)
+    
+    def updateOrder(self, orderToUpdate):
+        for order in self.__orders:
+            if order.id == int(orderToUpdate.id):
+                order = orderToUpdate
+            self.__orderRepo.overwriteOrders(self. __orders)
+
 
     def getOrderList(self):
         return self.__orders
@@ -55,15 +62,15 @@ class OrderService:
 
     def isValidPickUpDate(self, pickUpDate):
         try:
-            pickupCar = datetime.strptime(pickUpDate, "%d/%m/%y")
+            pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
         except:
             return "Invalid"
-        if (pickupCar - datetime.today()).days > 365 :
+        if (pickUpCar - datetime.today()).days > 365 :
             return "Year"
-        elif datetime.today() > pickupCar:
+        elif datetime.today() > pickUpCar:
             return "Past"
         else :
-            return pickupCar
+            return pickUpCar
 
     def isValidReturnDate(self, returnDate, pickUpCar):
         try:
