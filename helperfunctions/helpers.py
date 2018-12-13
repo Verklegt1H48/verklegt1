@@ -28,8 +28,8 @@ def getHistory(orders, id, carOrUser):
         else:
             form = "CarID"
         print("->Print order history for {} with ID: \"{}\"".format(carOrUser, id))
-        print("These are the history items for this {}:".format(carOrUser))
         print("")
+        print("These are the history items for this {}:".format(carOrUser))
         print("{:10}{:15}{:15}".format(form, "Pick Up date", "Return date"))
         if carOrUser == "car":
             for order in orders:
