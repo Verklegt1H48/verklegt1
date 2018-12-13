@@ -309,11 +309,10 @@ def getValidPassword(userService):
             print("Password is too long")
         else:
             confirmPassword = getpass.getpass("Confirm password: ")
+            clearScreen()
             if confirmPassword == password:
-                clearScreen()
                 isValidPassword = True
-            else:
-                clearScreen()
+            else:       
                 print("Passwords don't match, please try again")
     return password
 
@@ -524,6 +523,10 @@ def modifyUser(service, user):
                 user.email = getValidEmail(service)
                 action = ""
             elif action == "2" :
+                oldPass = ""
+                while oldPass != user.password:
+                    clearScreen()
+                    oldPass = getpass.getpass("Input old password :")
                 user.password = getValidPassword(service)
                 action = ""
             elif action == "3":
