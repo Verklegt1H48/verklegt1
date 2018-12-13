@@ -79,7 +79,7 @@ class CustomerUI:
             print("These are the cars you have chosen to see:")
             printHeader("carSelect")
             for car in carList:
-                print("{:5}{}".format(counter,car))
+                print("{:5}{}".format(str(counter),car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
@@ -90,10 +90,8 @@ class CustomerUI:
             else:
                 loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ").lower()
                 if loginAction == "login":
-
                     login = True
                     break
-
                 elif loginAction == "q" or loginAction == "b":
                     action = loginAction
                 else:
@@ -106,7 +104,7 @@ class CustomerUI:
                 action = ""
         return login
     
-    def inputOrderInfo(self, carToOrder):
+    def inputOrderInfo(self, carToOrder):        
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
@@ -237,6 +235,7 @@ class CustomerUI:
         action = ""
         clearScreen()
         while action != "b":
+
             action = input("Enter email address: ")
             if(action == "q"):
                 exit(1)
