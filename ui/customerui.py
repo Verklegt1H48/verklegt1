@@ -418,8 +418,10 @@ def getValidExpMonth(userService):
         isValidExpMonth = userService.isValidExpMonth(expMonth)
         if isValidExpMonth == "length":
             print("Invalid input!")
+            isValidExpMonth = False
         elif isValidExpMonth == "month":
             print("Month does not exist")
+            isValidExpMonth = False
     return expMonth
 
 def getValidExpYear(userService, expMonth):
@@ -517,6 +519,10 @@ def modifyUser(service, user):
                 user.email = getValidEmail(service)
                 action = ""
             elif action == "2" :
+                oldPass = ""
+                while oldPass != user.password:
+                    clearScreen()
+                    oldPass = getpass.getpass("Input old password :")
                 user.password = getValidPassword(service)
                 action = ""
             elif action == "3":
