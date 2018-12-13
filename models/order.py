@@ -54,7 +54,9 @@ class Order:
     @property
     def deleted(self):
         return self.__deleted
-#Setters
+
+# Setters
+
     @id.setter
     def id(self, value):
         self.__id = int(value)

@@ -10,17 +10,14 @@ def clearScreen():
     else:
         _ = system('clear')
 
+#resize the command line window used to open the program
 def resizeWindow():
     #windows
     if name == 'nt':
         _ = system("mode CON: COLS=150")
     #mac and linux
     else:
-        _ = system("printf '\\e[9;1t'")
-
-def printList(self, list):
-    for object in list:
-        print(object)
+        _ = system(r"printf '\e[9;1t'")
 
 def getHistory(orders, id, carOrUser):
         if carOrUser == "car":

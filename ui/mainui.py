@@ -9,6 +9,7 @@ class MainUI:
     def __init__(self):
         self.__action = ""
     
+    # Interface for the main menu
     def mainMenu(self):
         action = ""
         while action != "q":

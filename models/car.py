@@ -22,7 +22,8 @@ class Car:
                                                                    str(self.__extras).strip("[']").replace("', '", ", "))
 
 
-#Getterar
+# Getters
+
     @property
     def id(self):
         return self.__id
@@ -71,7 +72,8 @@ class Car:
     def deleted(self):
         return self.__deleted
 
-#Setterar
+# Setters
+
     @id.setter
     def id(self, id):
         self.__id = int(id)
