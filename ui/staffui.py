@@ -5,7 +5,7 @@ from services.orderservice import OrderService
 from services.userservice import UserService
 from models.user import User
 from datetime import datetime
-from helperfunctions.helpers import clearScreen
+from helperfunctions.helpers import clearScreen, getHistory
 from ui.headers import printHeader
 from ui.customerui import createAccount, modifyUser, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
@@ -64,7 +64,8 @@ class StaffUI:
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
-            print("4. Return car")
+            print("4. List rent history for a car")
+            print("5. Return car")
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -94,6 +95,15 @@ class StaffUI:
                 print("")
                 input("Press enter to return ")
             elif action == "4":
+                clearScreen()
+                carId = ""
+                while carId != "b":
+                    if action != "":
+                        print("Invalid input! Please try again.")
+                    carId = input("Please enter a car ID or \"b\" to go back: ")
+                    if self.getValidCarId(carId, self.__carService):
+                        getHistory(self.__orderService.getOrdersByStatus(1), carId, "car")
+            elif action == "5":
                 clearScreen()
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
@@ -522,7 +532,8 @@ class StaffUI:
                     print("This is the user you asked for:")
                     printHeader("userSelect")
                     print(user)
-                    print("1. To modify user")
+                    print("1. Modify user")
+                    print("2. Print user history")
                     print("Press b to go back")
                     print("Press q to quit")
                     if action != "":
@@ -533,6 +544,8 @@ class StaffUI:
                         sys.exit()
                     if action == "1":
                         modifyUser(self.__userService, user)
+                    if action == "2":
+                        getHistory( self.__orderService.getOrdersByStatus(1), user.id, "user")
     
     # Validation functions
 
