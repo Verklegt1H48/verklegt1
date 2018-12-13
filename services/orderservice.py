@@ -36,7 +36,7 @@ class OrderService:
                 order.deleted = 1
             self.__orderRepo.overwriteOrders(self.__orders)
     
-    def assigneCarToOrder(self, theCar, theOrder):
+    def assignCarToOrder(self, theCar, theOrder):
         for order in self.__orders:
             if order.id == int(theOrder.id):
                 theOrder.carId = theCar.id
