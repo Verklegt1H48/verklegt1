@@ -97,5 +97,3 @@ class OrderService:
             return True
         else:
             return False
-
-    
