@@ -7,6 +7,7 @@ class CreditCard:
         self._expMonth = ""
         self._expYear = ""
 
+# Getters
     @property
     def nameOnCard(self):
         return self._nameOnCard
@@ -26,6 +27,8 @@ class CreditCard:
     @property
     def expYear(self):
         return None
+
+# Setters
 
     @nameOnCard.setter
     def nameOnCard(self, value):

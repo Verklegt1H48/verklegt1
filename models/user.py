@@ -20,15 +20,13 @@ class User:
         self.__employee = employee
         self.__pin = pin
 
-
     def __repr__(self):
         return "{:25}{:5}{:12}{:15}{:15}{:15}{:15}".format(str(self.__name), str(self.__id), str(self.__socialNumber), 
                                                         str(self.__driverLicense), str(self.__address), str(self.__phone), 
                                                         str(self.__email))
 
+#Getters
 
-
-#Getterar
     @property
     def name(self):
         return self.__name
@@ -97,7 +95,8 @@ class User:
     def deleted(self):
         return self.__deleted
 
-#Setterar
+#Setters
+
     @name.setter
     def name(self, value):
         self.__name = value
@@ -129,7 +128,6 @@ class User:
     def email(self, value):
         self.__email = value
     
-
     @employee.setter
     def employee(self, value):
         self.__employee = value

@@ -11,6 +11,7 @@ from ui.customerui import createAccount, modifyUser, getValidReturnDate, getVali
 import sys
 import getpass
 
+
 class StaffUI:
 
     def __init__(self):
@@ -20,7 +21,7 @@ class StaffUI:
         self.__isLoggedIn = False
         self.__userName = ""
 
-    #first menu that a staff member sees after login 
+    # First menu that a staff member sees after login 
     def staffMenu(self):
         action = ""
         while action != "b":
@@ -51,7 +52,7 @@ class StaffUI:
                 self.orderMenu()
                 action = ""
 
-    # The car menu a staff member sees
+    # The car menu shows staff members the options that are avaliable to them 
     def staffCarMenu(self):
         action = ""
         while action != "b":
@@ -102,7 +103,7 @@ class StaffUI:
                         print("{}{}".format(car.id,car))
                 self.markCarAvailable(cars)
 
-    # Menu for altering customers
+    # The staff menu for looking up, altering and adding customers
     def staffCustomerMenu(self):
         action = ""
         while action != "b":
@@ -145,7 +146,7 @@ class StaffUI:
             elif action == "6":
                 self.printUserBySocial()
 
-    # Staff ordermenu
+    # The staff interface for looking up orders or adding a new order
     def orderMenu(self):
         action = ""
         while action != "b":
@@ -177,6 +178,7 @@ class StaffUI:
                 self.printOrderList(0)
                 action = ""
 
+    # A function that enables staff members to make a specific car avaliable
     def markCarAvailable(self, cars):
         choice = ""
         id = input("Enter the ID of the car you want to mark as available: ")
@@ -202,6 +204,7 @@ class StaffUI:
         if choice == "q":
             sys.exit()
 
+    # Prints out the order list
     def printOrderList(self, status):
         action = ""
         while action != "b":
@@ -230,6 +233,7 @@ class StaffUI:
                 action = ""
                 del orderList
 
+    # Function to print out either the user or staff member lists 
     def printUsers(self, action):
         users = self.__userService.getUserList()
         clearScreen()
@@ -250,6 +254,7 @@ class StaffUI:
                 print(user)
         input("Press enter to return: ")
 
+    # 
     def inputOrderInfo(self, orderToChange, number):
         pass
         action = ""
@@ -270,7 +275,6 @@ class StaffUI:
                 pickUpCar = datetime.strptime(orderToChange.pickUpDate, "%d/%m/%y").date()
                 if pickUpCar == datetime.today().date():
                     print("4. To confirm order")
-
             print("b. Go back")
             print("q. Exit the program")
             if action != "":
@@ -287,7 +291,6 @@ class StaffUI:
             elif action == "3" and orderToChange.status == 0:
                 self.carAssignment(orderToChange)
                 action = "b"
-
             elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today().date():
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
