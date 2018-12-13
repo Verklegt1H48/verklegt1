@@ -420,6 +420,47 @@ def getValidReturnDate(service,pickUpDate):
             break
     return returnDate
 
+def modifyUser(service, user):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid input, try again")
+            printHeader("userSelect")
+            print(user)
+            print("Select what you would like to modify")
+            print("1. Email")
+            print("2. Password")
+            print("3. Drivers License number")
+            print("4. Address")
+            print("5. Phone number")
+            print("6. Card info")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            action = input("Please select what you wish to change: ").lower()
+            if action == "q":
+                sys.exit()
+            elif action == "1" :
+                user.email = getValidEmail(service.__userService)
+                action = ""
+            elif action == "2" :
+                user.password = getValidPassword(service.__userService)
+                action = ""
+            elif action == "3":
+                user.driverLicense= getValidDriverLicense(service.__userService)
+                action = ""
+            elif action == "4" :
+                user.address = getValidAddress(service.__userService)
+                action = ""
+            elif action == "5" :
+                user.phone = getValidPhone(service.__userService)
+                action = ""
+            elif action == "6" :
+                user = addCreditCard(user, service.__userService)
+                action = ""
+            service.__userService.updateUser(user)
+
+
 def createStaffAccount(service):
     clearScreen()
     newUser = User()
