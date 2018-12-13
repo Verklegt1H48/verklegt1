@@ -99,7 +99,8 @@ class CustomerUI:
         clearScreen()
         if(currPrice != ""):
             print("Your total price per day is " + currPrice + " isk")
-            pickUpDate, returnDate = getValidPickUpAndReturnDate(self.__orderService)
+            pickUpDate = getValidPickUpDate(self.__orderService)
+            returnDate = getValidReturnDate(self.__orderService, pickUpDate)
             clearScreen()
             finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
             print("Your final price is " + str(finalPrice) + " isk")
@@ -362,7 +363,7 @@ def getValidPin(userService):
         isValidPin = userService.isValidPin(pin)
     return pin
 
-def getValidPickUpAndReturnDate(service):
+def getValidPickUpDate(service):
     action = ""
     while action != "b":
         action = input("When will you pick up your car? (dd/mm/yy): ")
@@ -378,11 +379,18 @@ def getValidPickUpAndReturnDate(service):
             print("You can't order more than a year in advance")
         elif pickUpCar == "Past":
             print("Pick up date must be a future date")
+        elif pickUpCar == "Invalid":
+            print("Invalid date format")
         else:
-            break     
+            break
+    return pickUpDate
+
+def getValidReturnDate(service,pickUpDate): 
+    action = ""
+    pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")    
     while action != "b":
-        clearScreen()
         action = input("When will you return the car? (dd/mm/yy): ")
+        clearScreen()
         if action == "b" :
             return "0", "0"
         elif action == "q" :
@@ -391,13 +399,16 @@ def getValidPickUpAndReturnDate(service):
         if returnCar == "Year":
             print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
             print("You can't have the car for more than a year")
-        if returnCar == "Past":
+        elif returnCar == "Past":
             print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
             print("The car can not be returned before it is picked up")
+        elif returnCar == "Invalid":
+            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+            print("Invalid date format")
         else:
             returnDate = action
             break
-    return pickUpDate, returnDate
+    return returnDate
 
 def createStaffAccount(service):
     clearScreen()
