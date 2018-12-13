@@ -94,12 +94,13 @@ class StaffUI:
             sys.exit()
         if id == "b":
             return
+        newMileage = self.validateMileageToUpdate(self.__carService, id)
         choice = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
         while choice not in ("b","y","n","q"):
             choice = input("Please input \"y\" or \"n\"!: ").lower()
         clearScreen()
         if choice == "y":
-            if self.__carService.makeCarAvailable(id):
+            if self.__carService.makeCarAvailable(id, newMileage):
                 print("Car with ID \"{}\" is now available".format(id))
                 input("Press enter to continue")
             else:
@@ -110,6 +111,8 @@ class StaffUI:
             input("Press enter to continue")
         if choice == "q":
             sys.exit()
+
+        
 
     def staffCustomerMenu(self):
         action = ""
@@ -406,8 +409,6 @@ class StaffUI:
         if choice == "q":
             sys.exit()
 
-    def addStaffMember(self):
-        clearScreen()
         
     
 
@@ -502,13 +503,13 @@ class StaffUI:
                 car.category = category
                 isValid = True
                 if category == "A":
-                    car.price == 5000
+                    car.price = "5000"
                 elif category == "B":
-                    car.price == 10000
+                    car.price = "10000"
                 elif category == "C":
-                    car.price == 15000
+                    car.price = "15000"
                 else:
-                    car.price == 20000
+                    car.price = "20000"
 
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
@@ -596,6 +597,18 @@ class StaffUI:
                 isValid = True
             else:
                 print("Invalid input. Mileage must be an integer between 0 and 1000000")
+                input("Please press enter to try again")
+
+    def validateMileageToUpdate(self, service, carId):
+        isValid = False
+        car = service.getCarById(carId) 
+        while not isValid:
+            clearScreen()
+            mileage = input("Input current mileage of the car: ")
+            if service.isValidMileage(mileage, car):
+                return mileage
+            else:
+                print("Invalid input. Input must be between " + car.mileage + " and 1000000")
                 input("Please press enter to try again")
 
     def getValidSeats(self, car, service):

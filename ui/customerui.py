@@ -84,8 +84,10 @@ class CustomerUI:
             else:
                 loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ").lower()
                 if loginAction == "login":
+
                     login = True
                     break
+
                 elif loginAction == "q" or loginAction == "b":
                     action = loginAction
                 else:

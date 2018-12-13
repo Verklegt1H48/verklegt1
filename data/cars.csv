@@ -1,11 +1,12 @@
 ID,Category,Manufacturer,Model,Year,Mileage,Seats,Transmission,Extras,Rent History,Deleted,Available,Price
-0,A,Ford,Ka,2015,105000,5,Manual,"GPS,Camera,Heated Steering wheel","1, 02/03/18, 05/04/18",0,1,5000
-1,B,Toyota,Avensis,2017,48513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/18, 04/05/18",1,1,10000
+0,A,Ford,Ka,2015,99999,5,Manual,"GPS,Camera,Heated Steering wheel","1, 02/03/18, 05/04/18",0,0,5000
+1,B,Toyota,Avensis,2017,50000,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/18, 04/05/18",1,1,10000
 2,C,Mercedes Benz,G430,2018,5412,7,Automatic,"GPS,Camera,Bluetooth audio,Heated steering wheel","2, 01/01/18, 04/05/18, 2, 01/01/18, 04/05/18",1,1,15000
-3,B,Toyota,Land Cruiser,2016,148513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",0,1,10000
-4,A,Toyota,Auris,2016,108513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",1,1,5000
+3,B,Toyota,Land Cruiser,2016,148513,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",0,0,10000
+4,A,Toyota,Auris,2016,111112,5,Automatic,"GPS,Camera,Bluetooth audio","2, 01/01/17, 04/05/17",1,1,5000
 5,A,Volkswagen,Passat,2018,17000,5,Automatic,Bluetooth audio,,0,1,5000
 7,B,Toyota,Yaris,2003,99999,5,Automatic,None,,0,1,10000
-8,A,Toyota,Corolla,2006,90000,5,Manual,GPS,,0,1,0
-9,A,Trabant,3,1994,240000,9,Manual,"GPS,Bluetooth,Vibrating seat",,0,1,0
-10,A,Daihatsu,Midget,1996,215430,1,Manual,Special EFI,,0,1,0
+8,A,Toyota,Corolla,2006,90000,5,Manual,GPS,,1,1,0
+9,A,Trabant,3,1994,240000,9,Manual,"GPS,Bluetooth,Vibrating seat",,1,1,0
+9,A,Adf,Sdf,1999,123412,2,Automatic,none,,1,1,0
+10,C,Bmw,30e,1900,600000,4,Manual,none,,0,1,15000
