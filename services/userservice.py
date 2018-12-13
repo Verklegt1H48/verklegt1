@@ -141,37 +141,32 @@ class UserService:
         if cvv == "q":
             sys.exit()
         elif cvv.isdecimal() == False:
-            print("CVV code can only contain numbers")
-            return True
+            return "numbers"
         elif len(cvv) != 3:
-            print("CVV code must be 3 digits long")
-            return True
+            return "length"
         else:
-            return False
+            return True
 
     def isValidPin(self, pin):
         if pin == "q":
             sys.exit()
         elif pin.isdecimal() == False:
-            print("Pin can only contain numbers")
-            return True
+           
+            return "numbers"
         elif len(pin) != 5:
-            print("Employee pin must be 5 digits long")
-            return True
+            return "length"
         else:
-            return False
+            return True
 
     def isValidExpMonth(self, expMonth):
         if expMonth == "q":
             sys.exit()
         elif len(expMonth) > 2:
-            print("Invalid input!")
-            return True
+            return "length"
         elif int(expMonth) <= 0 or int(expMonth) > 12:
-            print("Month does not exist")
-            return True
+            return "month"
         else:
-            return False
+            return True
 
     def isValidExpYear(self, expYear, expMonth):
         year = int(datetime.today().year) - 2000
@@ -179,12 +174,10 @@ class UserService:
         if expYear == "q":
             sys.exit()
         elif int(expYear) < year :
-            print("Card is Expired")
-            return False
+            return "year"
         elif int(expYear) == year:
             if int(expMonth) <= month:
-                print("Card is expired")
-                return False
+                return "year"
         else:
             return True
 

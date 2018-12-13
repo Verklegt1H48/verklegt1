@@ -65,8 +65,6 @@ class OrderService:
             pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
         except:
             return "Invalid"
-        print(datetime.today().date())
-        print(pickUpCar.date())
         if (pickUpCar - datetime.today()).days > 365 :
             return "Year"
         elif pickUpCar.date() < datetime.today().date():
