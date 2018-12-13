@@ -295,6 +295,7 @@ class StaffUI:
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
     
+    # Menu that show what staff members can modify in a customers order
     def modifyOrder(self, order, number):
         action = ""
         while action != "b":
@@ -329,7 +330,7 @@ class StaffUI:
                 action = ""
             self.__orderService.updateOrder(order)
 
-    
+    # Adds a car to an unconfirmed order 
     def carAssignment(self, order):
         car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
         if car == None:
@@ -339,22 +340,22 @@ class StaffUI:
         print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
         (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
         car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
-
         action = ""
         while action != "b":
             action = input("Would you like to assign this car to the order Y/N: ").lower()
             if action == "q" :
                 sys.exit()
             if action == "y" :
-                self.__orderService.assigneCarToOrder(car,order)
+                self.__orderService.assignCarToOrder(car,order)
                 action = "b"
             elif action == "n" :
                 car = self.carSelectionByCategory(order.carCategory)
-                self.__orderService.assigneCarToOrder(car,order)
+                self.__orderService.assignCarToOrder(car,order)
                 action = "b"
             if action != "":
                 print("Invalid input, try again")      
-
+    
+    # Prints out cars in order of category
     def carSelectionByCategory(self, category):
         action = ""
         while action != "b":
@@ -374,6 +375,7 @@ class StaffUI:
                 return carList[int(action) - 1]
         return ""
 
+    # Add a car function for staff members
     def addCar(self):
         newCar = Car()
         self.getValidCategory(newCar, self.__carService)
@@ -387,6 +389,7 @@ class StaffUI:
         self.__carService.addCar(newCar)
         input("You have successfully added a new car. Please press enter to continue")
 
+    # Function to remove a car
     def removeCar(self):
         clearScreen()
         choice = ""
@@ -412,6 +415,7 @@ class StaffUI:
         if choice == "q":
             sys.exit()
 
+    # Function to remove a user
     def removeUser(self):
         clearScreen()
         choice = ""
@@ -437,9 +441,7 @@ class StaffUI:
         if choice == "q":
             sys.exit()
 
-        
-    
-
+    # Function to add an order
     def addOrder(self):
         newOrder = Order()
         self.getValidUserId(newOrder, self.__userService)
@@ -457,7 +459,8 @@ class StaffUI:
             self.getStaffPin(staffSocial)
             if self.__isLoggedIn:
                 self.staffMenu()
-        
+
+    # Function for staff members to look up specific staff members based on social security number     
     def getStaffSocial(self):
         clearScreen()
         social = ""
@@ -483,11 +486,9 @@ class StaffUI:
             clearScreen()
             if action != "":
                 print("Unique employee number not found")
-
             print("Enter your social security number: " + staffSocial)
             action = getpass.getpass("Enter your unique employee number: ")
             selectedUser = self.__userService.getUserBySocial(staffSocial)
-
             if(action == "q"):
                 exit(1)
             elif selectedUser.pin == action:
@@ -495,7 +496,8 @@ class StaffUI:
                 self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
-
+    
+    # Function for staff members to search for users based on social security number 
     def printUserBySocial(self):
         action = ""
         social = ""
@@ -531,6 +533,8 @@ class StaffUI:
                         sys.exit()
                     if action == "1":
                         modifyUser(self.__userService, user)
+    
+    # Validation functions
 
     def getValidCategory(self, car, service):
         isValid = False
@@ -548,7 +552,6 @@ class StaffUI:
                     car.price = "15000"
                 else:
                     car.price = "20000"
-
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
                 input("Press any key to try again: ")
@@ -687,6 +690,3 @@ class StaffUI:
             else:
                 print("Invalid input. Extras must be less than 40 letters long")
                 input("Please press enter to try again")
-
-
-                
