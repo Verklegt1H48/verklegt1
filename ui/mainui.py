@@ -12,6 +12,7 @@ class MainUI:
     def mainMenu(self):
         action = ""
         while action != "q":
+            login = False
             clearScreen()
             print("Main Menu")
             if action == "return":
@@ -31,13 +32,13 @@ class MainUI:
             clearScreen()
             if action == "1":
                 self.__customerui = CustomerUI()
-                self.__customerui.seeAvailableCars()
+                login  = self.__customerui.seeAvailableCars()
                 action = "return"
-            elif action == "2":
+            if action == "2" or login is True:
                 self.__customerui = CustomerUI()
                 self.__customerui.customerMenu()
                 action = "return"
-            elif action == "3":
+            if action == "3":
                 self.__staffui = StaffUI()
                 self.__staffui.logInAsStaff()
                 action = "return"
