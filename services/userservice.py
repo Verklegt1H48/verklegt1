@@ -12,6 +12,12 @@ class UserService:
         newUser.id = len(self.__users)
         self.__users.append(newUser)
         self.__userRepo.addUser(newUser)
+    
+    def updateUser(self, userToUpdate):
+        for user in self.__users:
+            if user.id == int(userToUpdate.id):
+                user = userToUpdate
+            self.__userRepo.overwriteUsers(self. __users)
 
     def getUserByEmail(self, email):
         for user in self.__users:
@@ -24,6 +30,13 @@ class UserService:
             if user.socialNumber == socialNumber:
                 return user
         return "Not found"
+
+    def getUserListBySocial(self, socialNumber):
+        userList = []
+        for user in self.__users:
+            if user.socialNumber == socialNumber:
+                userList.append(user)
+        return userList
 
     def deleteUser(self, userID):
         success = False

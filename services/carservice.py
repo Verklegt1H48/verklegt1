@@ -28,11 +28,12 @@ class CarService:
             self.__carRepo.overwriteCars(self.__cars)
         return success
 
-    def makeCarAvailable(self, carID):
+    def makeCarAvailable(self, carID, mileage):
         success = False
         for car in self.__cars:
             if car.id == int(carID) and car.available == 0:
                 car.available = 1
+                car.mileage = mileage
                 success = True
         if success:
             self.__carRepo.overwriteCars(self.__cars)
@@ -66,6 +67,12 @@ class CarService:
             if order.carId == id:
                 carhistory.append(order)
         return carhistory
+    
+    def getCarById(self, carID):
+        for car in self.__cars:
+            if car.id == int(carID) and car.available == 0:
+                return car
+
     
     #Hér er breytt strengjum í datetime til að reikna allar dagsetningar á milli tveggja datetime-a
     #Síðan er þeim breytt aftur í streng
@@ -105,8 +112,11 @@ class CarService:
         else:
             return False
 
-    def isValidMileage(self, mileage):
-        if mileage.isdecimal() and (0 <= int(mileage) < 1000000):
+    def isValidMileage(self, mileage, car = None):
+        if car == None:
+            car = Car()
+            car.mileage = "0"
+        if mileage.isdecimal() and (0 <= int(mileage) < 1000000) and int(car.mileage) < int(mileage):
             return True
         else:
             return False

@@ -30,18 +30,22 @@ class CustomerUI:
                 print("You are not logged in!")
             print("These are your options:")
             print("")
-            print("1. Sort cars by Price")
+            print("1. Sort cars by price/category")
             print("2. Sort cars by manufacturer")
             print("3. Sort cars by availability")
-            print("4. Sort cars by Category")
-            print("b. Go back")
+            if self.__isLoggedIn:
+                print("b. Go back and log out.")
+            else:
+                print("b. Go back")
             print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q":
                 exit(1)
-            elif action in ("1", "4"):
+            elif action == "1":
                 login = self.printCarList("category")
                 action = ""
             elif action == "2":
@@ -63,7 +67,7 @@ class CustomerUI:
             carList = self.__carService.getAndSortAvailableCars(attribute)
             counter = 1
             if attribute == "category":
-                print("-> Sort cars by price category")
+                print("-> Sort cars by price/category")
             if attribute == "manufacturer":
                 print("-> Sort cars by manufacturer")
             if attribute == "available":
@@ -79,6 +83,8 @@ class CustomerUI:
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
+            else:
+                print("")
             if self.__isLoggedIn:
                 action = input("Please enter which car you wish to book, b to go back or q to quit: ").lower()
             else:
@@ -98,7 +104,7 @@ class CustomerUI:
                 action = ""
         return login
     
-    def inputOrderInfo(self, carToOrder):
+    def inputOrderInfo(self, carToOrder):        
         clearScreen()
         print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
@@ -190,20 +196,22 @@ class CustomerUI:
             print("1. Log in")
             print("2. Sign up")
             print("b. Go back")
-            print("q. Exit program") 
+            print("q. Exit program")
             if action != "":
-                print("Invalid input, try again")
+                print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q" :
                 exit(1)
             if action == "1":
-                action = ""
                 self.logInAsUser()
-            elif action == "2":
+                if self.__isLoggedIn:
+                    self.seeAvailableCars()
                 action = ""
+            elif action == "2":
                 createAccount(self.__userService)
-            if self.__isLoggedIn:
-                self.seeAvailableCars()
+                action = ""
       
     def logInAsUser(self):
         userEmail = self.getUserEmail()
@@ -227,6 +235,7 @@ class CustomerUI:
         action = ""
         clearScreen()
         while action != "b":
+
             action = input("Enter email address: ")
             if(action == "q"):
                 exit(1)
@@ -418,6 +427,47 @@ def getValidReturnDate(service,pickUpDate):
             break
     return returnDate
 
+def modifyUser(service, user):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid input, try again")
+            printHeader("userSelect")
+            print(user)
+            print("Select what you would like to modify")
+            print("1. Email")
+            print("2. Password")
+            print("3. Drivers License number")
+            print("4. Address")
+            print("5. Phone number")
+            print("6. Card info")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            action = input("Please select what you wish to change: ").lower()
+            if action == "q":
+                sys.exit()
+            elif action == "1" :
+                user.email = getValidEmail(service.__userService)
+                action = ""
+            elif action == "2" :
+                user.password = getValidPassword(service.__userService)
+                action = ""
+            elif action == "3":
+                user.driverLicense= getValidDriverLicense(service.__userService)
+                action = ""
+            elif action == "4" :
+                user.address = getValidAddress(service.__userService)
+                action = ""
+            elif action == "5" :
+                user.phone = getValidPhone(service.__userService)
+                action = ""
+            elif action == "6" :
+                user = addCreditCard(user, service.__userService)
+                action = ""
+            service.__userService.updateUser(user)
+
+
 def createStaffAccount(service):
     clearScreen()
     newUser = User()
@@ -438,6 +488,10 @@ def createAccount(service):
     newUser.address         = getValidAddress(service)
     newUser.phone           = getValidPhone(service)
     newUser.employee        = "1"
+    newUser = addCreditCard(newUser, service)
+    service.addUser(newUser)
+
+def addCreditCard(newUser, service):
     checkDate = True
     while checkDate:
         newUser.nameOnCard  = getValidNameOnCard(service)
@@ -449,4 +503,4 @@ def createAccount(service):
             print("Please try another card")
         else:
             checkDate = False
-    service.addUser(newUser)
+    return newUser

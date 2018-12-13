@@ -14,7 +14,7 @@ class Car:
         self.__deleted = 0
         self.__rentHistory = []
         self.__available = 1
-        self.__price = 0
+        self.__price = price
 
     def __repr__(self):
         return "{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format(self.__category, str(self.__price), self.__manufacturer,

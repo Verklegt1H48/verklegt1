@@ -27,7 +27,6 @@ class OrderService:
                 order = orderToUpdate
             self.__orderRepo.overwriteOrders(self. __orders)
 
-
     def getOrderList(self):
         return self.__orders
 
