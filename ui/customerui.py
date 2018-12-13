@@ -309,11 +309,10 @@ def getValidPassword(userService):
             print("Password is too long")
         else:
             confirmPassword = getpass.getpass("Confirm password: ")
+            clearScreen()
             if confirmPassword == password:
-                clearScreen()
                 isValidPassword = True
-            else:
-                clearScreen()
+            else:       
                 print("Passwords don't match, please try again")
     return password
 
