@@ -470,13 +470,13 @@ class StaffUI:
                 car.category = category
                 isValid = True
                 if category == "A":
-                    car.price == 5000
+                    car.price = "5000"
                 elif category == "B":
-                    car.price == 10000
+                    car.price = "10000"
                 elif category == "C":
-                    car.price == 15000
+                    car.price = "15000"
                 else:
-                    car.price == 20000
+                    car.price = "20000"
 
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")

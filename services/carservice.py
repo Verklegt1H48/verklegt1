@@ -112,12 +112,13 @@ class CarService:
         else:
             return False
 
-    def isValidMileage(self, mileage, car):
+    def isValidMileage(self, mileage, car = None):
         if car == None:
             car = Car()
+            car.mileage = "0"
         print(car.mileage)
         print(mileage)
-        if mileage.isdecimal() and (0 <= int(mileage) < 1000000) and car.mileage < mileage:
+        if mileage.isdecimal() and (0 <= int(mileage) < 1000000) and int(car.mileage) < int(mileage):
             return True
         else:
             return False
