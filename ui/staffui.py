@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen
 from ui.headers import printHeader
-from ui.customerui import createAccount, getValidPickUpAndReturnDate, getValidSocialNumber, createStaffAccount
+from ui.customerui import createAccount, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
 #from ui.mainui import MainUI
@@ -385,8 +385,8 @@ class StaffUI:
         car = self.carSelectionByCategory(newOrder.carCategory)
         newOrder.carId = car.id
         self.getValidPayment(newOrder, self.__orderService)
-        newOrder.pickUpDate, newOrder.returnDate = self.getValidPickupAndReturnDate()
-        draslGildi = ""
+        newOrder.pickUpDate = getValidPickUpDate(self.__orderService)
+        newOrder.returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
         self.__orderService.addOrder(newOrder)
 
     def logInAsStaff(self):
