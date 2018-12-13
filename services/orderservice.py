@@ -9,7 +9,7 @@ import sys
 
 class OrderService:
 
-    #order service is initialized with 
+    # order service is initialized with 
     def __init__(self):
         self.__orderRepo = OrderRepository()
         self.__carRepo = CarRepository()
@@ -92,7 +92,6 @@ class OrderService:
         daysToRent = returnCar - pickUpCar
         finalPrice = int(daysToRent.days) * int(currPrice)
         return finalPrice
-
 
     def isValidPayMethod(self, PayMethod):
         if PayMethod in ("CREDIT", "DEBIT", "CASH"):

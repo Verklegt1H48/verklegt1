@@ -19,7 +19,9 @@ class Order:
 
     def deleteUser(self):
         self.__deleted = 1
-#Getters
+
+# Getters
+
     @property
     def id(self):
         return self.__id
@@ -55,7 +57,9 @@ class Order:
     @property
     def deleted(self):
         return self.__deleted
-#Setters
+
+# Setters
+
     @id.setter
     def id(self, value):
         self.__id = int(value)

@@ -47,6 +47,7 @@ class UserRepository:
             for user in users:
                 self.userDictWriter(user, userData)
 
+    # Function to open orders.csv with DictReader and make a list of users from the dictionary 
     def getUserList(self):
         if self.__userList == []:
             try:
