@@ -24,14 +24,19 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
+            print("->Staff menu")
             print("Welcome " + self.__userName + "!") 
+            print("These are your options")
+            print("")
             print("1. Car management")
             print("2. User management") 
             print("3. Orders")
-            print("Press b to sign out")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q" :
                 sys.exit()
@@ -49,14 +54,20 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
+            print("->Car menu")
+            print("You are logged in as " + self.__userName + "!") 
+            print("These are your options")
+            print("")
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
             print("4. Return car")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q":
                 sys.exit()
@@ -118,6 +129,10 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
+            print("->User menu")
+            print("You are logged in as " + self.__userName + "!") 
+            print("These are your options")
+            print("")
             print("1. Add a customer")
             print("2. Remove a user")
             print("3. List all customers")
@@ -128,6 +143,8 @@ class StaffUI:
             print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q" :
                 sys.exit()
@@ -154,6 +171,10 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
+            print("->User menu")
+            print("You are logged in as " + self.__userName + "!") 
+            print("These are your options")
+            print("")
             print("1. New order")
             print("2. Confirmed orders") 
             print("3. Unconfirmed orders")
@@ -228,14 +249,14 @@ class StaffUI:
             clearScreen()
             if action != "":
                 print("Invalid input, try again")
-            print("You chose an order with ID: " + str(orderToChange.id))
+            print("You selected an order with ID: " + str(orderToChange.id))
             if orderToChange.status == 1:
-                orderStatus = "Confirmed"
+                orderStatus = "confirmed"
             else :
-                orderStatus = "Unconfirmed"
+                orderStatus = "unconfirmed"
             print("This order is " + orderStatus)
-            print("This order was assigned a car with ID: " + str(orderToChange.carId)+ "\n")
-
+            print("This order was assigned a car in category: " + str(orderToChange.carCategory))
+            print("")
             print("1. Modify order")
             print("2. To delete order")
             if orderToChange.status == 0:
@@ -244,9 +265,9 @@ class StaffUI:
                 if pickUpCar == datetime.today().date():
                     print("4. To confirm order")
 
-            print("Press b to return to the previous page")
-            print("Press q to quit")
-            action = input("Please select what you wish to change: ").lower()
+            print("b. Go back")
+            print("q. Exit the program")
+            action = input("Choose an option: ").lower()
             if action == "q":
                 sys.exit()
             elif action == "1" :
@@ -330,21 +351,16 @@ class StaffUI:
             counter = 1
             printHeader("carSelect")
             for car in carList:
-                print("{:5}{}".format(counter,car))
+                print("{:5}{}".format(str(counter),car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
             action = input("Please select the car you wish to book: ").lower()
             if action == "q" :
                 exit(1)
-            elif action.isdecimal() == False:
-                pass
-            elif int(action) >= counter:
-                pass
-            elif int(action) <= 0:
-                pass
-            else:
+            elif action.isdecimal() and (1 <= int(action) <= int(counter)):
                 return carList[int(action) - 1]
+        return ""
 
     def addCar(self):
         newCar = Car()
