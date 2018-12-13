@@ -10,7 +10,6 @@ from ui.headers import printHeader
 from ui.customerui import createAccount, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
-#from ui.mainui import MainUI
 
 class StaffUI:
 
@@ -108,7 +107,7 @@ class StaffUI:
                 print("No car with ID: \"{}\" exists. Please try again".format(id))
                 input("Press enter to continue")
         if choice == "n":
-            print("You aborted making car with ID: \"{}\" available".format(id))
+            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
             input("Press enter to continue")
         if choice == "q":
             sys.exit()
@@ -235,21 +234,15 @@ class StaffUI:
             else :
                 orderStatus = "Unconfirmed"
             print("This order is " + orderStatus)
-            if orderToChange.carId == -1:
-                print("This order has not been assigned a car\n")
-            if action != "":
-                print("Invalid input, try again")
+            print("This order was assigned a car with ID: " + str(orderToChange.carId)+ "\n")
 
-            if orderToChange.carId == -1:
-                print("This order has not been assigned a car\n")
-            else :
-                print("This order was assigned a car with ID: " + str(orderToChange.carId)+ "\n")
-
-            print("1. To delete order")
-
-            print("2. To confirm order")
-            if orderToChange.carId == -1:
-                print("3. To assign a car to this order")
+            print("1. Modify order")
+            print("2. To delete order")
+            if orderToChange.status == 0:
+                print("3. To assign a new car to this order")
+                pickUpCar = datetime.strptime(orderToChange.pickUpDate, "%d/%m/%y").date()
+                if pickUpCar == datetime.today().date():
+                    print("4. To confirm order")
 
             print("Press b to return to the previous page")
             print("Press q to quit")
@@ -257,14 +250,52 @@ class StaffUI:
             if action == "q":
                 sys.exit()
             elif action == "1" :
-                self.__orderService.deleteOrder(orderToChange.id)
+                self.modifyOrder(orderToChange)
                 action = "b"
             elif action == "2" :
-                self.__orderService.confirmOrder(orderToChange.id)
+                self.__orderService.deleteOrder(orderToChange.id)
                 action = "b"
-            elif action == "3" :
+            elif action == "3" and orderToChange.status == 0:
                 self.carAssignment(orderToChange)
                 action = "b"
+            elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today():
+                self.__orderService.confirmOrder(orderToChange.id)
+                action = "b"
+    
+    def modifyOrder(self, order):
+        action = ""
+        while action != "b":
+            clearScreen()
+            if action != "":
+                print("Invalid input, try again")
+            printHeader("orderSelect")
+            print(" " + str(order))
+            print("Select what you would like to modify")
+            print("1. Car category")
+            print("2. Payment method")
+            print("3. Pick up date")
+            print("4. Return date")
+            print("Press b to return to the previous page")
+            print("Press q to quit")
+            action = input("Please select what you wish to change: ").lower()
+            if action == "q":
+                sys.exit()
+            elif action == "1" :
+                self.getValidCarCategory(order, self.__carService)
+                car = self.carSelectionByCategory(order.carCategory)
+                order.carId = car.id
+                action = ""
+            elif action == "2" :
+                self.getValidPayment(order, self.__orderService)
+                action = ""
+            elif action == "3":
+                order.pickUpDate = getValidPickUpDate(self.__orderService)
+                action = ""
+            elif action == "4" :
+                order.returnDate = getValidReturnDate(self.__orderService, order.pickUpDate)
+                action = ""
+            self.__orderService.updateOrder(order)
+
     
     def carAssignment(self, order):
         car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
@@ -283,9 +314,11 @@ class StaffUI:
                 sys.exit()
             if action == "y" :
                 self.__orderService.assigneCarToOrder(car,order)
+                action = "b"
             elif action == "n" :
                 car = self.carSelectionByCategory(order.carCategory)
                 self.__orderService.assigneCarToOrder(car,order)
+                action = "b"
             if action != "":
                 print("Invalid input, try again")      
 

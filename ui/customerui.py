@@ -20,6 +20,7 @@ class CustomerUI:
 
     def seeAvailableCars(self):
         action = ""
+        login = False
         while action != "b":
             clearScreen()
             print("-> See Available Cars")
@@ -41,17 +42,22 @@ class CustomerUI:
             if action == "q":
                 exit(1)
             elif action in ("1", "4"):
-                self.printCarList("category")
+                login = self.printCarList("category")
                 action = ""
             elif action == "2":
-                self.printCarList("manufacturer")
+                login = self.printCarList("manufacturer")
                 action = ""
             elif action == "3":
-                self.printCarList("available")
+                login = self.printCarList("available")
                 action = ""
+            if login is True:
+                break
+        return login
+        
                  
     def printCarList(self, attribute):
         action = ""
+        login  = False
         while action != "b":
             clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
@@ -76,10 +82,12 @@ class CustomerUI:
             if self.__isLoggedIn:
                 action = input("Please enter which car you wish to book, b to go back or q to quit: ").lower()
             else:
-                loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ")
+                loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ").lower()
                 if loginAction == "login":
-                    self.customerMenu()
-                    pass
+
+                    login = True
+                    break
+
                 elif loginAction == "q" or loginAction == "b":
                     action = loginAction
                 else:
@@ -90,6 +98,7 @@ class CustomerUI:
                 carToOrder = carList[int(action) - 1]
                 self.inputOrderInfo(carToOrder)
                 action = ""
+        return login
     
     def inputOrderInfo(self, carToOrder):
         clearScreen()
@@ -393,7 +402,7 @@ def getValidReturnDate(service,pickUpDate):
         action = input("When will you return the car? (dd/mm/yy): ")
         clearScreen()
         if action == "b" :
-            return "0", "0"
+            return "", ""
         elif action == "q" :
             sys.exit()
         returnCar = service.isValidReturnDate(action, pickUpCar)
