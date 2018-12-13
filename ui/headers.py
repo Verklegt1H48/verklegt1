@@ -42,4 +42,4 @@ orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number","UserID"
 userSelectHeader = ("{:20}{:5}{:12}{:15}{:15}{:15}{:15}".format("Name","ID","Social","License nr.",
                                                                 "Address","Phone","Email"))
 
-staffSelectHeader = ("{:20}{:5}{:16}{:15}".format("Name","ID","Social","Pin"))
+staffSelectHeader = ("{:20}{:5}{:16}".format("Name","ID","Social"))
