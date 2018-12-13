@@ -12,7 +12,6 @@ class Car:
         self.__extras = []
         self.__id = 0
         self.__deleted = 0
-        self.__rentHistory = []
         self.__available = 1
         self.__price = price
 
@@ -68,10 +67,6 @@ class Car:
         return self.__extras
 
     @property
-    def rentHistory(self):
-        return self.__rentHistory
-
-    @property
     def available(self):
         return self.__available
 
@@ -115,10 +110,6 @@ class Car:
     @extras.setter 
     def extras(self, extras):
         self.__extras.append(extras)
-
-    @rentHistory.setter 
-    def rentHistory(self, rentHistory):
-        self.__rentHistory.append(rentHistory)
 
     @available.setter
     def available(self, available):
