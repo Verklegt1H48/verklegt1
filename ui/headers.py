@@ -15,6 +15,8 @@ def printHeader(header):
     elif header == "staffSelect":
         print(staffSelectHeader)
 
+# ASCII art from https://www.asciiart.eu/vehicles/cars
+
 welcomeScreen = (r"""
 
                        ____________________
