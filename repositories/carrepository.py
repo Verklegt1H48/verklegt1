@@ -8,12 +8,12 @@ class CarRepository:
     # Initialization of CarRepository
     def __init__(self):
         self.__cars = []
-        self.__fieldnames = ["ID","Category","Manufacturer","Model","Year","Mileage","Seats",
-                             "Transmission","Extras","Deleted","Available","Price"]
+        self.__fieldnames = ["ID", "Category", "Manufacturer", "Model", "Year", "Mileage", "Seats",
+                             "Transmission", "Extras", "Deleted", "Available", "Price"]
 
     # Function to write car objects into a file
     def carDictWriter(self, car, file):
-        writer = csv.DictWriter(file, self.__fieldnames,restval = "", delimiter = ",")
+        writer = csv.DictWriter(file, self.__fieldnames, restval = "", delimiter = ",")
         writer.writerow({'ID'           : car.id,
                          'Category'     : car.category,
                          'Manufacturer' : car.manufacturer,
