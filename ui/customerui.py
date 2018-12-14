@@ -7,7 +7,8 @@ from services.carservice import CarService
 from services.orderservice import OrderService
 from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
-import getpass, sys
+import getpass
+import sys
 
 
 class CustomerUI:
@@ -63,7 +64,7 @@ class CustomerUI:
     # Prints the lists of sorted cars
     def printCarList(self, attribute):
         action = ""
-        login  = False
+        login = False
         while action != "b":
             clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
@@ -132,7 +133,8 @@ class CustomerUI:
             clearScreen()
         paymentMethod = self.selectPaymentMethod()
         if paymentMethod != "":
-            newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
+            newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id,
+                             paymentMethod, pickUpDate, returnDate)
             self.__orderService.addOrder(newOrder)
             self.orderConfirmation(newOrder)
 
