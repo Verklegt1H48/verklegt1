@@ -568,24 +568,54 @@ def modifyUser(service, user):
 def createStaffAccount(service):
     clearScreen()
     newUser = User()
-    newUser.name            = getValidName(service)
-    newUser.socialNumber    = getValidSocialNumber(service)
-    newUser.pin             = getValidPin(service)
+    name = getValidName(service)
+    if name == "b":
+        return
+    socialNumber = getValidSocialNumber(service)
+    if socialNumber == "b":
+        return
+    pin = getValidPin(service)
+    if pin == "b":
+        return
+    newUser.name            = name
+    newUser.socialNumber    = socialNumber
+    newUser.pin             = pin
     newUser.employee        = "0"
     service.addUser(newUser)
 
 def createAccount(service):
     clearScreen()
     newUser = User()
-    newUser.name            = getValidName(service)
-    newUser.email           = getValidEmail(service)
-    newUser.password        = getValidPassword(service)
-    newUser.socialNumber    = getValidSocialNumber(service)
-    newUser.driverLicense   = getValidDriverLicense(service)
-    newUser.address         = getValidAddress(service)
-    newUser.phone           = getValidPhone(service)
+    name = getValidName(service)
+    if name == "b":
+        return
+    email = getValidEmail(service)
+    if email == "b":
+        return
+    password = getValidPassword(service)
+    if password == "b":
+        return
+    socialNumber = getValidSocialNumber(service)
+    if socialNumber == "b":
+        return
+    driverLicense = getValidDriverLicense(service)
+    if driverLicense == "b":
+        return
+    address = getValidAddress(service)
+    if address == "b":
+        return
+    phone = getValidPhone(service)
+    if phone == "b":
+        return
     newUser.employee        = "1"
-    newUser = addCreditCard(newUser, service)
+    newUser.name            = name
+    newUser.email           = email
+    newUser.password        = password
+    newUser.socialNumber    = socialNumber
+    newUser.driverLicense   = driverLicense
+    newUser.address         = address
+    newUser.phone           = phone
+    newUser                 = addCreditCard(newUser, service)
     service.addUser(newUser)
 
 def addCreditCard(newUser, service):
