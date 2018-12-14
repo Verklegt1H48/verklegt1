@@ -1,4 +1,5 @@
 Hópur 48
+https://github.com/Verklegt1H48/verklegt1
 
 Dæmi um login info fyrir starfsmann
 Social number: 2512001010
