@@ -2,8 +2,9 @@ from repositories.userrepository import UserRepository
 from models.user import User
 from datetime import datetime
 import getpass, sys
-class UserService:
 
+
+class UserService:
 
     def __init__(self):
         self.__userRepo = UserRepository()
