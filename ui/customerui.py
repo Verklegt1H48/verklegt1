@@ -263,6 +263,8 @@ def getValidName(userService):
         name = input("Full name: ")
         clearScreen()
         error = userService.isValidName(name)
+        if name == "b":
+            return "b"
         if error == "length":
             print("Invalid name length")
         else:
@@ -310,7 +312,9 @@ def getValidSocialNumber(userService):
         socialNumber = input("Social security number: ")
         clearScreen()
         error = userService.isValidSocialNumber(socialNumber)
-        if error == "numbers":
+        if socialNumber == "b":
+            return "b"
+        elif error == "numbers":
             print("Social security number can only contain numbers")
         elif error == "length":
             print("Social security number must be 10 digits long")
