@@ -8,8 +8,8 @@ class OrderRepository:
     # Initialization of OrderRepository
     def __init__(self):
         self.__orders = []
-        self.__fieldnames = ["ID","UserID","CarCategory","CarID","Payment Method",
-                             "PickUpDate","ReturnDate","Status","Deleted"]
+        self.__fieldnames = ["ID", "UserID", "CarCategory", "CarID", "Payment Method",
+                             "PickUpDate", "ReturnDate", "Status", "Deleted"]
 
     # Function to write order objects into a file
     def orderDictWriter(self, order, file):

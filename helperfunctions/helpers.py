@@ -11,7 +11,6 @@ def clearScreen():
     else:
         _ = system('clear')
 
-
 def getHistory(orders, id, carOrUser):
         if carOrUser == "car":
             form = "User ID"

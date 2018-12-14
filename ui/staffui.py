@@ -345,7 +345,7 @@ class StaffUI:
                 else:
                     self.__orderService.confirmOrder(orderToChange.id)
                     action = "b"
-    
+
     # Menu that show what staff members can modify in a customers order
     def modifyOrder(self, order, number):
         action = ""
@@ -355,7 +355,7 @@ class StaffUI:
             print("")
             print("This is the order you have chosen for modification:")
             printHeader("orderSelect")
-            print("{:8}{}".format(str(number),str(order)))
+            print("{:8}{}".format(str(number), str(order)))
             print("")
             print("Select what you would like to modify")
             print("1. Car category")
@@ -379,7 +379,7 @@ class StaffUI:
                     continue
                 order.carId = car.id
                 action = ""
-            elif action == "2" :
+            elif action == "2":
                 paymentMethod = selectPaymentMethod()
                 if paymentMethod != "b":
                     order.payMethod = paymentMethod
@@ -391,7 +391,7 @@ class StaffUI:
                 else:
                     order.pickUpDate = pickUpDate
                 action = ""
-            elif action == "4" :
+            elif action == "4":
                 returnDate = getValidReturnDate(self.__orderService, order.pickUpDate)
                 if returnDate == "":
                     continue
@@ -848,6 +848,6 @@ class StaffUI:
             else:
                 print("Invalid input. Extras must be less than 40 letters long")
                 input("Please press enter to try again")
-    
+
     def getAvailableStatus(self, carID, service):
         return service.isAvailableCar(carID)

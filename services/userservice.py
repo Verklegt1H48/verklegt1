@@ -4,6 +4,7 @@ from datetime import datetime
 import getpass, sys
 class UserService:
 
+
     def __init__(self):
         self.__userRepo = UserRepository()
         self.__users = self.__userRepo.getUserList()

@@ -7,8 +7,9 @@ class UserRepository:
 
     def __init__(self):
         self.__userList = []
-        self.__fieldnames = ["ID","Name","SocialNumber","DriversLicense","Address","Phone","Email",
-                            "Password","NameOnCard","Number","CVV","ExpMonth","ExpYear","Employee","Pin","Deleted"]
+        self.__fieldnames = ["ID", "Name", "SocialNumber", "DriversLicense", "Address",
+                             "Phone", "Email", "Password", "NameOnCard", "Number", "CVV",
+                             "ExpMonth", "ExpYear", "Employee", "Pin", "Deleted"]
 
     # Function to write user objects into a file
     def userDictWriter(self, user, file):
@@ -29,8 +30,6 @@ class UserRepository:
                          'Employee'       : user.employee,
                          'Pin'            : user.pin,
                          'Deleted'        : user.deleted})
-                       
-                        
 
     # Function to open users.csv and add an instance of user to the end of the file
     def addUser(self, user):
@@ -47,7 +46,7 @@ class UserRepository:
             for user in users:
                 self.userDictWriter(user, userData)
 
-    # Function to open orders.csv with DictReader and make a list of users from the dictionary 
+    # Function to open orders.csv with DictReader and make a list of users from the dictionary
     def getUserList(self):
         if self.__userList == []:
             try:
@@ -75,4 +74,3 @@ class UserRepository:
             except FileNotFoundError:
                 pass
         return self.__userList
-
