@@ -187,8 +187,8 @@ class CustomerUI:
             if action == "q":
                 sys.exit()
         return
-   
-    # Show avaliable options within the customer menu              
+
+    # Show avaliable options within the customer menu
     def customerMenu(self):
         action = ""
         while action != "b":
