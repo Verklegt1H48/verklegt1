@@ -1,7 +1,8 @@
 from repositories.userrepository import UserRepository
 from models.user import User
 from datetime import datetime
-import getpass, sys
+import getpass
+import sys
 
 
 class UserService:
