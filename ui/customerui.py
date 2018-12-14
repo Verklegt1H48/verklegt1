@@ -88,9 +88,9 @@ class CustomerUI:
             else:
                 print("")
             if self.__isLoggedIn:
-                action = input("Please enter which car you wish to book, b to go back or q to quit: ").lower()
+                action = input("Please enter which car you wish to book, b to go back or q to exit the program: ").lower()
             else:
-                loginAction = input("Enter \"login\" to go to login screen, b to go back or q to quit: ").lower()
+                loginAction = input("Enter \"login\" to go to login screen, b to go back or q to exit the program: ").lower()
                 if loginAction == "login":
                     login = True
                     break
@@ -109,6 +109,8 @@ class CustomerUI:
     # Gather information about the order
     def inputOrderInfo(self, carToOrder):        
         clearScreen()
+        print("->Rent a car")
+        print("At any time during the process can you press b to go back to the car menu or q to quit")
         print("You requested the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
         currPrice = str(carToOrder.price)
@@ -124,9 +126,10 @@ class CustomerUI:
             returnDate = getValidReturnDate(self.__orderService, pickUpDate)
             if returnDate == "":
                 return
-            clearScreen()
             finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
             print("Your final price is " + str(finalPrice) + " isk")
+            input("Please press enter to continue")
+            clearScreen()
         paymentMethod = self.selectPaymentMethod()
         if paymentMethod != "":
             newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
@@ -137,7 +140,6 @@ class CustomerUI:
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
-            print("Press q to quit and b to go back.")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
                 clearScreen()
@@ -170,7 +172,7 @@ class CustomerUI:
             print("The car you requested is in category: {}. If it is not available when your".format(order.carCategory))
             print("pick up date arrives you will get another car in the same category.")
             print("The creditcard stored in your account has been used for confirmation")
-            print("and will NOT be charged you do not show up for your order.")
+            print("and will NOT be charged unless you do not show up for your order.")
             print("If you have any questions or would like to change your order do not hesitate to")
             print("contact the car rental in phone +354 462-1840 or by email staff@santasrental.is")
             print("")
@@ -187,9 +189,7 @@ class CustomerUI:
     def selectPaymentMethod(self):
         action = ""
         while action != "b":
-            print("-> Select payment method")
-            print("")
-            print("These are your options:")
+            print("Please select a payment method:")
             print("")
             print("1. Debet card")
             print("2. Credit card")
@@ -496,19 +496,21 @@ def getValidReturnDate(service,pickUpDate):
     action = ""
     pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")    
     while action != "b":
-        print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+        print("When will the car be picked up? (dd/mm/yy): " + pickUpDate)
         action = input("Enter return date? (dd/mm/yy): ")
-        clearScreen()
         if action == "b" :
             return ""
         elif action == "q" :
             sys.exit()
         returnCar = service.isValidReturnDate(action, pickUpCar)
         if returnCar == "Year":
+            clearScreen()
             print("You can't have the car for more than a year")
         elif returnCar == "Past":
+            clearScreen()
             print("The car can not be returned before it is picked up")
         elif returnCar == "Invalid":
+            clearScreen()
             print("Invalid date format")
         else:
             returnDate = action
