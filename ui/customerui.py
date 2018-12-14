@@ -264,11 +264,10 @@ class CustomerUI:
         action = ""
         clearScreen()
         while action != "b":
-
             action = input("Enter email address: ")
             if(action == "q"):
                 sys.exit()
-            elif self.__userService.getUserByEmail(action) == "Not found":
+            elif self.__userService.getUserByEmail(action) == "Not found" or action == "":
                 clearScreen()
                 print("Email address not found!")
             else:
@@ -427,10 +426,10 @@ def getValidCvv(userService):
         isValidCvv = userService.isValidCvv(cvv)
         if isValidCvv == "numbers":
             print("CVV code can only contain numbers")
-            return False
+            isValidCvv = False
         if isValidCvv == "length":
             print("CVV code must be 3 digits long")
-            return False
+            isValidCvv = False
     return cvv
 
 def getValidExpMonth(userService):
