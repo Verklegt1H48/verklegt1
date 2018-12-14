@@ -133,3 +133,9 @@ class CarService:
             return True
         else:
             return False
+
+    def isAvailableCar(self, carID):
+        for car in self.__cars:
+            if str(car.id) == str(carID) and str(car.available) == "1":
+                return True
+        return False

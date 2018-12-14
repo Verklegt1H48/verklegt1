@@ -200,6 +200,8 @@ class StaffUI:
         id = ""
         while action != "b":
             clearScreen()
+            print("->Return car")
+            print("")
             printHeader("carSelect")
             cars = self.__carService.getCarList()
             for car in cars:
@@ -209,12 +211,12 @@ class StaffUI:
                 print("No car with carID \"{}\" exists".format(id))
             else:
                 print("")
-            id = input("Enter the ID of the car you want to mark as available: ")
+            id = input("Enter the ID of the car you want to return: ")
             if id == "q":
                 sys.exit()
             if id == "b":
                 break
-            if self.getValidCarId(id, self.__carService,):
+            if self.getValidCarId(id, self.__carService) and not self.getAvailableStatus(id, self.__carService):
                 newMileage = self.validateMileageToUpdate(self.__carService, id)
                 if newMileage == "b":
                     return
@@ -844,3 +846,6 @@ class StaffUI:
             else:
                 print("Invalid input. Extras must be less than 40 letters long")
                 input("Please press enter to try again")
+    
+    def getAvailableStatus(self, carID, service):
+        return service.isAvailableCar(carID)
