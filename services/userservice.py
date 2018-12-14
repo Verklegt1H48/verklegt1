@@ -160,6 +160,8 @@ class UserService:
     def isValidExpMonth(self, expMonth):
         if expMonth == "q":
             sys.exit()
+        elif not expMonth.isdecimal():
+            return "NaN"
         elif len(expMonth) > 2:
             return "length"
         elif int(expMonth) <= 0 or int(expMonth) > 12:
@@ -172,6 +174,10 @@ class UserService:
         month = int(datetime.today().month)
         if expYear == "q":
             sys.exit()
+        elif not expYear.isdecimal():
+            return "NaN"
+        elif len(expYear) > 2:
+            return "length"
         elif int(expYear) < year :
             return "year"
         elif int(expYear) == year:
