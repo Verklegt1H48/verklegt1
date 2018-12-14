@@ -95,12 +95,14 @@ class StaffUI:
                 print("")
                 input("Press enter to return ")
             elif action == "4":
-                clearScreen()
                 carId = ""
                 while carId != "b":
+                    clearScreen()
+                    print("->List rent history for a car")
                     if carId != "":
-                        clearScreen()
                         print("Invalid input! Please try again.")
+                    else:
+                        print("")
                     carId = input("Please enter a car ID or \"b\" to go back: ")
                     if carId == "q":
                         sys.exit()
@@ -414,7 +416,7 @@ class StaffUI:
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Please select the car you wish to book or b to start over: ").lower()
-            if action == "q" :
+            if action == "q":
                 exit(1)
             elif action.isdecimal() and (0 < int(action) <= int(counter)):
                 return carList[int(action) - 1]

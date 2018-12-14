@@ -264,11 +264,10 @@ class CustomerUI:
         action = ""
         clearScreen()
         while action != "b":
-
             action = input("Enter email address: ")
             if(action == "q"):
                 sys.exit()
-            elif self.__userService.getUserByEmail(action) == "Not found":
+            elif self.__userService.getUserByEmail(action) == "Not found" or action == "":
                 clearScreen()
                 print("Email address not found!")
             else:
