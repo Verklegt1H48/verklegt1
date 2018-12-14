@@ -426,8 +426,10 @@ def getValidCvv(userService):
         isValidCvv = userService.isValidCvv(cvv)
         if isValidCvv == "numbers":
             print("CVV code can only contain numbers")
+            isValidCvv = False
         if isValidCvv == "length":
             print("CVV code must be 3 digits long")
+            isValidCvv = False
     return cvv
 
 def getValidExpMonth(userService):
@@ -462,8 +464,10 @@ def getValidPin(userService):
         isValidPin = userService.isValidPin(pin)
         if isValidPin == "numbers":
             print("Pin can only contain numbers")
+            isValidPin = False
         elif isValidPin == "length":
             print("Employee pin must be 5 digits long")
+            isValidPin = False
     return pin
 
 def getValidPickUpDate(service, returnDate, flag):
