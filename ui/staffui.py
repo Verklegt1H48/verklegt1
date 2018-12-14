@@ -98,7 +98,8 @@ class StaffUI:
                 clearScreen()
                 carId = ""
                 while carId != "b":
-                    if action != "":
+                    if carId != "":
+                        clearScreen()
                         print("Invalid input! Please try again.")
                     carId = input("Please enter a car ID or \"b\" to go back: ")
                     if carId == "q":
