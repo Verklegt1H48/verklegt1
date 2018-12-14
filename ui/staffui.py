@@ -7,7 +7,8 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen, getHistory
 from ui.headers import printHeader
-from ui.customerui import createAccount, modifyUser, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
+from ui.customerui import createAccount, modifyUser, getValidReturnDate
+from ui.customerui import getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
 
@@ -21,17 +22,17 @@ class StaffUI:
         self.__isLoggedIn = False
         self.__userName = ""
 
-    # First menu that a staff member sees after login 
+    # First menu that a staff member sees after login
     def staffMenu(self):
         action = ""
         while action != "b":
             clearScreen()
             print("->Staff menu")
-            print("Welcome " + self.__userName + "!") 
+            print("Welcome " + self.__userName + "!")
             print("These are your options")
             print("")
             print("1. Car management")
-            print("2. User management") 
+            print("2. User management")
             print("3. Order management")
             print("b. Go back")
             print("q. Exit program")
@@ -40,25 +41,25 @@ class StaffUI:
             else:
                 print("")
             action = input("Choose an option: ").lower()
-            if action == "q" :
+            if action == "q":
                 sys.exit()
-            elif action == "1" :
+            elif action == "1":
                 self.staffCarMenu()
                 action = ""
-            elif action == "2" :
+            elif action == "2":
                 self.staffCustomerMenu()
                 action = ""
-            elif action == "3" :
+            elif action == "3":
                 self.orderMenu()
                 action = ""
 
-    # The car menu shows staff members the options that are avaliable to them 
+    # The car menu shows staff members the options that are avaliable to them
     def staffCarMenu(self):
         action = ""
         while action != "b":
             clearScreen()
             print("->Car menu")
-            print("") 
+            print("")
             print("These are your options:")
             print("")
             print("1. Add a car")
@@ -85,13 +86,13 @@ class StaffUI:
                 action = ""
                 clearScreen()
                 print("-> List all cars")
-                print("") 
+                print("")
                 print("These are all the cars:")
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 for car in cars:
                     if car.deleted != 1:
-                        print("{:5}{}".format(str(car.id),car))
+                        print("{:5}{}".format(str(car.id), car))
                 print("")
                 input("Press enter to return ")
             elif action == "4":
@@ -122,7 +123,7 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("->User menu")
-            print("") 
+            print("")
             print("These are your options")
             print("")
             print("1. Add a customer")
@@ -138,7 +139,7 @@ class StaffUI:
             else:
                 print("")
             action = input("Choose an option: ").lower()
-            if action == "q" :
+            if action == "q":
                 sys.exit()
             elif action == "1":
                 clearScreen()
@@ -148,7 +149,7 @@ class StaffUI:
                 clearScreen()
                 self.removeUser()
                 action = ""
-            elif action in ("3","5"):
+            elif action in ("3", "5"):
                 clearScreen()
                 self.printUsers(action)
                 action = ""
@@ -165,11 +166,11 @@ class StaffUI:
         while action != "b":
             clearScreen()
             print("->User menu")
-            print("") 
+            print("")
             print("These are your options")
             print("")
             print("1. New order")
-            print("2. List confirmed orders") 
+            print("2. List confirmed orders")
             print("3. List unconfirmed orders")
             print("b. Go back")
             print("q. Exit program")
@@ -178,7 +179,7 @@ class StaffUI:
             else:
                 print("")
             action = input("Choose an option: ").lower()
-            if action == "q" :
+            if action == "q":
                 sys.exit()
             elif action == "1":
                 clearScreen()
@@ -203,7 +204,7 @@ class StaffUI:
             cars = self.__carService.getCarList()
             for car in cars:
                 if car.available != 1:
-                    print("{:5}{}".format(str(car.id),car))
+                    print("{:5}{}".format(str(car.id), car))
             if action != "":
                 print("No car with carID \"{}\" exists".format(id))
             else:
@@ -218,7 +219,7 @@ class StaffUI:
                 if newMileage == "b":
                     return
                 action = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
-                while action not in ("b","y","n","q"):
+                while action not in ("b", "y", "n", "q"):
                     action = input("Please input \"y\" or \"n\"!: ").lower()
                 clearScreen()
                 if action == "y":
@@ -251,14 +252,14 @@ class StaffUI:
             counter = 1
             printHeader("orderSelect")
             for order in orderList:
-                print("{}{}".format(counter,order))
+                print("{:8}{}".format(str(counter), order))
                 counter += 1
             if action != "":
                 print("Invalid input! Please try again.")
             print("Press b to return to the previous page")
             print("Press q to quit")
             action = input("Please select the order you wish to view: ").lower()
-            if action == "q" :
+            if action == "q":
                 exit(1)
             elif action.isdecimal() == False:
                 pass
@@ -271,7 +272,7 @@ class StaffUI:
                 action = ""
                 del orderList
 
-    # Function to print out either the user or staff member lists 
+    # Function to print out either the user or staff member lists
     def printUsers(self, action):
         users = self.__userService.getUserList()
         clearScreen()
@@ -281,7 +282,7 @@ class StaffUI:
             print("")
             print("These are all the customers:")
             printHeader("userSelect")
-        else: 
+        else:
             isStaff = "0"
             print("->List all staff members")
             print("")
@@ -292,7 +293,7 @@ class StaffUI:
                 print(user)
         input("Press enter to return: ")
 
-    # 
+    # View of a single order
     def inputOrderInfo(self, orderToChange, number):
         pass
         action = ""
@@ -302,7 +303,7 @@ class StaffUI:
             print("The unique ID of the order you selected is \"{}\"".format(str(orderToChange.id)))
             if orderToChange.status == 1:
                 orderStatus = "confirmed"
-            else :
+            else:
                 orderStatus = "unconfirmed"
             print("This order is " + orderStatus)
             print("This order was assigned a car in category: " + str(orderToChange.carCategory))
@@ -323,10 +324,10 @@ class StaffUI:
             action = input("Choose an option: ").lower()
             if action == "q":
                 sys.exit()
-            elif action == "1" :
+            elif action == "1":
                 self.modifyOrder(orderToChange, number)
                 action = "b"
-            elif action == "2" :
+            elif action == "2":
                 self.__orderService.deleteOrder(orderToChange.id)
                 action = "b"
             elif action == "3" and orderToChange.status == 0:
@@ -335,7 +336,7 @@ class StaffUI:
             elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today().date():
                 self.__orderService.confirmOrder(orderToChange.id)
                 action = "b"
-    
+
     # Menu that show what staff members can modify in a customers order
     def modifyOrder(self, order, number):
         action = ""
@@ -361,47 +362,47 @@ class StaffUI:
             action = input("Please select what you wish to change: ").lower()
             if action == "q":
                 sys.exit()
-            elif action == "1" :
+            elif action == "1":
                 self.getValidCarCategory(order, self.__carService)
                 car = self.carSelectionByCategory(order.carCategory)
                 if car == "b":
                     continue
                 order.carId = car.id
                 action = ""
-            elif action == "2" :
+            elif action == "2":
                 self.getValidPayment(order, self.__orderService)
                 action = ""
             elif action == "3":
                 order.pickUpDate = getValidPickUpDate(self.__orderService, order.returnDate, "Update")
                 action = ""
-            elif action == "4" :
+            elif action == "4":
                 order.returnDate = getValidReturnDate(self.__orderService, order.pickUpDate)
                 action = ""
             self.__orderService.updateOrder(order)
 
-    # Adds a car to an unconfirmed order 
+    # Adds a car to an unconfirmed order
     def carAssignment(self, order):
         car = self.__carService.getFirstAvailableCarByCategory(order.carCategory)
         if car == None:
                 print("\n ***No car available in that category***\n")
                 input("Press enter to go back")
                 return
-        print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}".format
-        (car.manufacturer,str(car.model), str(car.year), str(car.mileage),str(car.seats),
-        car.transmission,str(car.extras).strip("[']").replace("', '", ", ")) )
+        print("\n Manufacturer: {} , {}\n Year: {}\n Mileage: {}\n Seats: {}\n Transmission: {}\n Extras: {}"
+              .format(car.manufacturer, str(car.model), str(car.year), str(car.mileage), str(car.seats),
+                      car.transmission, str(car.extras).strip("[']").replace("', '", ", ")))
         action = ""
         while action != "b":
             action = input("Would you like to assign this car to the order Y/N: ").lower()
-            if action == "q" :
+            if action == "q":
                 sys.exit()
-            if action == "y" :
-                self.__orderService.assignCarToOrder(car,order)
+            if action == "y":
+                self.__orderService.assignCarToOrder(car, order)
                 action = "b"
-            elif action == "n" :
+            elif action == "n":
                 car = self.carSelectionByCategory(order.carCategory)
                 if car == "b":
                     action = "b"
-                self.__orderService.assignCarToOrder(car,order)
+                self.__orderService.assignCarToOrder(car, order)
                 action = "b"
             if action != "":
                 print("Invalid input! Please try again.")
@@ -420,7 +421,7 @@ class StaffUI:
             printHeader("carSelect")
             for car in carList:
                 counter += 1
-                print("{:5}{}".format(str(counter),car))
+                print("{:5}{}".format(str(counter), car))
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Please select the car you wish to book or b to start over: ").lower()
@@ -462,7 +463,7 @@ class StaffUI:
         if id == "b":
             return
         choice = input("Are you sure you want to delete car with ID: \"{}\"? y/n: ".format(id)).lower()
-        while choice not in ("b","y","n","q"):
+        while choice not in ("b", "y", "n", "q"):
             choice = input("Please input \"y\" or \"n\"!: ").lower()
         clearScreen()
         if choice == "y":
@@ -488,7 +489,7 @@ class StaffUI:
         if id == "b":
             return
         choice = input("Are you sure you want to delete user with ID: \"{}\"? y/n: ".format(id)).lower()
-        while choice not in ("b","y","n","q"):
+        while choice not in ("b", "y", "n", "q"):
             choice = input("Please input \"y\" or \"n\"!: ").lower()
         clearScreen()
         if choice == "y":
@@ -517,9 +518,15 @@ class StaffUI:
         if self.getValidPayment(newOrder, self.__orderService) == "b":
             return
         pickUpDate = getValidPickUpDate(self.__orderService, "", "New")
-        returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
-        if pickUpDate != "" and returnDate != "":
+        if pickUpDate == "":
             return
+        else:
+            newOrder.pickUpDate = pickUpDate
+        returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
+        if returnDate == "":
+            return
+        else:
+            newOrder.returnDate = returnDate
         self.__orderService.addOrder(newOrder)
 
     def logInAsStaff(self):
@@ -529,7 +536,7 @@ class StaffUI:
             if self.__isLoggedIn:
                 self.staffMenu()
 
-    # Function for staff members to look up specific staff members based on social security number     
+    # Function for staff members to look up specific staff members based on social security number
     def getStaffSocial(self):
         clearScreen()
         social = ""
@@ -565,8 +572,8 @@ class StaffUI:
                 self.__userName = selectedUser.name
                 self.__isLoggedIn = True
                 return
-    
-    # Function for staff members to search for users based on social security number 
+
+    # Function for staff members to search for users based on social security number
     def printUserBySocial(self):
         social = ""
         user = ""
@@ -587,7 +594,7 @@ class StaffUI:
     def userOptions(self, user):
         action = ""
         while action != "b":
-            clearScreen()            
+            clearScreen()
             print("->Find user by social security number")
             print("")
             print("This is the user you asked for:")
@@ -640,10 +647,10 @@ class StaffUI:
             else:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
                 input("Press any key to try again: ")
-    
+
     def getValidCarId(self, id, service):
         return service.isValidCarId(id)
-        
+
 
     def getValidCarCategory(self, order, service):
         isValid = False
@@ -700,7 +707,7 @@ class StaffUI:
             if manufacturer == "q":
                 sys.exit()
             if manufacturer == "b":
-                return "b"       
+                return "b"
             if service.isValidManufacturer(manufacturer):
                 car.manufacturer = manufacturer.capitalize()
                 isValid = True
@@ -758,7 +765,7 @@ class StaffUI:
 
     def validateMileageToUpdate(self, service, carId):
         isValid = False
-        car = service.getCarById(carId) 
+        car = service.getCarById(carId)
         while not isValid:
             clearScreen()
             mileage = input("Input current mileage of the car: ")
@@ -821,4 +828,3 @@ class StaffUI:
             else:
                 print("Invalid input. Extras must be less than 40 letters long")
                 input("Please press enter to try again")
-

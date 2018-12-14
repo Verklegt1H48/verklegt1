@@ -1,7 +1,7 @@
 class Car:
 
-    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "", mileage = "",
-                 seats = "",transmission = "", price = ""):
+    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "",
+                 mileage = "", seats = "", transmission = "", price = ""):
         self.__category = category
         self.__manufacturer = manufacturer
         self.__model = model
@@ -16,8 +16,9 @@ class Car:
         self.__price = price
 
     def __repr__(self):
-        return "{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format(self.__category, str(self.__price), self.__manufacturer,
-                                                                   str(self.__model), str(self.__year), str(self.__mileage),
+        return "{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format(self.__category, str(self.__price),
+                                                                   self.__manufacturer, str(self.__model),
+                                                                   str(self.__year), str(self.__mileage),
                                                                    str(self.__seats), self.__transmission,
                                                                    str(self.__extras).strip("[']").replace("', '", ", "))
 
@@ -27,7 +28,7 @@ class Car:
     @property
     def id(self):
         return self.__id
-    
+
     @property
     def price(self):
         return int(self.__price)
@@ -106,7 +107,7 @@ class Car:
     def transmission(self, transmission):
         self.__transmission = transmission
 
-    @extras.setter 
+    @extras.setter
     def extras(self, extras):
         self.__extras.append(extras)
 
@@ -117,7 +118,7 @@ class Car:
     @deleted.setter
     def deleted(self, deleted):
         self.__deleted = int(deleted)
-    
+
     @price.setter
     def price(self, price):
         self.__price = price
