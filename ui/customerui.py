@@ -130,7 +130,7 @@ class CustomerUI:
             print("Your final price is " + str(finalPrice) + " isk")
             input("Please press enter to continue")
             clearScreen()
-        paymentMethod = self.selectPaymentMethod()
+        paymentMethod = selectPaymentMethod()
         if paymentMethod != "":
             newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
             self.__orderService.addOrder(newOrder)
@@ -185,35 +185,7 @@ class CustomerUI:
                 sys.exit()
         return
 
-    # Allows the user to select a payment method
-    def selectPaymentMethod(self):
-        action = ""
-        while action != "b":
-            print("Please select a payment method:")
-            print("")
-            print("1. Debet card")
-            print("2. Credit card")
-            print("3. Cash")
-            print("b. Go back")
-            print("q. Exit program")
-            if action != "":
-                print("Invalid input! Please try again.")
-            else:
-                print("")
-            action = input("Choose an option: ").lower()
-            if action == "q":
-                sys.exit()
-            elif action == "1":
-                clearScreen()
-                return "DEBET"
-            elif action == "2":
-                clearScreen()
-                return "CREDIT"
-            elif action == "3":
-                clearScreen()
-                return "CASH"
-        return ""
-
+   
     # Show avaliable options within the customer menu              
     def customerMenu(self):
         action = ""
@@ -605,3 +577,33 @@ def addCreditCard(newUser, service):
         else:
             checkDate = False
     return newUser
+
+ # Allows the user to select a payment method
+def selectPaymentMethod():
+    action = ""
+    while action != "b":
+        clearScreen()
+        print("Please select a payment method:")
+        print("")
+        print("1. Debet card")
+        print("2. Credit card")
+        print("3. Cash")
+        print("b. Go back")
+        print("q. Exit program")
+        if action != "":
+            print("Invalid input! Please try again.")
+        else:
+            print("")
+        action = input("Choose an option: ").lower()
+        if action == "q":
+            sys.exit()
+        elif action == "1":
+            clearScreen()
+            return "DEBET"
+        elif action == "2":
+            clearScreen()
+            return "CREDIT"
+        elif action == "3":
+            clearScreen()
+            return "CASH"
+    return action
