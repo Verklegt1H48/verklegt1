@@ -275,7 +275,9 @@ def getValidEmail(userService):
         email = input("Email address: ")
         clearScreen()
         error = userService.isValidEmail(email)
-        if error == "invalid":
+        if email == "b":
+            return "b"
+        elif error == "invalid":
             print("Invalid email address! Please enter a valid email address")
         else:
             isValidEmail = True
@@ -287,7 +289,9 @@ def getValidPassword(userService):
         password = getpass.getpass("Password: ")
         clearScreen()
         error = userService.isValidPassword(password)
-        if error == "short":
+        if password == "b":
+            return "b"
+        elif error == "short":
             print("Passwords must be at least 8 characters long")
         elif error == "long":
             print("Password is too long")
@@ -320,7 +324,9 @@ def getValidDriverLicense(userService):
         driverLicense = input("Driver license ID: ")
         clearScreen()
         error = userService.isValidDriverLicense(driverLicense)
-        if error == "numbers":
+        if driverLicense == "b":
+            return "b"
+        elif error == "numbers":
             print("Driver license ID can only contain numbers")
         elif error == "length":
             print("Driver license ID must be 9 digits long")
@@ -334,7 +340,9 @@ def getValidAddress(userService):
         address = input("Address: ")
         clearScreen()
         error = userService.isValidAddress(address)
-        if error == "invalid":
+        if address == "b":
+            return "b"
+        elif error == "invalid":
             print("Invalid address!")
         else:
             isValidAddress = True
@@ -346,6 +354,8 @@ def getValidPhone(userService):
         phone = input("Phone number: ")
         clearScreen()
         error = userService.isValidPhone(phone)
+        if phone == "b":
+            return "b"
         if error == "numbers":
             print("Phone number can only contain numbers")
         elif error == "length":
@@ -520,23 +530,35 @@ def modifyUser(service, user):
             if action == "q":
                 sys.exit()
             elif action == "1":
-                user.email = getValidEmail(service)
+                email = getValidEmail(service)
+                if email != "b":
+                    user.email = email
                 action = ""
             elif action == "2":
                 oldPass = ""
                 while oldPass != user.password:
                     clearScreen()
-                    oldPass = getpass.getpass("Input old password :")
-                user.password = getValidPassword(service)
+                    oldPass = getpass.getpass("Input old password: ")
+                    if oldPass == "b":
+                        return "b"
+                password = getValidPassword(service)
+                if password != "b":
+                    user.password = password
                 action = ""
             elif action == "3":
-                user.driverLicense = getValidDriverLicense(service)
+                driverLicense = getValidDriverLicense(service)
+                if driverLicense != "b":
+                    user.driverLicense = driverLicense
                 action = ""
             elif action == "4":
-                user.address = getValidAddress(service)
+                address = getValidAddress(service)
+                if address != "b":
+                    user.address = address
                 action = ""
             elif action == "5":
-                user.phone = getValidPhone(service)
+                phone = getValidPhone(service)
+                if phone != "b":
+                    user.phone = phone
                 action = ""
             elif action == "6":
                 user = addCreditCard(user, service)
