@@ -38,10 +38,10 @@ class CarService:
         if success:
             self.__carRepo.overwriteCars(self.__cars)
         return success
-    
+
     def getCarList(self):
         return self.__cars
- 
+
     def getAndSortAvailableCars(self, attribute):
         sortedCars = []
         if attribute == "available":
@@ -57,22 +57,22 @@ class CarService:
     def getAvailableCarsByCategory(self, category):
         availableCars = []
         for car in self.__cars:
-            if car.deleted == 0 and car.category == category and car.available == 1 :
+            if car.deleted == 0 and car.category == category and car.available == 1:
                 availableCars.append(car)
         return availableCars
 
     def getFirstAvailableCarByCategory(self, category):
         for car in self.__cars:
-            if car.deleted == 0 and car.category == category and  car.available == 1 :
+            if car.deleted == 0 and car.category == category and  car.available == 1:
                 return car
-    
+
     def getCarOrders(self, id):
         carhistory = []
         for order in self.__orders:
             if order.carId == id:
                 carhistory.append(order)
         return carhistory
-    
+
     def getCarById(self, carID):
         for car in self.__cars:
             if car.id == int(carID) and car.available == 0:
@@ -85,7 +85,7 @@ class CarService:
             if str(car.id) == str(id):
                 return True
         return False
-    
+
     def isValidCategory(self, category):
         if category in ("A", "B", "C", "D"):
             return True
@@ -133,4 +133,3 @@ class CarService:
             return True
         else:
             return False
-
