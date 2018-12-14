@@ -397,6 +397,8 @@ class StaffUI:
                 action = "b"
             elif action == "n" :
                 car = self.carSelectionByCategory(order.carCategory)
+                if car == "b":
+                    action = "b"
                 self.__orderService.assignCarToOrder(car,order)
                 action = "b"
             if action != "":
@@ -408,6 +410,10 @@ class StaffUI:
         while action != "b":
             clearScreen()
             carList = self.__carService.getAvailableCarsByCategory(category)
+            if carList == []:
+                print("No Car available in that category")
+                input("Press enter to start over: ")
+                return "b"
             counter = 0
             printHeader("carSelect")
             for car in carList:
