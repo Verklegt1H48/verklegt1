@@ -7,7 +7,7 @@ from models.user import User
 from datetime import datetime
 from helperfunctions.helpers import clearScreen, getHistory
 from ui.headers import printHeader
-from ui.customerui import createAccount, modifyUser, getValidReturnDate
+from ui.customerui import createAccount, modifyUser, getValidReturnDate, selectPaymentMethod
 from ui.customerui import getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
 import getpass
@@ -310,7 +310,7 @@ class StaffUI:
             print("")
             print("1. Modify order")
             print("2. To delete order")
-            if orderToChange.status == 0:
+            if orderToChange.status == 0 and orderToChange.pickUpDate != "":
                 print("3. To assign a new car to this order")
                 pickUpCar = datetime.strptime(orderToChange.pickUpDate, "%d/%m/%y").date()
                 if pickUpCar == datetime.today().date():
@@ -334,9 +334,14 @@ class StaffUI:
                 self.carAssignment(orderToChange)
                 action = "b"
             elif action == "4" and orderToChange.status == 0 and pickUpCar == datetime.today().date():
-                self.__orderService.confirmOrder(orderToChange.id)
-                action = "b"
-
+                if int(orderToChange.carId) == -1:
+                    clearScreen()
+                    print("No car has been assigned to his order")
+                    input("press enter to go back ")
+                else:
+                    self.__orderService.confirmOrder(orderToChange.id)
+                    action = "b"
+    
     # Menu that show what staff members can modify in a customers order
     def modifyOrder(self, order, number):
         action = ""
@@ -366,17 +371,28 @@ class StaffUI:
                 self.getValidCarCategory(order, self.__carService)
                 car = self.carSelectionByCategory(order.carCategory)
                 if car == "b":
+                    order.carId = -1
                     continue
                 order.carId = car.id
                 action = ""
-            elif action == "2":
-                self.getValidPayment(order, self.__orderService)
+            elif action == "2" :
+                paymentMethod = selectPaymentMethod()
+                if paymentMethod != "b":
+                    order.payMethod = paymentMethod
                 action = ""
             elif action == "3":
-                order.pickUpDate = getValidPickUpDate(self.__orderService, order.returnDate, "Update")
+                pickUpDate = getValidPickUpDate(self.__orderService, order.returnDate, "Update")
+                if pickUpDate == "":
+                    continue
+                else:
+                    order.pickUpDate = pickUpDate
                 action = ""
-            elif action == "4":
-                order.returnDate = getValidReturnDate(self.__orderService, order.pickUpDate)
+            elif action == "4" :
+                returnDate = getValidReturnDate(self.__orderService, order.pickUpDate)
+                if returnDate == "":
+                    continue
+                else:
+                    order.returnDate = returnDate
                 action = ""
             self.__orderService.updateOrder(order)
 
@@ -515,14 +531,15 @@ class StaffUI:
         if car == "b":
             return
         newOrder.carId = car.id
-        if self.getValidPayment(newOrder, self.__orderService) == "b":
+        newOrder.payMethod = selectPaymentMethod()
+        if newOrder.payMethod == "b":
             return
         pickUpDate = getValidPickUpDate(self.__orderService, "", "New")
         if pickUpDate == "":
             return
         else:
             newOrder.pickUpDate = pickUpDate
-        returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
+        returnDate = getValidReturnDate(self.__orderService, pickUpDate)
         if returnDate == "":
             return
         else:

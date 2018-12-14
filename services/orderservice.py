@@ -44,9 +44,9 @@ class OrderService:
 
     def confirmOrder(self, orderID):
         for order in self.__orders:
-            if order.id == int(orderID) and order.carId != -1:
-                order.status = 1
+            if order.id == int(orderID):
                 theOrder = order
+                order.status = 1
         for car in self.__cars:
             if car.id == int(theOrder.carId):
                 car.available = 0
