@@ -214,7 +214,7 @@ class StaffUI:
                 sys.exit()
             if id == "b":
                 break
-            if self.getValidCarId(id, self.__carService,):
+            if self.getValidCarId(id, self.__carService):
                 newMileage = self.validateMileageToUpdate(self.__carService, id)
                 if newMileage == "b":
                     return
