@@ -247,18 +247,6 @@ class CustomerUI:
         userEmail = self.getUserEmail()
         if userEmail != "":
             self.getPassword(userEmail) 
-    
-    def getValidPayment(self, order, service):
-        isValid = False
-        while not isValid:
-            clearScreen()
-            PayMethod = input("Payment Method: ").upper()
-            if service.isValidPayMethod(PayMethod):
-                order.payMethod = PayMethod
-                isValid = True
-            else:
-                print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
-                input("Please press enter to try again")
 
     def getUserEmail(self):
         action = ""
