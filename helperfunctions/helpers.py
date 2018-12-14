@@ -24,6 +24,7 @@ def getHistory(orders, id, carOrUser):
             form = "User ID"
         else:
             form = "Car ID"
+        clearScreen()
         print("->Print order history for {} with ID: \"{}\"".format(carOrUser, id))
         print("")
         print("These are the history items for this {}:".format(carOrUser))

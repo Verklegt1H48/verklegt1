@@ -9,4 +9,5 @@ def main():
     resizeWindow()
     ui = MainUI()
     ui.mainMenu()
+    
 main()
