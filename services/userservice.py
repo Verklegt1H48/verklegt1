@@ -151,7 +151,6 @@ class UserService:
         if pin == "q":
             sys.exit()
         elif pin.isdecimal() == False:
-           
             return "numbers"
         elif len(pin) != 5:
             return "length"

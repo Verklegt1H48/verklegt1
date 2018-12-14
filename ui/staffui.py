@@ -547,44 +547,49 @@ class StaffUI:
     
     # Function for staff members to search for users based on social security number 
     def printUserBySocial(self):
-        action = ""
         social = ""
         user = ""
-        while action != "b":
+        while social != "b":
             clearScreen()
             print("->Find user by social security number")
-            if action != "":
+            if social != "":
                 print("No user found with the social security number: {}".format(social))
             else:
                 print("")
             social = input("Please enter a social security number or \"b\" to go back: ").lower()
             user = self.__userService.getUserBySocial(social)
             if user == "Not found":
-                action = "_"
                 pass
             else:
-                while action != "b":
-                    clearScreen()            
-                    print("->Find user by social security number")
-                    print("")
-                    print("This is the user you asked for:")
-                    printHeader("userSelect")
-                    print(user)
-                    print("1. Modify user")
-                    print("2. Print user history")
-                    print("Press b to go back")
-                    print("Press q to quit")
-                    if action != "":
-                        print("Invalid input! Please try again.")
-                    action = ""
-                    action =input("Choose an option: ")
-                    if action == "q":
-                        sys.exit()
-                    if action == "1":
-                        modifyUser(self.__userService, user)
-                    if action == "2":
-                        getHistory( self.__orderService.getOrdersByStatus(1), user.id, "user")
-    
+                self.userOptions(user)
+
+    def userOptions(self, user):
+        action = ""
+        while action != "b":
+            clearScreen()            
+            print("->Find user by social security number")
+            print("")
+            print("This is the user you asked for:")
+            if user.employee == "1":
+                printHeader("userSelect")
+            else:
+                printHeader("staffSelect")
+            print(user)
+            print("")
+            print("1. Modify user")
+            print("2. Print user history")
+            print("Press b to go back")
+            print("Press q to quit")
+            if action != "":
+                print("Invalid input! Please try again.")
+            action = ""
+            action =input("Choose an option: ")
+            if action == "q":
+                sys.exit()
+            if action == "1":
+                modifyUser(self.__userService, user)
+            if action == "2":
+                getHistory( self.__orderService.getOrdersByStatus(1), user.id, "user")
     # Validation functions
 
     def getValidCategory(self, car, service):
