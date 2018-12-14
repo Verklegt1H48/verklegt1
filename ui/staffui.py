@@ -584,15 +584,21 @@ class StaffUI:
             print("Press b to go back")
             print("Press q to quit")
             if action != "":
-                print("Invalid input! Please try again.")
+                if action == "1":
+                    print("You can't modify an employee!")
+                else:
+                    print("Invalid input! Please try again.")
             action = ""
             action =input("Choose an option: ")
             if action == "q":
                 sys.exit()
             if action == "1":
-                modifyUser(self.__userService, user)
+                if user.employee == "0":
+                    pass
+                else:
+                    modifyUser(self.__userService, user)
             if action == "2":
-                getHistory( self.__orderService.getOrdersByStatus(1), user.id, "user")
+                getHistory(self.__orderService.getOrdersByStatus(1), user.id, "user")
     # Validation functions
 
     def getValidCategory(self, car, service):
