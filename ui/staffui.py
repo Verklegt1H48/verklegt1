@@ -600,7 +600,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             category = input("Category: ").upper()
-            if service.isValidCategory(category):
+            if category == "q":
+                sys.exit()
+            elif service.isValidCategory(category):
                 car.category = category
                 isValid = True
                 if category == "A":
@@ -624,7 +626,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             category = input("Car Category: ").upper()
-            if service.isValidCategory(category):
+            if category == "q":
+                sys.exit()
+            elif service.isValidCategory(category):
                 order.carCategory = category
                 isValid = True
             else:
@@ -636,6 +640,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             PayMethod = input("Payment Method: ").upper()
+            if PayMethod == "q":
+                sys.exit()
             if service.isValidPayMethod(PayMethod):
                 clearScreen()
                 order.payMethod = PayMethod
@@ -649,6 +655,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             UserId = input("User ID: ")
+            if UserId == "q":
+                sys.exit()
             if service.isValidUserId(UserId):
                 order.userId = UserId
                 isValid = True
@@ -661,6 +669,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             manufacturer = input("Manufacturer: ")
+            if manufacturer == "q":
+                sys.exit()
             if service.isValidManufacturer(manufacturer):
                 car.manufacturer = manufacturer.capitalize()
                 isValid = True
@@ -673,7 +683,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             model = input("Model: ")
-            if service.isValidModel(model):
+            if model == "q":
+                sys.exit()
+            elif service.isValidModel(model):
                 car.model = model.capitalize()
                 isValid = True
             else:
@@ -685,6 +697,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             year = input("Year: ")
+            if year == "q":
+                sys.exit()
             if service.isValidYear(year):
                 car.year = year
                 isValid = True
@@ -697,7 +711,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             mileage = input("Mileage: ")
-            if service.isValidMileage(mileage):
+            if mileage == "q":
+                sys.exit()
+            elif service.isValidMileage(mileage):
                 car.mileage = mileage
                 isValid = True
             else:
@@ -710,7 +726,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             mileage = input("Input current mileage of the car: ")
-            if service.isValidMileage(mileage, car):
+            if mileage == "q":
+                sys.exit()
+            elif service.isValidMileage(mileage, car):
                 return mileage
             else:
                 print("Invalid input. The mileage must be between " + str(car.mileage) + " and 1000000")
@@ -721,6 +739,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             seats = input("Seats: ")
+            if seats == "q":
+                sys.exit()
             if service.isValidSeats(seats):
                 car.seats = seats
                 isValid = True
@@ -733,7 +753,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             transmission = input("Transmission: ").capitalize()
-            if service.isValidTransmission(transmission):
+            if transmission == "q":
+                sys.exit()
+            elif service.isValidTransmission(transmission):
                 car.transmission = transmission.capitalize()
                 isValid = True
             else:
@@ -747,7 +769,9 @@ class StaffUI:
             print("Input all extras seperated with a comma")
             print("If there are no extras input \"None\"")
             extras = input("Extras: ")
-            if service.isValidExtras(extras):
+            if extras == "q":
+                sys.exit()
+            elif service.isValidExtras(extras):
                 car.extras = extras
                 isValid = True
             else:
