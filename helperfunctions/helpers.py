@@ -1,12 +1,13 @@
-#import info about system
+# import info about system
 from os import system, name
 
-#define a function to clear the screen
+
+# define a function to clear the screen
 def clearScreen():
-    #windows
+    # windows
     if name == 'nt':
         _ = system('cls')
-    #mac and linux
+    # mac and linux
     else:
         _ = system('clear')
 
@@ -24,10 +25,12 @@ def getHistory(orders, id, carOrUser):
         if carOrUser == "car":
             for order in orders:
                 if str(order.carId) == str(id):
-                    print("{:10}{:10}{:15}{:15}".format(str(order.id),str(order.userId), order.pickUpDate, order.returnDate))
+                    print("{:10}{:10}{:15}{:15}".format(str(order.id), str(order.userId),
+                                                        order.pickUpDate, order.returnDate))
         else:
             for order in orders:
                 if str(order.userId) == str(id):
-                    print("{:10}{:10}{:15}{:15}".format(str(order.id),str(order.carId), order.pickUpDate, order.returnDate))
+                    print("{:10}{:10}{:15}{:15}".format(str(order.id), str(order.carId),
+                                                        order.pickUpDate, order.returnDate))
         print("")
         input("Press enter to return ")
