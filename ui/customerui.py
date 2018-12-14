@@ -447,7 +447,9 @@ def getValidPin(userService):
         pin = input("Pin: ")
         clearScreen()
         isValidPin = userService.isValidPin(pin)
-        if isValidPin == "numbers":
+        if pin == "b":
+            return "b"
+        elif isValidPin == "numbers":
             print("Pin can only contain numbers")
             isValidPin = False
         elif isValidPin == "length":
