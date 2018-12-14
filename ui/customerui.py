@@ -426,7 +426,10 @@ def getValidExpMonth(userService):
         expMonth = input("Exp month(mm): ")
         clearScreen()
         isValidExpMonth = userService.isValidExpMonth(expMonth)
-        if isValidExpMonth == "length":
+        if isValidExpMonth == "NaN":
+            print("Please enter a number")
+            isValidExpMonth = False
+        elif isValidExpMonth == "length":
             print("Invalid input!")
             isValidExpMonth = False
         elif isValidExpMonth == "month":
@@ -435,14 +438,20 @@ def getValidExpMonth(userService):
     return expMonth
 
 def getValidExpYear(userService, expMonth):
-    expYear = input("Exp year(yy): ")
-    clearScreen()
-    isValidExpYear = userService.isValidExpYear(expYear, expMonth)
-    if isValidExpYear == "year":
-        print("Card is expired")
-        return "-1"
-    else:
-        return expYear
+    isValidExpYear = False
+    while not isValidExpYear:
+        expYear = input("Exp year(yy): ")
+        clearScreen()
+        error = userService.isValidExpYear(expYear, expMonth)
+        if error == "NaN":
+            print("Please enter a number")
+        elif error == "length":
+            print("Invalid input!")
+        elif error == "year":
+            print("Card is expired")
+            return "-1"
+        else:
+            return expYear
 
 def getValidPin(userService):
     isValidPin = False

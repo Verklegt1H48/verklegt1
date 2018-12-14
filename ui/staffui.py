@@ -596,15 +596,21 @@ class StaffUI:
             print("Press b to go back")
             print("Press q to quit")
             if action != "":
-                print("Invalid input! Please try again.")
+                if action == "1":
+                    print("You can't modify an employee!")
+                else:
+                    print("Invalid input! Please try again.")
             action = ""
             action =input("Choose an option: ")
             if action == "q":
                 sys.exit()
             if action == "1":
-                modifyUser(self.__userService, user)
+                if user.employee == "0":
+                    pass
+                else:
+                    modifyUser(self.__userService, user)
             if action == "2":
-                getHistory( self.__orderService.getOrdersByStatus(1), user.id, "user")
+                getHistory(self.__orderService.getOrdersByStatus(1), user.id, "user")
     # Validation functions
 
     def getValidCategory(self, car, service):
@@ -652,9 +658,9 @@ class StaffUI:
         while not isValid:
             clearScreen()
             payMethod = input("Payment Method: ").upper()
-            if payMethod == "q":
+            if payMethod == "Q":
                 sys.exit()
-            if payMethod == "b":
+            if payMethod == "B":
                 return "b"
             if service.isValidPayMethod(payMethod):
                 clearScreen()
@@ -705,7 +711,7 @@ class StaffUI:
                 sys.exit()
             if model == "b":
                 return "b"
-            if service.isValidModel(model):
+            elif service.isValidModel(model):
                 car.model = model.capitalize()
                 isValid = True
             else:
@@ -719,9 +725,9 @@ class StaffUI:
             year = input("Year: ")
             if year == "q":
                 sys.exit()
-            if year == "b":
+            elif year == "b":
                 return "b"
-            if service.isValidYear(year):
+            elif service.isValidYear(year):
                 car.year = year
                 isValid = True
             else:
@@ -735,9 +741,9 @@ class StaffUI:
             mileage = input("Mileage: ")
             if mileage == "q":
                 sys.exit()
-            if mileage == "b":
+            elif mileage == "b":
                 return "b"
-            if service.isValidMileage(mileage):
+            elif service.isValidMileage(mileage):
                 car.mileage = mileage
                 isValid = True
             else:
@@ -752,9 +758,9 @@ class StaffUI:
             mileage = input("Input current mileage of the car: ")
             if mileage == "b":
                 return "b"
-            if mileage == "q":
+            elif mileage == "q":
                 sys.exit()
-            if service.isValidMileage(mileage, car):
+            elif service.isValidMileage(mileage, car):
                 return mileage
             else:
                 print("Invalid input. The mileage must be between " + str(car.mileage) + " and 1000000")
@@ -783,9 +789,9 @@ class StaffUI:
             transmission = input("Transmission: ").capitalize()
             if transmission == "Q":
                 sys.exit()
-            if transmission == "B":
+            elif transmission == "B":
                 return "b"
-            if service.isValidTransmission(transmission):
+            elif service.isValidTransmission(transmission):
                 car.transmission = transmission.capitalize()
                 isValid = True
             else:
@@ -801,9 +807,9 @@ class StaffUI:
             extras = input("Extras: ")
             if extras == "q":
                 sys.exit()
-            if extras == "b":
+            elif extras == "b":
                 return "b"
-            if service.isValidExtras(extras):
+            elif service.isValidExtras(extras):
                 car.extras = extras
                 isValid = True
             else:
