@@ -215,6 +215,8 @@ class StaffUI:
                 break
             if self.getValidCarId(id, self.__carService,):
                 newMileage = self.validateMileageToUpdate(self.__carService, id)
+                if newMileage == "b":
+                    return
                 action = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
                 while action not in ("b","y","n","q"):
                     action = input("Please input \"y\" or \"n\"!: ").lower()
@@ -425,14 +427,22 @@ class StaffUI:
     # Add a car function for staff members
     def addCar(self):
         newCar = Car()
-        self.getValidCategory(newCar, self.__carService)
-        self.getValidManufacturer(newCar, self.__carService)
-        self.getValidModel(newCar, self.__carService)
-        self.getValidYear(newCar, self.__carService)
-        self.getValidMileage(newCar, self.__carService)
-        self.getValidSeats(newCar, self.__carService)
-        self.getValidTransmission(newCar, self.__carService)
-        self.getValidExtras(newCar, self.__carService)
+        if self.getValidCategory(newCar, self.__carService) == "b":
+            return
+        if self.getValidManufacturer(newCar, self.__carService) == "b":
+            return
+        if self.getValidModel(newCar, self.__carService) == "b":
+            return
+        if self.getValidYear(newCar, self.__carService) == "b":
+            return
+        if self.getValidMileage(newCar, self.__carService) == "b":
+            return
+        if self.getValidSeats(newCar, self.__carService) == "b":
+            return
+        if self.getValidTransmission(newCar, self.__carService) == "b":
+            return
+        if self.getValidExtras(newCar, self.__carService) == "b":
+            return
         self.__carService.addCar(newCar)
         input("You have successfully added a new car. Please press enter to continue")
 
@@ -491,13 +501,15 @@ class StaffUI:
     # Function to add an order
     def addOrder(self):
         newOrder = Order()
-        self.getValidUserId(newOrder, self.__userService)
+        if self.getValidUserId(newOrder, self.__userService) == "b":
+            return
         self.getValidCarCategory(newOrder, self.__carService)
         car = self.carSelectionByCategory(newOrder.carCategory)
         if car == "b":
             return
         newOrder.carId = car.id
-        self.getValidPayment(newOrder, self.__orderService)
+        if self.getValidPayment(newOrder, self.__orderService) == "b":
+            return
         pickUpDate = getValidPickUpDate(self.__orderService, "", "New")
         returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
         if pickUpDate != "" and returnDate != "":
@@ -600,6 +612,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             category = input("Category: ").upper()
+            if category == "Q":
+                sys.exit()
             if service.isValidCategory(category):
                 car.category = category
                 isValid = True
@@ -624,6 +638,8 @@ class StaffUI:
         while not isValid:
             clearScreen()
             category = input("Car Category: ").upper()
+            if category == "Q":
+                sys.exit()
             if service.isValidCategory(category):
                 order.carCategory = category
                 isValid = True
@@ -635,10 +651,14 @@ class StaffUI:
         isValid = False
         while not isValid:
             clearScreen()
-            PayMethod = input("Payment Method: ").upper()
-            if service.isValidPayMethod(PayMethod):
+            payMethod = input("Payment Method: ").upper()
+            if payMethod == "q":
+                sys.exit()
+            if payMethod == "b":
+                return "b"
+            if service.isValidPayMethod(payMethod):
                 clearScreen()
-                order.payMethod = PayMethod
+                order.payMethod = payMethod
                 isValid = True
             else:
                 print("Invalid input. Category must be \"CREDIT\", \"DEBIT\" or \"CASH\"")
@@ -648,9 +668,13 @@ class StaffUI:
         isValid = False
         while not isValid:
             clearScreen()
-            UserId = input("User ID: ")
-            if service.isValidUserId(UserId):
-                order.userId = UserId
+            userId = input("User ID: ")
+            if userId == "q":
+                sys.exit()
+            if userId == "b":
+                return "b"
+            if service.isValidUserId(userId):
+                order.userId = userId
                 isValid = True
             else:
                 print("Invalid input. User ID not found")
@@ -661,6 +685,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             manufacturer = input("Manufacturer: ")
+            if manufacturer == "q":
+                sys.exit()
+            if manufacturer == "b":
+                return "b"       
             if service.isValidManufacturer(manufacturer):
                 car.manufacturer = manufacturer.capitalize()
                 isValid = True
@@ -673,6 +701,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             model = input("Model: ")
+            if model == "q":
+                sys.exit()
+            if model == "b":
+                return "b"
             if service.isValidModel(model):
                 car.model = model.capitalize()
                 isValid = True
@@ -685,6 +717,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             year = input("Year: ")
+            if year == "q":
+                sys.exit()
+            if year == "b":
+                return "b"
             if service.isValidYear(year):
                 car.year = year
                 isValid = True
@@ -697,6 +733,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             mileage = input("Mileage: ")
+            if mileage == "q":
+                sys.exit()
+            if mileage == "b":
+                return "b"
             if service.isValidMileage(mileage):
                 car.mileage = mileage
                 isValid = True
@@ -710,6 +750,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             mileage = input("Input current mileage of the car: ")
+            if mileage == "b":
+                return "b"
+            if mileage == "q":
+                sys.exit()
             if service.isValidMileage(mileage, car):
                 return mileage
             else:
@@ -721,6 +765,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             seats = input("Seats: ")
+            if seats == "q":
+                sys.exit()
+            if seats == "b":
+                return "b"
             if service.isValidSeats(seats):
                 car.seats = seats
                 isValid = True
@@ -733,6 +781,10 @@ class StaffUI:
         while not isValid:
             clearScreen()
             transmission = input("Transmission: ").capitalize()
+            if transmission == "Q":
+                sys.exit()
+            if transmission == "B":
+                return "b"
             if service.isValidTransmission(transmission):
                 car.transmission = transmission.capitalize()
                 isValid = True
@@ -747,6 +799,10 @@ class StaffUI:
             print("Input all extras seperated with a comma")
             print("If there are no extras input \"None\"")
             extras = input("Extras: ")
+            if extras == "q":
+                sys.exit()
+            if extras == "b":
+                return "b"
             if service.isValidExtras(extras):
                 car.extras = extras
                 isValid = True
