@@ -651,7 +651,6 @@ class StaffUI:
     def getValidCarId(self, id, service):
         return service.isValidCarId(id)
 
-
     def getValidCarCategory(self, order, service):
         isValid = False
         while not isValid:
