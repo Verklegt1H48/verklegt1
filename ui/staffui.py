@@ -5,7 +5,7 @@ from services.orderservice import OrderService
 from services.userservice import UserService
 from models.user import User
 from datetime import datetime
-from helperfunctions.helpers import clearScreen
+from helperfunctions.helpers import clearScreen, getHistory
 from ui.headers import printHeader
 from ui.customerui import createAccount, modifyUser, getValidReturnDate, getValidPickUpDate, getValidSocialNumber, createStaffAccount
 import sys
@@ -32,7 +32,7 @@ class StaffUI:
             print("")
             print("1. Car management")
             print("2. User management") 
-            print("3. Orders")
+            print("3. Order management")
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -59,12 +59,13 @@ class StaffUI:
             clearScreen()
             print("->Car menu")
             print("") 
-            print("These are your options")
+            print("These are your options:")
             print("")
             print("1. Add a car")
             print("2. Remove a car")
             print("3. List all cars")
-            print("4. Return car")
+            print("4. List rent history for a car")
+            print("5. Return car")
             print("b. Go back")
             print("q. Exit program")
             if action != "":
@@ -85,7 +86,7 @@ class StaffUI:
                 clearScreen()
                 print("-> List all cars")
                 print("") 
-                print("These are the cars you have chosen to see:")
+                print("These are all the cars:")
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
                 for car in cars:
@@ -95,13 +96,22 @@ class StaffUI:
                 input("Press enter to return ")
             elif action == "4":
                 clearScreen()
+                carId = ""
+                while carId != "b":
+                    if action != "":
+                        print("Invalid input! Please try again.")
+                    carId = input("Please enter a car ID or \"b\" to go back: ")
+                    if carId == "q":
+                        sys.exit()
+                    elif self.getValidCarId(carId, self.__carService):
+                        getHistory(self.__orderService.getOrdersByStatus(1), carId, "car")
+                        carId = "b"
+            elif action == "5":
+                clearScreen()
                 printHeader("carSelect")
                 cars = self.__carService.getCarList()
-                action = ""
-                for car in cars:
-                    if car.available != 1:
-                        print("{}{}".format(car.id,car))
                 self.markCarAvailable(cars)
+                action = ""
 
     # The staff menu for looking up, altering and adding customers
     def staffCustomerMenu(self):
@@ -156,12 +166,14 @@ class StaffUI:
             print("These are your options")
             print("")
             print("1. New order")
-            print("2. Confirmed orders") 
-            print("3. Unconfirmed orders")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("2. List confirmed orders") 
+            print("3. List unconfirmed orders")
+            print("b. Go back")
+            print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q" :
                 sys.exit()
@@ -180,35 +192,56 @@ class StaffUI:
 
     # A function that enables staff members to make a specific car avaliable
     def markCarAvailable(self, cars):
-        choice = ""
-        id = input("Enter the ID of the car you want to mark as available: ")
-        if id == "q":
-            sys.exit()
-        if id == "b":
-            return
-        newMileage = self.validateMileageToUpdate(self.__carService, id)
-        choice = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
-        while choice not in ("b","y","n","q"):
-            choice = input("Please input \"y\" or \"n\"!: ").lower()
-        clearScreen()
-        if choice == "y":
-            if self.__carService.makeCarAvailable(id, newMileage):
-                print("Car with ID \"{}\" is now available".format(id))
-                input("Press enter to continue")
+        action = ""
+        id = ""
+        while action != "b":
+            clearScreen()
+            printHeader("carSelect")
+            cars = self.__carService.getCarList()
+            for car in cars:
+                if car.available != 1:
+                    print("{:5}{}".format(str(car.id),car))
+            if action != "":
+                print("No car with carID \"{}\" exists".format(id))
             else:
-                print("No car with ID: \"{}\" exists. Please try again".format(id))
-                input("Press enter to continue")
-        if choice == "n":
-            print("You aborted the deletion of the car with ID: \"{}\"".format(id))
-            input("Press enter to continue")
-        if choice == "q":
-            sys.exit()
+                print("")
+            id = input("Enter the ID of the car you want to mark as available: ")
+            if id == "q":
+                sys.exit()
+            if id == "b":
+                break
+            if self.getValidCarId(id, self.__carService,):
+                newMileage = self.validateMileageToUpdate(self.__carService, id)
+                action = input("Are you sure you want to mark car with ID \"{}\" available? y/n: ".format(id)).lower()
+                while action not in ("b","y","n","q"):
+                    action = input("Please input \"y\" or \"n\"!: ").lower()
+                clearScreen()
+                if action == "y":
+                    if self.__carService.makeCarAvailable(id, newMileage):
+                        print("Car with ID \"{}\" is now available".format(id))
+                        input("Press enter to continue")
+                    else:
+                        print("No car with ID: \"{}\" exists. Please try again".format(id))
+                        input("Press enter to continue")
+                if action == "n":
+                    print("You aborted the deletion of the car with ID: \"{}\"".format(id))
+                    input("Press enter to continue")
+                if action == "q":
+                    sys.exit()
+            else:
+                action = "noID"
 
     # Prints out the order list
     def printOrderList(self, status):
         action = ""
         while action != "b":
             clearScreen()
+            if status == 0:
+                print("->List all unconfirmed orders")
+            else:
+                print("->List all confirmed orders")
+            print("")
+            print("These are the orders you wanted to view:")
             orderList = self.__orderService.getOrdersByStatus(status)
             counter = 1
             printHeader("orderSelect")
@@ -216,10 +249,10 @@ class StaffUI:
                 print("{}{}".format(counter,order))
                 counter += 1
             if action != "":
-                print("Invalid input, try again")
+                print("Invalid input! Please try again.")
             print("Press b to return to the previous page")
             print("Press q to quit")
-            action = input("Please select the order you wish to change: ").lower()
+            action = input("Please select the order you wish to view: ").lower()
             if action == "q" :
                 exit(1)
             elif action.isdecimal() == False:
@@ -260,7 +293,8 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
-            print("You selected an order with ID: " + str(orderToChange.id))
+            print("->View a single order")
+            print("The unique ID of the order you selected is \"{}\"".format(str(orderToChange.id)))
             if orderToChange.status == 1:
                 orderStatus = "confirmed"
             else :
@@ -278,7 +312,9 @@ class StaffUI:
             print("b. Go back")
             print("q. Exit the program")
             if action != "":
-                print("Invalid input, try again")
+                print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q":
                 sys.exit()
@@ -300,30 +336,38 @@ class StaffUI:
         action = ""
         while action != "b":
             clearScreen()
-            if action != "":
-                print("Invalid input, try again")
+            print("->Order modification")
+            print("")
+            print("This is the order you have chosen for modification:")
             printHeader("orderSelect")
             print(str(number) + str(order))
+            print("")
             print("Select what you would like to modify")
             print("1. Car category")
             print("2. Payment method")
             print("3. Pick up date")
             print("4. Return date")
-            print("Press b to return to the previous page")
-            print("Press q to quit")
+            print("b. Go back")
+            print("q. Exit program")
+            if action != "":
+                print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Please select what you wish to change: ").lower()
             if action == "q":
                 sys.exit()
             elif action == "1" :
                 self.getValidCarCategory(order, self.__carService)
                 car = self.carSelectionByCategory(order.carCategory)
+                if car == "b":
+                    continue
                 order.carId = car.id
                 action = ""
             elif action == "2" :
                 self.getValidPayment(order, self.__orderService)
                 action = ""
             elif action == "3":
-                order.pickUpDate = getValidPickUpDate(self.__orderService)
+                order.pickUpDate = getValidPickUpDate(self.__orderService, order.returnDate, "Update")
                 action = ""
             elif action == "4" :
                 order.returnDate = getValidReturnDate(self.__orderService, order.pickUpDate)
@@ -353,27 +397,27 @@ class StaffUI:
                 self.__orderService.assignCarToOrder(car,order)
                 action = "b"
             if action != "":
-                print("Invalid input, try again")      
-    
+                print("Invalid input! Please try again.")
+
     # Prints out cars in order of category
     def carSelectionByCategory(self, category):
         action = ""
         while action != "b":
             clearScreen()
             carList = self.__carService.getAvailableCarsByCategory(category)
-            counter = 1
+            counter = 0
             printHeader("carSelect")
             for car in carList:
-                print("{:5}{}".format(str(counter),car))
                 counter += 1
+                print("{:5}{}".format(str(counter),car))
             if action != "":
-                print("Invalid input, try again")
-            action = input("Please select the car you wish to book: ").lower()
+                print("Invalid input! Please try again.")
+            action = input("Please select the car you wish to book or b to start over: ").lower()
             if action == "q" :
                 exit(1)
-            elif action.isdecimal() and (1 <= int(action) <= int(counter)):
+            elif action.isdecimal() and (0 < int(action) <= int(counter)):
                 return carList[int(action) - 1]
-        return ""
+        return "b"
 
     # Add a car function for staff members
     def addCar(self):
@@ -447,10 +491,14 @@ class StaffUI:
         self.getValidUserId(newOrder, self.__userService)
         self.getValidCarCategory(newOrder, self.__carService)
         car = self.carSelectionByCategory(newOrder.carCategory)
+        if car == "b":
+            return
         newOrder.carId = car.id
         self.getValidPayment(newOrder, self.__orderService)
-        newOrder.pickUpDate = getValidPickUpDate(self.__orderService)
-        newOrder.returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
+        pickUpDate = getValidPickUpDate(self.__orderService, "", "New")
+        returnDate = getValidReturnDate(self.__orderService, newOrder.pickUpDate)
+        if pickUpDate != "" and returnDate != "":
+            return
         self.__orderService.addOrder(newOrder)
 
     def logInAsStaff(self):
@@ -522,7 +570,8 @@ class StaffUI:
                     print("This is the user you asked for:")
                     printHeader("userSelect")
                     print(user)
-                    print("1. To modify user")
+                    print("1. Modify user")
+                    print("2. Print user history")
                     print("Press b to go back")
                     print("Press q to quit")
                     if action != "":
@@ -533,6 +582,8 @@ class StaffUI:
                         sys.exit()
                     if action == "1":
                         modifyUser(self.__userService, user)
+                    if action == "2":
+                        getHistory( self.__orderService.getOrdersByStatus(1), user.id, "user")
     
     # Validation functions
 
@@ -556,6 +607,10 @@ class StaffUI:
                 print("Invalid input. Category must be \"A\", \"B\", \"C\" or \"D\"")
                 input("Press any key to try again: ")
     
+    def getValidCarId(self, id, service):
+        return service.isValidCarId(id)
+        
+
     def getValidCarCategory(self, order, service):
         isValid = False
         while not isValid:
@@ -650,7 +705,7 @@ class StaffUI:
             if service.isValidMileage(mileage, car):
                 return mileage
             else:
-                print("Invalid input. The mileage must be between " + car.mileage + " and 1000000")
+                print("Invalid input. The mileage must be between " + str(car.mileage) + " and 1000000")
                 input("Please press enter to try again")
 
     def getValidSeats(self, car, service):
@@ -690,3 +745,4 @@ class StaffUI:
             else:
                 print("Invalid input. Extras must be less than 40 letters long")
                 input("Please press enter to try again")
+

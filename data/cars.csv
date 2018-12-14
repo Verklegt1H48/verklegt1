@@ -1,6 +1,5 @@
-ID,Category,Manufacturer,Model,Year,Mileage,Seats,Transmission,Extras,Rent History,Deleted,Available,Price
-0,A,Ford,Ka,2015,100000,5,Manual,"GPS,Camera,Heated Steering wheel",,0,0,5000
-1,C,Volkswagen,Passat,2007,160000,5,Automatic,GPS,,0,1,15000
-2,A,Toyota,Yaris,2003,130000,5,Automatic,None,,0,0,5000
-3,B,Skoda,Octavia,2012,110000,5,Manual,"GPS, Heated steering wheel",,0,1,10000
-4,B,Honda,Ttt12312dafa1,2017,111111,10,Manual,"12,12,13,14,as,d",,0,1,10000
+ID,Category,Manufacturer,Model,Year,Mileage,Seats,Transmission,Extras,Deleted,Available,Price
+0,A,Ford,Ka,2015,100000,5,Manual,"GPS,Camera,Heated Steering wheel",0,0,5000
+1,C,Volkswagen,Passat,2007,160000,5,Automatic,GPS,0,1,15000
+2,A,Toyota,Yaris,2003,130000,5,Automatic,None,0,0,5000
+3,B,Skoda,Octavia,2012,110000,5,Manual,"GPS, Heated steering wheel",0,1,10000

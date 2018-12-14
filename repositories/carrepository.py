@@ -9,7 +9,7 @@ class CarRepository:
     def __init__(self):
         self.__cars = []
         self.__fieldnames = ["ID","Category","Manufacturer","Model","Year","Mileage","Seats",
-                             "Transmission","Extras","Rent History","Deleted","Available","Price"]
+                             "Transmission","Extras","Deleted","Available","Price"]
 
     # Function to write car objects into a file
     def carDictWriter(self, car, file):
