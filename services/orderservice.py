@@ -60,11 +60,14 @@ class OrderService:
                 orders.append(order)
         return orders
 
-    def isValidPickUpDate(self, pickUpDate):
+    def isValidPickUpDate(self, pickUpDate, returnDate, flag):
         try:
             pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
         except:
             return "Invalid"
+        if flag == "Update":
+            if pickUpCar >= datetime.strptime(returnDate, "%d/%m/%y"):
+                return ""
         if (pickUpCar - datetime.today()).days > 365 :
             return "Year"
         elif pickUpCar.date() < datetime.today().date():

@@ -25,7 +25,7 @@ class CustomerUI:
         login = False
         while action != "b":
             clearScreen()
-            print("-> See Available Cars")
+            print("-> Browse Cars")
             if self.__isLoggedIn:
                 print("Welcome " + self.__currUser.name + "!")
             else:
@@ -34,7 +34,7 @@ class CustomerUI:
             print("")
             print("1. Sort cars by price/category")
             print("2. Sort cars by manufacturer")
-            print("3. Sort cars by availability")
+            print("3. See available cars")
             if self.__isLoggedIn:
                 print("b. Go back and log out.")
             else:
@@ -46,7 +46,7 @@ class CustomerUI:
                 print("")
             action = input("Choose an option: ").lower()
             if action == "q":
-                exit(1)
+                sys.exit()
             elif action == "1":
                 login = self.printCarList("category")
                 action = ""
@@ -73,7 +73,7 @@ class CustomerUI:
             if attribute == "manufacturer":
                 print("-> Sort cars by manufacturer")
             if attribute == "available":
-                print("-> Sort cars by availability")
+                print("-> See available cars")
             if self.__isLoggedIn:
                 print("")
             else:
@@ -99,25 +99,31 @@ class CustomerUI:
                 else:
                     action = "_"
             if action == "q" :
-                exit(1)
+                sys.exit()
             if action.isdecimal() and (0 < int(action) < counter):
                 carToOrder = carList[int(action) - 1]
                 self.inputOrderInfo(carToOrder)
                 action = ""
         return login
     
-    # Show information about the order
+    # Gather information about the order
     def inputOrderInfo(self, carToOrder):        
         clearScreen()
-        print("You chose the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
+        print("You requested the " + str(carToOrder.year) + " " + carToOrder.manufacturer + " " + carToOrder.model)
         print("Current price is " + str(carToOrder.price) + " isk per day")
         currPrice = str(carToOrder.price)
         currPrice = self.addInsurance(carToOrder)
+        if currPrice == "b":
+            return
         clearScreen()
-        if(currPrice != ""):
+        if currPrice != "":
             print("Your total price per day is " + currPrice + " isk")
-            pickUpDate = getValidPickUpDate(self.__orderService)
+            pickUpDate = getValidPickUpDate(self.__orderService, "", "New")
+            if pickUpDate == "":
+                return
             returnDate = getValidReturnDate(self.__orderService, pickUpDate)
+            if returnDate == "":
+                return
             clearScreen()
             finalPrice = self.__orderService.calcPrice(pickUpDate, returnDate, currPrice)
             print("Your final price is " + str(finalPrice) + " isk")
@@ -125,20 +131,22 @@ class CustomerUI:
         if paymentMethod != "":
             newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
             self.__orderService.addOrder(newOrder)
-            self.orderConfirmation()
+            self.orderConfirmation(newOrder)
 
-    # This function runs if the user wants an insurance
+    # This prompts if the user wants an insurance
     def addInsurance(self, carToOrder):
         action = ""
         while action != "b":
-            print("Press q to quit and b to go back")  
+            print("Press q to quit and b to go back.")  
             carInsurance = str(int(int(carToOrder.price) / 10))
             if action != "":
                 clearScreen()
-                print("Invalid input, try again")
+                print("Invalid input. Please enter \"y\" or \"n\"")
             action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")   
             if action == "q" :
-                exit(1)
+                sys.exit()
+            if action == "b":
+                return "b"
             elif action == "y":    
                 totalPrice = str(int(carInsurance) + int(carToOrder.price))
                 return totalPrice
@@ -149,19 +157,30 @@ class CustomerUI:
         return ""
 
     # Feedback for when the user has successfully made an order
-    def orderConfirmation(self):
+    def orderConfirmation(self, order):
         clearScreen()
         action = ""
         while action != "b":
             clearScreen()
-            print("Congratulations! Your order has been booked under the name " + self.__currUser.name)
+            print("->Order confirmation!")
+            print("")
+            print("Congratulations and thank you!")
+            print("Your order has been booked under the name {}".format(self.__currUser.name))
+            print("with {} as the preferred payment method.".format(order.payMethod.lower()))
+            print("The car you requested is in category: {}. If it is not available when your".format(order.carCategory))
+            print("pick up date arrives you will get another car in the same category.")
+            print("The creditcard stored in your account has been used for confirmation")
+            print("and will NOT be charged you do not show up for your order.")
+            print("If you have any questions or would like to change your order do not hesitate to")
+            print("contact the car rental in phone +354 462-1840 or by email staff@santasrental.is")
+            print("")
             print("b. Go back to car menu")
             print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
             action = input("Choose an option: ").lower()
             if action == "q":
-                exit(1)
+                sys.exit()
         return
 
     # Allows the user to select a payment method
@@ -169,6 +188,7 @@ class CustomerUI:
         action = ""
         while action != "b":
             print("-> Select payment method")
+            print("")
             print("These are your options:")
             print("")
             print("1. Debet card")
@@ -178,9 +198,11 @@ class CustomerUI:
             print("q. Exit program")
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             action = input("Choose an option: ").lower()
             if action == "q":
-                exit(1)
+                sys.exit()
             elif action == "1":
                 clearScreen()
                 return "DEBET"
@@ -211,7 +233,7 @@ class CustomerUI:
                 print("")
             action = input("Choose an option: ").lower()
             if action == "q" :
-                exit(1)
+                sys.exit()
             if action == "1":
                 self.logInAsUser()
                 if self.__isLoggedIn:
@@ -245,7 +267,7 @@ class CustomerUI:
 
             action = input("Enter email address: ")
             if(action == "q"):
-                exit(1)
+                sys.exit()
             elif self.__userService.getUserByEmail(action) == "Not found":
                 clearScreen()
                 print("Email address not found!")
@@ -264,7 +286,7 @@ class CustomerUI:
             action = getpass.getpass("Enter password: ")
             selectedUser = self.__userService.getUserByEmail(userEmail)
             if(action == "q"):
-                exit(1)
+                sys.exit()
 
             elif selectedUser.password == action:
                 clearScreen()
@@ -445,24 +467,27 @@ def getValidPin(userService):
             print("Employee pin must be 5 digits long")
     return pin
 
-def getValidPickUpDate(service):
+def getValidPickUpDate(service, returnDate, flag):
     action = ""
     while action != "b":
-        action = input("When will you pick up your car? (dd/mm/yy): ")
+        if flag == "Update":
+            print("Current return date is: {}".format(returnDate))
+        action = input("When will the car be picked up? (dd/mm/yy): ")
         clearScreen()
         if action == "b" :
-            return "", ""
+            return ""
         elif action == "q" :
             sys.exit()
-        pickUpCar = service.isValidPickUpDate(action)
+        pickUpCar = service.isValidPickUpDate(action, returnDate, flag)
         pickUpDate = action
-        action = ""
         if pickUpCar == "Year":
-            print("You can't order more than a year in advance")
+            print("Pick up date can't be more than a year in advance")
         elif pickUpCar == "Past":
             print("Pick up date must be a future date")
         elif pickUpCar == "Invalid":
             print("Invalid date format")
+        elif pickUpCar == "":
+            print("Pick up date can't be on or after the return date")
         else:
             break
     return pickUpDate
@@ -471,21 +496,19 @@ def getValidReturnDate(service,pickUpDate):
     action = ""
     pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")    
     while action != "b":
-        action = input("When will you return the car? (dd/mm/yy): ")
+        print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
+        action = input("Enter return date? (dd/mm/yy): ")
         clearScreen()
         if action == "b" :
-            return "", ""
+            return ""
         elif action == "q" :
             sys.exit()
         returnCar = service.isValidReturnDate(action, pickUpCar)
         if returnCar == "Year":
-            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
             print("You can't have the car for more than a year")
         elif returnCar == "Past":
-            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
             print("The car can not be returned before it is picked up")
         elif returnCar == "Invalid":
-            print("When will you pick up your car? (dd/mm/yy): " + pickUpDate)
             print("Invalid date format")
         else:
             returnDate = action

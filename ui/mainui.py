@@ -23,7 +23,7 @@ class MainUI:
                 print("")
             print("These are your options:")
             print("")
-            print("1. See available cars")
+            print("1. Browse cars")
             print("2. Log in as customer")
             print("3. Log in as staff")
             print("q. Exit program")
