@@ -12,7 +12,7 @@ class UserService:
         newUser.id = len(self.__users)
         self.__users.append(newUser)
         self.__userRepo.addUser(newUser)
-    
+
     def updateUser(self, userToUpdate):
         for user in self.__users:
             if user.id == int(userToUpdate.id):
@@ -178,7 +178,7 @@ class UserService:
             return "NaN"
         elif len(expYear) > 2:
             return "length"
-        elif int(expYear) < year :
+        elif int(expYear) < year:
             return "year"
         elif int(expYear) == year:
             if int(expMonth) <= month:

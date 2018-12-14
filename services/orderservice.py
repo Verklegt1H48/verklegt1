@@ -7,9 +7,10 @@ from helperfunctions.helpers import clearScreen
 from operator import attrgetter, methodcaller
 import sys
 
+
 class OrderService:
 
-    # order service is initialized with 
+    # order service is initialized with
     def __init__(self):
         self.__orderRepo = OrderRepository()
         self.__carRepo = CarRepository()
@@ -20,7 +21,7 @@ class OrderService:
     def addOrder(self, newOrder):
         newOrder.id = len(self.__orders)
         self.__orderRepo.addOrder(newOrder)
-    
+
     def updateOrder(self, orderToUpdate):
         for order in self.__orders:
             if order.id == int(orderToUpdate.id):
@@ -35,7 +36,7 @@ class OrderService:
             if order.id == int(orderID):
                 order.deleted = 1
             self.__orderRepo.overwriteOrders(self.__orders)
-    
+
     def assignCarToOrder(self, theCar, theOrder):
         for order in self.__orders:
             if order.id == int(theOrder.id):
@@ -52,7 +53,7 @@ class OrderService:
                 car.available = 0
             self.__orderRepo.overwriteOrders(self.__orders)
             self.__carRepo.overwriteCars(self.__cars)
-    
+
     def getOrdersByStatus(self, status):
         orders = []
         for order in self.__orderRepo.getOrderList():
@@ -68,11 +69,11 @@ class OrderService:
         if flag == "Update":
             if pickUpCar >= datetime.strptime(returnDate, "%d/%m/%y"):
                 return ""
-        if (pickUpCar - datetime.today()).days > 365 :
+        if (pickUpCar - datetime.today()).days > 365:
             return "Year"
         elif pickUpCar.date() < datetime.today().date():
             return "Past"
-        else :
+        else:
             return pickUpCar
 
     def isValidReturnDate(self, returnDate, pickUpCar):
@@ -84,7 +85,7 @@ class OrderService:
             return "Year"
         elif returnCar <= pickUpCar:
             return "Past"
-        else : 
+        else:
             return returnCar
 
     def calcPrice(self, pickUpDate, returnDate, currPrice):
