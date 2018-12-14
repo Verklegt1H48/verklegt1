@@ -258,6 +258,8 @@ class StaffUI:
                 counter += 1
             if action != "":
                 print("Invalid input! Please try again.")
+            else:
+                print("")
             print("Press b to return to the previous page")
             print("Press q to quit")
             action = input("Please select the order you wish to view: ").lower()
@@ -353,7 +355,7 @@ class StaffUI:
             print("")
             print("This is the order you have chosen for modification:")
             printHeader("orderSelect")
-            print(str(number) + str(order))
+            print("{:8}{}".format(str(number),str(order)))
             print("")
             print("Select what you would like to modify")
             print("1. Car category")
