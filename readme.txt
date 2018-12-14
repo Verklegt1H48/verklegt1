@@ -1,7 +1,7 @@
-Dæmi um login info fyrir starfsmann:
+Dæmi um login info fyrir starfsmann
 Social number: 2512001010
 Pin: 00001
 
-Dæmi um login fyrir viðskiptavin
+Dæmi um login info fyrir viðskiptavin
 Email: jonj@gmail.com
 Password: jonzterinn
