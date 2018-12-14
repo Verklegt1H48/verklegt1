@@ -7,11 +7,12 @@ from services.carservice import CarService
 from services.orderservice import OrderService
 from ui.headers import printHeader
 from helperfunctions.helpers import clearScreen
-import getpass, sys
+import getpass
+import sys
 
 
 class CustomerUI:
-    
+
     def __init__(self):
         self.__userService = UserService()
         self.__carService = CarService()
@@ -63,7 +64,7 @@ class CustomerUI:
     # Prints the lists of sorted cars
     def printCarList(self, attribute):
         action = ""
-        login  = False
+        login = False
         while action != "b":
             clearScreen()
             carList = self.__carService.getAndSortAvailableCars(attribute)
@@ -81,7 +82,7 @@ class CustomerUI:
             print("These are the cars you have chosen to see:")
             printHeader("carSelect")
             for car in carList:
-                print("{:5}{}".format(str(counter),car))
+                print("{:5}{}".format(str(counter), car))
                 counter += 1
             if action != "":
                 print("Invalid input, try again")
@@ -98,16 +99,16 @@ class CustomerUI:
                     action = loginAction
                 else:
                     action = "_"
-            if action == "q" :
+            if action == "q":
                 sys.exit()
             if action.isdecimal() and (0 < int(action) < counter):
                 carToOrder = carList[int(action) - 1]
                 self.inputOrderInfo(carToOrder)
                 action = ""
         return login
-    
+
     # Gather information about the order
-    def inputOrderInfo(self, carToOrder):        
+    def inputOrderInfo(self, carToOrder):
         clearScreen()
         print("->Rent a car")
         print("At any time during the process can you press b to go back to the car menu or q to quit")
@@ -132,7 +133,8 @@ class CustomerUI:
             clearScreen()
         paymentMethod = selectPaymentMethod()
         if paymentMethod != "":
-            newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id, paymentMethod, pickUpDate, returnDate)
+            newOrder = Order(self.__currUser.id, carToOrder.category, carToOrder.id,
+                             paymentMethod, pickUpDate, returnDate)
             self.__orderService.addOrder(newOrder)
             self.orderConfirmation(newOrder)
 
@@ -144,12 +146,13 @@ class CustomerUI:
             if action != "":
                 clearScreen()
                 print("Invalid input. Please enter \"y\" or \"n\"")
-            action = input("Would you like to add insurance for an additional " + carInsurance + " isk per day?(y/n): ")   
-            if action == "q" :
+            action = input("Would you like to add insurance for an additional {} isk per day?(y/n): "
+                           .format(carInsurance))
+            if action == "q":
                 sys.exit()
             if action == "b":
                 return "b"
-            elif action == "y":    
+            elif action == "y":
                 totalPrice = str(int(carInsurance) + int(carToOrder.price))
                 return totalPrice
             elif action == "n":
@@ -184,7 +187,6 @@ class CustomerUI:
             if action == "q":
                 sys.exit()
         return
-
    
     # Show avaliable options within the customer menu              
     def customerMenu(self):
@@ -204,7 +206,7 @@ class CustomerUI:
             else:
                 print("")
             action = input("Choose an option: ").lower()
-            if action == "q" :
+            if action == "q":
                 sys.exit()
             if action == "1":
                 self.logInAsUser()
@@ -214,11 +216,11 @@ class CustomerUI:
             elif action == "2":
                 createAccount(self.__userService)
                 action = ""
-      
+
     def logInAsUser(self):
         userEmail = self.getUserEmail()
         if userEmail != "":
-            self.getPassword(userEmail) 
+            self.getPassword(userEmail)
 
     def getUserEmail(self):
         action = ""
@@ -253,7 +255,7 @@ class CustomerUI:
                 self.__isLoggedIn = True
                 return
 
-#validation functions
+# validation functions
 
 def getValidName(userService):
     isValidName = False
@@ -275,7 +277,7 @@ def getValidEmail(userService):
         error = userService.isValidEmail(email)
         if error == "invalid":
             print("Invalid email address! Please enter a valid email address")
-        else: 
+        else:
             isValidEmail = True
     return email
 
@@ -294,7 +296,7 @@ def getValidPassword(userService):
             clearScreen()
             if confirmPassword == password:
                 isValidPassword = True
-            else:       
+            else:
                 print("Passwords don't match, please try again")
     return password
 
@@ -446,9 +448,9 @@ def getValidPickUpDate(service, returnDate, flag):
             print("Current return date is: {}".format(returnDate))
         action = input("When will the car be picked up? (dd/mm/yy): ")
         clearScreen()
-        if action == "b" :
+        if action == "b":
             return ""
-        elif action == "q" :
+        elif action == "q":
             sys.exit()
         pickUpCar = service.isValidPickUpDate(action, returnDate, flag)
         pickUpDate = action
@@ -464,15 +466,15 @@ def getValidPickUpDate(service, returnDate, flag):
             break
     return pickUpDate
 
-def getValidReturnDate(service,pickUpDate): 
+def getValidReturnDate(service, pickUpDate):
     action = ""
-    pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")    
+    pickUpCar = datetime.strptime(pickUpDate, "%d/%m/%y")
     while action != "b":
         print("When will the car be picked up? (dd/mm/yy): " + pickUpDate)
         action = input("Enter return date? (dd/mm/yy): ")
-        if action == "b" :
+        if action == "b":
             return ""
-        elif action == "q" :
+        elif action == "q":
             sys.exit()
         returnCar = service.isValidReturnDate(action, pickUpCar)
         if returnCar == "Year":
@@ -489,7 +491,7 @@ def getValidReturnDate(service,pickUpDate):
             break
     return returnDate
 
-# The interface for staff members to modify and update specific information about customers 
+# The interface for staff members to modify and update specific information about customers
 def modifyUser(service, user):
         action = ""
         while action != "b":
@@ -517,10 +519,10 @@ def modifyUser(service, user):
             clearScreen()
             if action == "q":
                 sys.exit()
-            elif action == "1" :
+            elif action == "1":
                 user.email = getValidEmail(service)
                 action = ""
-            elif action == "2" :
+            elif action == "2":
                 oldPass = ""
                 while oldPass != user.password:
                     clearScreen()
@@ -528,15 +530,15 @@ def modifyUser(service, user):
                 user.password = getValidPassword(service)
                 action = ""
             elif action == "3":
-                user.driverLicense= getValidDriverLicense(service)
+                user.driverLicense = getValidDriverLicense(service)
                 action = ""
-            elif action == "4" :
+            elif action == "4":
                 user.address = getValidAddress(service)
                 action = ""
-            elif action == "5" :
+            elif action == "5":
                 user.phone = getValidPhone(service)
                 action = ""
-            elif action == "6" :
+            elif action == "6":
                 user = addCreditCard(user, service)
                 action = ""
             service.updateUser(user)
@@ -547,7 +549,7 @@ def createStaffAccount(service):
     newUser.name            = getValidName(service)
     newUser.socialNumber    = getValidSocialNumber(service)
     newUser.pin             = getValidPin(service)
-    newUser.employee        = "0" 
+    newUser.employee        = "0"
     service.addUser(newUser)
 
 def createAccount(service):

@@ -1,7 +1,9 @@
 class User:
 
-    def __init__(self, name = "", socialNumber = "", employee = "", pin = "", password = "", id = 0, driverLicense = "",
-                address = "", phone = "", email = "", nameOnCard = "", number = "", cvv = "", expMonth = "", expYear = "" ):
+    def __init__(self, name = "", socialNumber = "", employee = "", pin = "",
+                 password = "", id = 0, driverLicense = "", address = "",
+                 phone = "", email = "", nameOnCard = "", number = "", cvv = "",
+                 expMonth = "", expYear = ""):
         self.__name = name
         self.__password = password
         self.__id = id
@@ -21,11 +23,15 @@ class User:
         self.__pin = pin
 
     def __repr__(self):
-        return "{:25}{:5}{:12}{:15}{:15}{:15}{:15}".format(str(self.__name), str(self.__id), str(self.__socialNumber), 
-                                                        str(self.__driverLicense), str(self.__address), str(self.__phone), 
-                                                        str(self.__email))
+        return "{:25}{:5}{:12}{:15}{:15}{:15}{:15}".format(str(self.__name),
+                                                           str(self.__id),
+                                                           str(self.__socialNumber),
+                                                           str(self.__driverLicense),
+                                                           str(self.__address),
+                                                           str(self.__phone),
+                                                           str(self.__email))
 
-#Getters
+# Getters
 
     @property
     def name(self):
@@ -95,11 +101,12 @@ class User:
     def deleted(self):
         return self.__deleted
 
-#Setters
+# Setters
 
     @name.setter
     def name(self, value):
         self.__name = value
+
     @password.setter
     def password(self, value):
         self.__password = value
@@ -111,7 +118,7 @@ class User:
     @socialNumber.setter
     def socialNumber(self, value):
         self.__socialNumber = value
-    
+
     @driverLicense.setter
     def driverLicense(self, value):
         self.__driverLicense = value
@@ -127,7 +134,7 @@ class User:
     @email.setter
     def email(self, value):
         self.__email = value
-    
+
     @employee.setter
     def employee(self, value):
         self.__employee = value
@@ -147,7 +154,7 @@ class User:
     @nameOnCard.setter
     def nameOnCard(self, value):
         self.__nameOnCard = value
-    
+
     @number.setter
     def number(self, value):
         self.__number = value

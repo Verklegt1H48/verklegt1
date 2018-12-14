@@ -1,7 +1,7 @@
 class Order:
 
-    def __init__(self, userId = 0, carCategory = "", carId = -1, payMethod = "", pickUpDate = "", 
-                 returnDate = "", status = 0, deleted = 0):
+    def __init__(self, userId = 0, carCategory = "", carId = -1, payMethod = "",
+                 pickUpDate = "", returnDate = "", status = 0, deleted = 0):
         self.__id = 0
         self.__userId = userId
         self.__carCategory = carCategory
@@ -13,12 +13,12 @@ class Order:
         self.__returnDate = returnDate
 
     def __repr__(self):
-        return "{:7}{:8}{:10}{:7}{:16}{:15}{:10}".format("", str(self.__userId), self.__carCategory,
-                                                         str(self.__carId), self.__payMethod,
-                                                         self.__pickUpDate, self.__returnDate)
+        return "{:8}{:10}{:7}{:16}{:15}{:10}".format(str(self.__userId), self.__carCategory,
+                                                     str(self.__carId), self.__payMethod,
+                                                     self.__pickUpDate, self.__returnDate)
 
 
-#Getters
+# Getters
     @property
     def id(self):
         return self.__id
@@ -42,11 +42,11 @@ class Order:
     @property
     def pickUpDate(self):
         return self.__pickUpDate
-    
+
     @property
     def returnDate(self):
         return self.__returnDate
-    
+
     @property
     def status(self):
         return self.__status
@@ -76,7 +76,7 @@ class Order:
     @payMethod.setter
     def payMethod(self, value):
         self.__payMethod = value
-    
+
     @pickUpDate.setter
     def pickUpDate(self, value):
         self.__pickUpDate = value
@@ -84,7 +84,7 @@ class Order:
     @returnDate.setter
     def returnDate(self, value):
         self.__returnDate = value
-    
+
     @status.setter
     def status(self, value):
         self.__status = int(value)

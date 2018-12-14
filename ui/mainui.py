@@ -5,10 +5,10 @@ from helperfunctions.helpers import clearScreen
 
 
 class MainUI:
-   
+
     def __init__(self):
         self.__action = ""
-    
+
     # Interface for the main menu
     def mainMenu(self):
         action = ""
@@ -32,11 +32,11 @@ class MainUI:
             else:
                 print("")
             action = input("Choose an option: ").lower()
-            
+
             clearScreen()
             if action == "1":
                 self.__customerui = CustomerUI()
-                login  = self.__customerui.seeAvailableCars()
+                login = self.__customerui.seeAvailableCars()
                 action = ""
             if action == "2" or login is True:
                 self.__customerui = CustomerUI()

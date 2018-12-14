@@ -1,6 +1,7 @@
 from helperfunctions.helpers import clearScreen
 import getpass
 
+
 def printHeader(header):
     if header == "welcome":
         print(welcomeScreen)
@@ -24,22 +25,22 @@ welcomeScreen = (r"""
     [           ______ |           | .           | ==  ______      { }
   __[__        /##  ##\|           |             |    /##  ##\    _{# }_
  {_____)______|##    ##|___________|_____________|___|##    ##|__(______}
-                ##__##                                 ##__##        
+                ##__##                                 ##__##
 
                         WELCOME TO SANTAS CAR RENTAL
                        PLEASE PRESS ENTER TO CONTINUE
 -------------------------------------------------------------------------- """)
 
-carSelectHeader = ("{:5}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("ID","Category","Price",
-                                                                            "Manufacturer","Model","Year",
-                                                                            "Mileage","Seats","Transmission",
-                                                                            "Extras"))
+carSelectHeader = ("{:5}{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format("ID", "Category", "Price",
+                                                                           "Manufacturer", "Model", "Year",
+                                                                           "Mileage", "Seats", "Transmission",
+                                                                           "Extras"))
 
-orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number","UserID","Category",
-                                                               "CarID","Payment Method",
-                                                               "Pick Up Date","Return Date"))
+orderSelectHeader = ("{:8}{:8}{:10}{:7}{:16}{:15}{:15}".format("Number", "UserID", "Category",
+                                                               "CarID", "Payment Method",
+                                                               "Pick Up Date", "Return Date"))
 
-userSelectHeader = ("{:25}{:5}{:12}{:15}{:15}{:15}{:15}".format("Name","ID","Social","License nr.",
-                                                                "Address","Phone","Email"))
+userSelectHeader = ("{:25}{:5}{:12}{:15}{:15}{:15}{:15}".format("Name", "ID", "Social", "License nr.",
+                                                                "Address", "Phone", "Email"))
 
-staffSelectHeader = ("{:25}{:5}{:16}".format("Name","ID","Social"))
+staffSelectHeader = ("{:25}{:5}{:16}".format("Name", "ID", "Social"))
