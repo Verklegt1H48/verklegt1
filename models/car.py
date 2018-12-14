@@ -1,112 +1,124 @@
-class Car:  
-    def __init__(self, category = "", manufacturer = "", model = "", year = "", milage = "", seats = "", transmission = ""):
-        self._category = category
-        self._manufacturer = manufacturer
-        self._model = model
-        self._year = year
-        self._milage = milage
-        self._seats = seats
-        self._transmission = transmission
-        self._extras = []
-        self._id = 0
-        self._deleted = False
-        self._rentHistory = []
-        self._available = True
+class Car:
 
-    def __str__(self):
-        return "{},{},{},{},{},{},{},{},{}".format(self._id, self._manufacturer, self._model,\
-        self._category, self._year, self._milage,\
-        self._seats, self._transmission, self._available)
+    def __init__(self, id = 0, category = "", manufacturer = "", model = "", year = "",
+                 mileage = "", seats = "", transmission = "", price = ""):
+        self.__category = category
+        self.__manufacturer = manufacturer
+        self.__model = model
+        self.__year = year
+        self.__mileage = mileage
+        self.__seats = seats
+        self.__transmission = transmission
+        self.__extras = []
+        self.__id = 0
+        self.__deleted = 0
+        self.__available = 1
+        self.__price = price
 
     def __repr__(self):
-        return self.__str__()
+        return "{:10}{:7}{:15}{:15}{:7}{:10}{:8}{:15}{:10}".format(self.__category, str(self.__price),
+                                                                   self.__manufacturer, str(self.__model),
+                                                                   str(self.__year), str(self.__mileage),
+                                                                   str(self.__seats), self.__transmission,
+                                                                   str(self.__extras).strip("[']").replace("', '", ", "))
 
-#föllgit
-    def deleteCar(self):
-        self._deleted = True
 
-#Getterar
+# Getters
+
     @property
     def id(self):
-        return self._id
+        return self.__id
+
+    @property
+    def price(self):
+        return int(self.__price)
 
     @property
     def category(self):
-        return self._category
+        return self.__category
 
     @property
     def manufacturer(self):
-        return self._manufacturer
+        return self.__manufacturer
 
     @property
     def model(self):
-        return self._model
+        return self.__model
 
     @property
     def year(self):
-        return self._year
+        return self.__year
 
     @property
     def mileage(self):
-        return self._mileage
+        return self.__mileage
 
     @property
     def seats(self):
-        return self.seats
+        return self.__seats
 
     @property
     def transmission(self):
-        return self._transmission
+        return self.__transmission
 
     @property
     def extras(self):
-        return self._extras
+        return self.__extras
 
-    @property
-    def history(self):
-        return self._rentHistory
     @property
     def available(self):
-        return self._available
+        return self.__available
 
-#Setterar
+    @property
+    def deleted(self):
+        return self.__deleted
+
+# Setters
+
+    @id.setter
+    def id(self, id):
+        self.__id = int(id)
 
     @category.setter
     def category(self, category):
-        self._category = category
+        self.__category = category
 
     @manufacturer.setter
     def manufacturer(self, manufacturer):
-        self._manufacturer = manufacturer
+        self.__manufacturer = manufacturer
 
     @model.setter
     def model(self, model):
-        self._model = model
+        self.__model = model
 
     @year.setter
     def year(self, year):
-        self._year = year
+        self.__year = year
 
     @mileage.setter
     def mileage(self, mileage):
-        self._mileage = mileage
+        self.__mileage = mileage
 
     @seats.setter
     def seats(self, seats):
-        self._seats = seats
+        self.__seats = int(seats)
 
     @transmission.setter
     def transmission(self, transmission):
-        self._transmission = transmission
+        self.__transmission = transmission
 
-    @extras.setter 
+    @extras.setter
     def extras(self, extras):
-        self._extras.append(extras)
-
-    @history.setter 
-    def history(self, history):
-        self._rentHistory.append(history)
+        self.__extras.append(extras)
 
     @available.setter
     def available(self, available):
-        self._available = available
+        self.__available = int(available)
+
+    @deleted.setter
+    def deleted(self, deleted):
+        self.__deleted = int(deleted)
+
+    @price.setter
+    def price(self, price):
+        self.__price = price

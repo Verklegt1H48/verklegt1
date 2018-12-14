@@ -1,0 +1,5 @@
+ID,UserID,CarCategory,CarID,Payment Method,PickUpDate,ReturnDate,Status,Deleted
+0,1,A,2,CASH,05/05/19,12/05/19,1,0
+1,1,C,1,CREDIT,24/12/18,31/12/18,1,0
+1,1,C,6,CREDIT,01/11/16,20/12/18,1,0
+2,3,A,2,CREDIT,13/12/18,24/12/18,1,0
